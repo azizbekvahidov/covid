@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width"><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('js/app.js') }}">
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey={{config("map")["map_apikey"]}}" type="text/javascript"></script>
@@ -82,11 +82,11 @@
 
             start.addEventListener('click', (ev)=>{
                 mediaRecorder.start();
-                console.log(mediaRecorder.state);
+                // console.log(mediaRecorder.state);
             })
             stop.addEventListener('click', (ev)=>{
                 mediaRecorder.stop();
-                console.log(mediaRecorder.state);
+                // console.log(mediaRecorder.state);
             });
             mediaRecorder.ondataavailable = function(ev) {
                 chunks.push(ev.data);
