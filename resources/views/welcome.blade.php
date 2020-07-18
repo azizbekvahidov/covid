@@ -1,99 +1,118 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/app.js') }}">
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey={{config("map")["map_apikey"]}}" type="text/javascript"></script>
+</head>
+<body>
+<header>
+</header>
+<main>
+    <div id="map"></div>
+    <p><button id="btnStart">START RECORDING</button><br/>
+        <button id="btnStop">STOP RECORDING</button></p>
 
-        <title>Laravel</title>
+    <audio hidden id="aud1" controls></audio>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <audio id="aud2" controls></audio>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
+    <!-- could save to canvas and do image manipulation and saving too -->
+</main>
+<script src="{{ asset('js/map.js') }}" defer></script>
+<script>
+
+    let constraintObj = {
+        audio: true,
+        video: false
+    };
+    // width: 1280, height: 720  -- preference only
+    // facingMode: {exact: "user"}
+    // facingMode: "environment"
+
+    //handle older browsers that might implement getUserMedia in some way
+    if (navigator.mediaDevices === undefined) {
+        navigator.mediaDevices = {};
+        navigator.mediaDevices.getUserMedia = function(constraintObj) {
+            let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+            if (!getUserMedia) {
+                return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+            }
+            return new Promise(function(resolve, reject) {
+                getUserMedia.call(navigator, constraintObj, resolve, reject);
+            });
+        }
+    }else{
+        navigator.mediaDevices.enumerateDevices()
+            .then(devices => {
+                devices.forEach(device=>{
+                    console.log(device.kind.toUpperCase(), device.label);
+                    //, device.deviceId
+                })
+            })
+            .catch(err=>{
+                console.log(err.name, err.message);
+            })
+    }
+
+    navigator.mediaDevices.getUserMedia(constraintObj)
+        .then(function(mediaStreamObj) {
+            //connect the media stream to the first video element
+            let audio = document.querySelector('#aud1');
+            if ("srcObject" in audio) {
+                audio.srcObject = mediaStreamObj;
+            } else {
+                //old version
+                audio.src = window.URL.createObjectURL(mediaStreamObj);
             }
 
-            .full-height {
-                height: 100vh;
+            audio.onloadedmetadata = function(ev) {
+                //show in the video element what is being captured by the webcam
+                // audio.play();
+            };
+
+            //add listeners for saving video/audio
+            let start = document.getElementById('btnStart');
+            let stop = document.getElementById('btnStop');
+            let vidSave = document.getElementById('aud2');
+            let mediaRecorder = new MediaRecorder(mediaStreamObj);
+            let chunks = [];
+
+            start.addEventListener('click', (ev)=>{
+                mediaRecorder.start();
+                console.log(mediaRecorder.state);
+            })
+            stop.addEventListener('click', (ev)=>{
+                mediaRecorder.stop();
+                console.log(mediaRecorder.state);
+            });
+            mediaRecorder.ondataavailable = function(ev) {
+                chunks.push(ev.data);
             }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
+            mediaRecorder.onstop = (ev)=>{
+                let blob = new Blob(chunks, { 'type' : 'audio/mp3;' });
+                chunks = [];
+                let videoURL = window.URL.createObjectURL(blob);
+                vidSave.src = videoURL;
             }
+        })
+        .catch(function(err) {
+            console.log(err.name, err.message);
+        });
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
+    /*********************************
+     getUserMedia returns a Promise
+     resolve - returns a MediaStream Object
+     reject returns one of the following errors
+     AbortError - generic unknown cause
+     NotAllowedError (SecurityError) - user rejected permissions
+     NotFoundError - missing media track
+     NotReadableError - user permissions given but hardware/OS error
+     OverconstrainedError - constraint video settings preventing
+     TypeError - audio: false, video: false
+     *********************************/
+</script>
+</body>
 </html>
