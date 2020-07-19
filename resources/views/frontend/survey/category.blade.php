@@ -47,12 +47,14 @@
         </div>
     @foreach($categories as $category)
 @php
-    $survey = \App\Survey::where("user_id", "1")->where("category_id", $category->id)->orderBy("id", "desc")->first();
-    $date = new DateTime(date($survey->created_at));
+    $date = array();
+        $survey = \App\Survey::where("user_id", "1")->where("category_id", $category->id)->orderBy("id", "desc")->first();
+        if(!empty($survey))
+            $date = new DateTime(date($survey->created_at));
 @endphp
 
     <div class="category">
-            <a href="/survey/{{$category->id}}/create" class="link" time="{{$date->getTimestamp()}}">{{$category->name}}</a>
+            <a href="/survey/{{$category->id}}/create" class="link" time="{{(!empty($date)) ? $date->getTimestamp() : ""}}">{{$category->name}}</a>
     </div>
         @endforeach
     </div>

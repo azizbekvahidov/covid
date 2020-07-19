@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/map-marker', 'API\LocationController@mapMarker');
+Route::get('/getLocation', 'API\LocationController@getLocation');
+Route::post("/sendMessage", "Auth\RegisterController@sendMessage");
+Route::post("/verifyCode", "Auth\RegisterController@verifyCode");
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

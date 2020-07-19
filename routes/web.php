@@ -23,3 +23,11 @@ Route::namespace("frontend")->group(function () {
     Route::post("/survey/store", "SurveyController@store");
     Route::resource("survey_categories", "SurveyCategoriesController");
 });
+
+Route::get("/verifyPhone", ['as' => 'register.verifyPhone','uses' => "Auth\RegisterController@verifyPhone"]);
+Route::get("{ID}/setPassword", ['as' => 'register.setPassword', 'uses' => "Auth\RegisterController@setPassword"]);
+Route::post("{ID}/savePassword", ['as' => 'register.savePassword', 'uses' => "Auth\RegisterController@savePassword"]);
+Auth::routes();
+
+
+Route::get('/home', 'HomeController@index')->name('home');

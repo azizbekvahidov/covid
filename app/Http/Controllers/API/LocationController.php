@@ -28,5 +28,12 @@ class LocationController extends Controller
         }
         return response()->json($map_markes);
     }
+
+    public function getLocation(Request $request){
+        echo "<pre>";
+        print_r($_GET);
+        echo "</pre>";
+
+    }
     //
 }
