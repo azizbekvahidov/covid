@@ -71,12 +71,30 @@ class SurveyController extends Controller
             "status"        => "1",
         ]);
 
-        Mood::create([
-            "rank"          => $request->mood,
-            "user_id"       => "1",
-            "category_id"   => $request->category,
-            "survey_id"     => $survey->id,
-        ]);
+        $old_mood_mark = Mood::where("user_id", "1")->orderBy("id", "desc")->first();
+
+        if(!is_null($old_mood_mark)) {
+
+            $time = strtotime(date($old_mood_mark->created_at));
+
+            if (time() - $time >= 43200) {
+                Mood::create([
+                    "rank"          => $request->mood,
+                    "user_id"       => "1",
+                    "category_id"   => $request->category,
+                    "survey_id"     => $survey->id,
+                ]);
+            }
+        }
+
+        else {
+            Mood::create([
+                "rank"          => $request->mood,
+                "user_id"       => "1",
+                "category_id"   => $request->category,
+                "survey_id"     => $survey->id,
+            ]);
+        }
 
         if (!is_null($files)) {
             foreach ($files as $file) {
