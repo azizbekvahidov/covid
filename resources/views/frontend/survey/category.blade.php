@@ -45,6 +45,7 @@
         <div class="title">
             Выберите категорию
         </div>
+        @include("message")
     @foreach($categories as $category)
 @php
     $survey = \App\Survey::where("user_id", "1")->where("category_id", $category->id)->orderBy("id", "desc")->first();

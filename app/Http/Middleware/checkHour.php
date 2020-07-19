@@ -17,20 +17,18 @@ class checkHour
      */
     public function handle($request, Closure $next)
     {
-        $id = $request->url(){20};
-        $category = SurveyCategories::find($id);
-        $survey = Survey::where("user_id", "1")->where("category_id", $id)->orderBy("id", "desc")->first();
+        $array = explode("/", $request->url());
+
+        $category = SurveyCategories::find($array["4"]);
+        $survey = Survey::where("user_id", "1")->where("category_id", $array["4"])->orderBy("id", "desc")->first();
         if (!is_null($survey)) {
             if (time() - strtotime(date($survey->created_at)) < 43200) {
-                return redirect("/survey/category");
-
+                return redirect("/survey/category")->with(["message" => "Выберите другую категорию"]);
             }
         }
-
         elseif (is_null($category)) {
-            return redirect("/survey/category");
+            return redirect("/survey/category")->with(["message" => "Вы выбрали не существующую категорию, пожалуйста выберите другую категорию"]);
         }
-
         return $next($request);
     }
 }

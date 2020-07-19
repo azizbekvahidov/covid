@@ -72,19 +72,29 @@
                 <div id="selected-media"></div>
                 <input type="file" name="files[]" accept="image/*" id="file_1" class="files" hidden>
             </div>
-            <div class="rank_inputs">
+            <div class="rank_inputs mood">
                 <p>Настроение</p>
-                <input type="radio" class="mood-radio" id="mood_1" name="mood" value="1"  > <label class="mood_items" for="mood_1">1</label>
-                <input type="radio" class="mood-radio" id="mood_2" name="mood" value="2"  > <label class="mood_items" for="mood_2">2</label>
-                <input type="radio" class="mood-radio" id="mood_3" name="mood" value="3"  > <label class="mood_items" for="mood_3">3</label>
-                <input type="radio" class="mood-radio" id="mood_4" name="mood" value="4"  > <label class="mood_items" for="mood_4">4</label>
-                <input type="radio" class="mood-radio" id="mood_5" name="mood" value="5"  > <label class="mood_items" for="mood_5">5</label>
+
+                @if(time() - $old_mood_mark < 43200)
+
+                    <input type="radio" class="mood-radio" id="mood_1" name="mood" value="1" disabled> <label class="mood_items" for="mood_1">1</label>
+                    <input type="radio" class="mood-radio" id="mood_2" name="mood" value="2" disabled> <label class="mood_items" for="mood_2">2</label>
+                    <input type="radio" class="mood-radio" id="mood_3" name="mood" value="3" disabled> <label class="mood_items" for="mood_3">3</label>
+                    <input type="radio" class="mood-radio" id="mood_4" name="mood" value="4" disabled> <label class="mood_items" for="mood_4">4</label>
+                    <input type="radio" class="mood-radio" id="mood_5" name="mood" value="5" disabled> <label class="mood_items" for="mood_5">5</label>
+                    <div>Настроение можно указывать каждые 12 часов</div>
+                @else
+                    <input type="radio" class="mood-radio" id="mood_1" name="mood" value="1"> <label class="mood_items" for="mood_1">1</label>
+                    <input type="radio" class="mood-radio" id="mood_2" name="mood" value="2"> <label class="mood_items" for="mood_2">2</label>
+                    <input type="radio" class="mood-radio" id="mood_3" name="mood" value="3"> <label class="mood_items" for="mood_3">3</label>
+                    <input type="radio" class="mood-radio" id="mood_4" name="mood" value="4"> <label class="mood_items" for="mood_4">4</label>
+                    <input type="radio" class="mood-radio" id="mood_5" name="mood" value="5"> <label class="mood_items" for="mood_5">5</label>
+                @endif
             </div>
             <input type="submit" value="Отправить">
         </form>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script>
-
             var j = 1;
 
             $(document).on("change", ".files", function (evt) {
