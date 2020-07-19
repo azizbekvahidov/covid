@@ -48,12 +48,21 @@
     @foreach($categories as $category)
 @php
     $survey = \App\Survey::where("user_id", "1")->where("category_id", $category->id)->orderBy("id", "desc")->first();
+    if (!is_null($survey)) {
     $date = new DateTime(date($survey->created_at));
 @endphp
 
     <div class="category">
             <a href="/survey/{{$category->id}}/create" class="link" time="{{$date->getTimestamp()}}">{{$category->name}}</a>
     </div>
+@php
+    }
+    else {
+@endphp
+            <div class="category">
+                <a href="/survey/{{$category->id}}/create" class="link" time="">{{$category->name}}</a>
+            </div>
+<?php } ?>
         @endforeach
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

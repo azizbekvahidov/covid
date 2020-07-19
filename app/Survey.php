@@ -9,7 +9,6 @@ class Survey extends Model
     protected $fillable = [
         "rank",
         "opinion",
-        "mood_rank",
         "category_id",
         "user_id",
         "status",

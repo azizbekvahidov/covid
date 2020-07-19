@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Survey, SurveyCategories, SurveyMediaFiles};
+use App\{Mood, Survey, SurveyCategories, SurveyMediaFiles};
 use Illuminate\Support\Facades\{Validator,Storage};
 
 class SurveyController extends Controller
@@ -56,21 +56,26 @@ class SurveyController extends Controller
             "category"  => "required",
             "opinion"   => "required:max:1500",
             "rank"      => "required",
+            "files.*"   => "file|size:6000",
         ];
 
         Validator::make($request->all(), $rules)->validate();
 
         $files = $request->file("files");
 
-
-
         $survey = Survey::create([
             "rank"          => $request->rank,
             "opinion"       => $request->opinion,
-            "mood_rank"     => $request->mood,
             "category_id"   => $request->category,
             "user_id"       => "1",
             "status"        => "1",
+        ]);
+
+        Mood::create([
+            "rank"          => $request->mood,
+            "user_id"       => "1",
+            "category_id"   => $request->category,
+            "survey_id"     => $survey->id,
         ]);
 
         if (!is_null($files)) {
