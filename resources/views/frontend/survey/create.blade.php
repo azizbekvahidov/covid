@@ -118,7 +118,6 @@
                         var closeButton = document.createElement('button');
                         closeButton.className    = "close_item";
                         closeButton.setAttribute("preview", "file_" + (j-1));
-                        // closeButton.attributes   = "preview = ";
                         closeButton.type         = "button";
                         closeButton.innerHTML = "<span class='close_icon'>&#10005;</span>";
                         document.getElementById('selected-media').insertBefore(div, null);
