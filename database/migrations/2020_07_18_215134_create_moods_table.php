@@ -15,9 +15,11 @@ class CreateMoodsTable extends Migration
     {
         Schema::create('moods', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("name");
+//            $table->string("name");
             $table->string("rank");
             $table->string("user_id");
+            $table->string("category_id");
+            $table->string("survey_id");
             $table->timestamps();
         });
     }

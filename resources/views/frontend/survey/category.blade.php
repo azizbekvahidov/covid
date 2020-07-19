@@ -45,8 +45,10 @@
         <div class="title">
             Выберите категорию
         </div>
+        @include("message")
     @foreach($categories as $category)
 @php
+<<<<<<< HEAD
     $date = array();
         $survey = \App\Survey::where("user_id", "1")->where("category_id", $category->id)->orderBy("id", "desc")->first();
         if(!empty($survey))
@@ -55,7 +57,24 @@
 
     <div class="category">
             <a href="/survey/{{$category->id}}/create" class="link" time="{{(!empty($date)) ? $date->getTimestamp() : ""}}">{{$category->name}}</a>
+=======
+    $survey = \App\Survey::where("user_id", "1")->where("category_id", $category->id)->orderBy("id", "desc")->first();
+    if (!is_null($survey)) {
+    $date = strtotime(date($survey->created_at));
+@endphp
+
+    <div class="category">
+            <a href="/survey/{{$category->id}}/create" class="link" time="{{$date}}">{{$category->name}}</a>
+>>>>>>> remotes/origin/firdavs
     </div>
+@php
+    }
+    else {
+@endphp
+            <div class="category">
+                <a href="/survey/{{$category->id}}/create" class="link" time="">{{$category->name}}</a>
+            </div>
+<?php } ?>
         @endforeach
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

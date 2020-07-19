@@ -17,7 +17,6 @@ class CreateSurveysTable extends Migration
             $table->bigIncrements('id');
             $table->string("rank");
             $table->text("opinion");
-            $table->string("mood_rank")->nullable();
             $table->string("category_id");
             $table->string("user_id");
             $table->string("status");

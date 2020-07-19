@@ -10,5 +10,7 @@ class Mood extends Model
         "name",
         "rank",
         "user_id",
+        "category_id",
+        "survey_id",
     ];
 }
