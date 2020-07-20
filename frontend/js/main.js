@@ -1,22 +1,13 @@
 $(document).ready(function(){
-  $(document).on( "swipeleft", function(){
-    openMenu()
-  });
-  $(document).on( "swiperight", function(){
-    closeMenu()
-  });
+
   $('.overlay').on('click', function(){
     closeMenu()
   })
   $('.burger').on('click', function(){
     openMenu()
   })
-  function openMenu(){
-    $('.left-menu').addClass( "swipe" );
-  }
-  function closeMenu(){
-    $('.left-menu').removeClass( "swipe" );
-  }
+  $('.left-menu').slideAndSwipe();
+
   var timer2 = "3:00";
   var interval = setInterval(function() {
     var timer = timer2.split(':');
@@ -45,4 +36,10 @@ function onlyLetters(event) {
     event.preventDefault();
   }
 
+}
+function openMenu(){
+  $('.left-menu').addClass( "swipe" );
+}
+function closeMenu(){
+  $('.left-menu').removeClass( "swipe" );
 }
