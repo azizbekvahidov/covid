@@ -10,6 +10,7 @@ class SurveyCategories extends Model
         "name",
         "description",
         "status",
+        "icon"
     ];
 
     public function surveys() {

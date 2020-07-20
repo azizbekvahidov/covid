@@ -2,6 +2,11 @@ let constraintObj = {
     audio: true,
     video: false
 };
+var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: 'violet',
+    progressColor: 'purple'
+});
 // width: 1280, height: 720  -- preference only
 // facingMode: {exact: "user"}
 // facingMode: "environment"
@@ -30,46 +35,65 @@ if (navigator.mediaDevices === undefined) {
             console.log(err.name, err.message);
         })
 }
-
 navigator.mediaDevices.getUserMedia(constraintObj)
     .then(function(mediaStreamObj) {
         //connect the media stream to the first video element
-        let audio = document.querySelector('#aud1');
-        if ("srcObject" in audio) {
-            audio.srcObject = mediaStreamObj;
-        } else {
-            //old version
-            audio.src = window.URL.createObjectURL(mediaStreamObj);
-        }
-
-        audio.onloadedmetadata = function(ev) {
-            //show in the video element what is being captured by the webcam
-            // audio.play();
-        };
+        // let audio = document.querySelector('#aud1');
+        // if ("srcObject" in audio) {
+        //     audio.srcObject = mediaStreamObj;
+        // } else {
+        //     //old version
+        //     audio.src = window.URL.createObjectURL(mediaStreamObj);
+        // }
+        //
+        // audio.onloadedmetadata = function(ev) {
+        //     //show in the video element what is being captured by the webcam
+        //     // audio.play();
+        // };
 
         //add listeners for saving video/audio
         let start = document.getElementById('btnStart');
-        let stop = document.getElementById('btnStop');
-        let vidSave = document.getElementById('aud2');
+        let audioInput = document.getElementById('audioInput');
+        let del = document.getElementById('btnDel');
+        let wave = document.getElementById('waveform');
+        let isStart = false;
+        // let vidSave = document.getElementById('aud2');
         let mediaRecorder = new MediaRecorder(mediaStreamObj);
         let chunks = [];
-
         start.addEventListener('click', (ev)=>{
-            mediaRecorder.start();
-            // console.log(mediaRecorder.state);
-        })
-        stop.addEventListener('click', (ev)=>{
-            mediaRecorder.stop();
+            if(isStart){
+                mediaRecorder.stop();
+                this.text = "start";
+                isStart = false;
+            }
+            else{
+                mediaRecorder.start();
+                this.text = "stop";
+                isStart = true;
+            }
+            // console.log(ec);
+        });
+        del.addEventListener('click', (ev)=>{
+            wavesurfer.empty();
+            audioInput.value("");
             // console.log(mediaRecorder.state);
         });
+
+        wave.addEventListener("click",(ev)=>{
+            wavesurfer.playPause();
+            // console.log(mediaRecorder.state);
+        });
+
         mediaRecorder.ondataavailable = function(ev) {
             chunks.push(ev.data);
         }
         mediaRecorder.onstop = (ev)=>{
             let blob = new Blob(chunks, { 'type' : 'audio/mp3;' });
             chunks = [];
-            let videoURL = window.URL.createObjectURL(blob);
-            vidSave.src = videoURL;
+            let audioURL = window.URL.createObjectURL(blob);
+            // vidSave.src = audioURL;
+            wavesurfer.load(audioURL);
+            audioInput.value(audioURL);
         }
     })
     .catch(function(err) {

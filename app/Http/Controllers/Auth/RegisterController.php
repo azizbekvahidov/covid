@@ -43,12 +43,32 @@ class RegisterController extends Controller
 
 
     public function verifyPhone(){
-        return view("auth.verifyPhone");
+        return view("auth.register1");
     }
 
     public function sendMessage(Request $request){
         $strCode = "222222";
         $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
+
+        $obj = [
+          "messages" => [
+                "recipient" => $strPhone,
+                "message-id" => $strCode,
+          ],
+        ];
+        $json = json_encode($obj);
+        $url = "http://91.204.239.44/broker-api/send";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        $returned = curl_exec($ch);
+        print_r($ch);
+        curl_close ($ch);
+        dd($returned, $json);
+        die();
+
         try {
             $userModel = User::wherePhone($strPhone)->first();
             if(empty($userModel)){
@@ -137,10 +157,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = User::find($data["id"]);
+        if (is_null($data['file'])) {
+            $user->FIO      = $data["FIO"];
+            $user->gender   = $data["gender"];
+            $user->birth    = $data["birth"];
+//            $user->save();
+        }
+        else {
+            $user->FIO      = $data["FIO"];
+            $user->gender   = $data["gender"];
+            $user->birth    = $data["birth"];
+//            $user->save();
+        }
+        return $user;
     }
 }

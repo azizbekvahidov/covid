@@ -39,8 +39,10 @@ class SurveyController extends Controller
     {
         $category = SurveyCategories::find($id);
         $old_mood_mark = Mood::where("user_id", "1")->orderBy("id", "desc")->first();
-
-        $old_mark_time = strtotime(date($old_mood_mark->created_at));
+        $old_mark_time = 0;
+        if(!empty($old_mood_mark)){
+            $old_mark_time = strtotime(date($old_mood_mark->created_at));
+        }
 
         return view("frontend.survey.create", [
             "category" => $category,

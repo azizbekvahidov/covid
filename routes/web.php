@@ -13,7 +13,7 @@
 */
 
 
-Route::namespace("frontend")->group(function () {
+Route::namespace("Frontend")->group(function () {
 
     Route::prefix("/survey")->group(function () {
         Route::get("/", "SurveyController@index");
@@ -31,4 +31,7 @@ Route::post("{ID}/savePassword", ['as' => 'register.savePassword', 'uses' => "Au
 Auth::routes();
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+
+    return view ("frontend.index");
+});
