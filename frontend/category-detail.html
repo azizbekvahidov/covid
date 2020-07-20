@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#007BEC">
   <meta name="description" content="">
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+  <link rel="stylesheet" href="css/select2.css">
   <link rel="stylesheet" href="css/style.css">
   <title>Sogboling.uz</title>
 </head>
@@ -211,6 +211,13 @@
           </span>
         </div>
       </div>
+      <div class="selectbox pa-15">
+        <select>
+          <option default value="" selected>Выберите из списка</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </div>
       <div class="confirm-hospital">
         <strong>Это ваша больница?</strong>
         <a href="#" class="primary">Да, это моя больница!</a>
@@ -231,14 +238,16 @@
     </div>
   </footer>
 </div>
-<div class="left-menu">
-  <div class="overlay"></div>
-  <div class="menu-content">
-    <a href="#">Зарегистрироваться</a>
-    <a href="#">Войти</a>
-  </div>
+<div class="popup show">
+    <div class="overlay"></div>
+    <div class="popup-content">
+        <strong>Спасибо за ваш Сигнал</strong>
+        <a href="#" class="btn">оцените другие категории</a>
+        <a href="#" class="btn">В личный кабинет</a>
+    </div>
 </div>
 <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="js/select2.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

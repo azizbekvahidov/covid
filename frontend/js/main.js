@@ -1,12 +1,13 @@
 $(document).ready(function(){
 
   $('.overlay').on('click', function(){
-    closeMenu()
+    closeMenu();
+    $('.popup').removeClass('show')
   })
   $('.burger').on('click', function(){
     openMenu()
   })
-
+  $('.selectbox select').select2()
   var timer2 = "3:00";
   var interval = setInterval(function() {
     var timer = timer2.split(':');
