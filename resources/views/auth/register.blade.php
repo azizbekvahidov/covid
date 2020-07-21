@@ -1,11 +1,12 @@
 @extends("frontend.layout")
 @section("content")
     <div class="auth-page">
-        <form action="{{route("register")}}" method="POST">
+        @include("errors")
+        <form action="{{route("register")}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="text" name="id" value="" hidden>
+            <input type="text" name="id" value="{{$id}}" hidden>
             <div class="top">
-                <h1>Персональное данные</h1>
+                <h1>{{__("box.personal_data")}}</h1>
                 <div class="input-thumbs">
                     <div class="fileUplload">
                         <div class="profile-image">
@@ -22,15 +23,15 @@
                     </div>
                 </div>
                 <div class="input-thumbs">
-                    <label>Как к вам обращаться</label>
-                    <input type="text" onkeypress="onlyLetters(event)" value="{{old("FIO")}}" name="FIO" placeholder="Введите ФИО"/>
+                    <label>{{__("box.how_to_contact_you")}}</label>
+                    <input type="text" onkeypress="onlyLetters(event)" value="{{old("FIO")}}" name="FIO" placeholder="{{__("box.enter_name")}}"/>
                 </div>
                 <div class="input-thumbs">
-                    <label>Дата рождения</label>
-                    <input type="text" value="{{old("birth")}}" name="birth" placeholder="Введите дату рождения"/>
+                    <label>{{__("box.birth_date")}}</label>
+                    <input type="date" value="{{old("birth")}}" name="birth" placeholder="{{__("box.enter_birth_date")}}"/>
                 </div>
                 <div class="input-thumbs">
-                    <label>Пол</label>
+                    <label>{{__("box.gender")}}</label>
                     <div class="gender">
             <span class="checkbox">
               <input type="radio" value="1" name="gender">
@@ -41,7 +42,7 @@
                 </svg>
               </i>
               <span>
-                Мужчина
+                {{__("box.male")}}
               </span>
             </span>
                         <span class="checkbox">
@@ -53,15 +54,25 @@
                 </svg>
               </i>
               <span>
-                Женщина
+                {{__("box.female")}}
               </span>
             </span>
                     </div>
                 </div>
             </div>
             <div class="bottom">
-                <button type="submit">Сохранить</button>
+                <button type="submit">{{__("box.save")}}</button>
             </div>
         </form>
     </div>
+@endsection
+@section("js")
+    <!-- РџРѕРґРєР»СЋС‡РµРЅРёРµ jQuery РїР»Р°РіРёРЅР° Masked Input -->
+    <script src="{{ asset("js/jquery.maskedinput.min.js") }}"></script>
+    <script>
+        $(function(){
+            //2. РџРѕР»СѓС‡РёС‚СЊ СЌР»РµРјРµРЅС‚, Рє РєРѕС‚РѕСЂРѕРјСѓ РЅРµРѕР±С…РѕРґРёРјРѕ РґРѕР±Р°РІРёС‚СЊ РјР°СЃРєСѓ
+            $("#birth").mask("99-99-9999");
+        });
+    </script>
 @endsection

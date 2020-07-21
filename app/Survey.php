@@ -12,6 +12,8 @@ class Survey extends Model
         "category_id",
         "user_id",
         "status",
+        'location_id',
+        'audio'
     ];
 
     public function Files() {

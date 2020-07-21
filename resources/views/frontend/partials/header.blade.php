@@ -1,6 +1,6 @@
 <header>
     <div class="logo">
-        <a href="#">Sogboling.uz</a>
+        <a href="/">Sogboling.uz</a>
     </div>
     @if(!\Auth::user())
         @if($_SERVER['REQUEST_URI'] == "/")
@@ -15,8 +15,10 @@
             </div>
         @endif
     @else
-        <a href="#">
-            <img src="img/image%201.png" alt=""/>
-        </a>
+        <div class="burger">
+            <a href="javascript:">
+                <img src="/assets/img/image%201.png" alt=""/>
+            </a>
+        </div>
     @endif
 </header>

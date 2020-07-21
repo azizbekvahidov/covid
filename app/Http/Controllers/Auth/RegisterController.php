@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\UserMessage;
+use Illuminate\Auth\Events\Registered;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -41,34 +43,63 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm($id)
+    {
+        return view('auth.register', ["id" => $id]);
+    }
+
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $photo = $request->file("photo");
+        event(new Registered($user = $this->create($request->all(), $photo)));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
+
+
+
 
     public function verifyPhone(){
-        return view("auth.register1");
+        return view("auth.verifyPhone");
     }
 
     public function sendMessage(Request $request){
-        $strCode = "222222";
+        $strCode = mt_rand(100000,999999);
         $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
+        $userMessage = UserMessage::create([
+            'phone'=>$strPhone,
+            'smsCode'=>$strCode
+        ]);
+        $user_mes_id = $userMessage->id;
+        $data = '{ "messages": [{'.
+                        '"recipient": "'. $strPhone .'",'.
+                        '"message-id": "sogbolinguz' . $user_mes_id . '",'.
+                        '"sms": {'.
+                            '"originator": "3700",'.
+                            '"content":{ '.
+                                '"text": "'. $strCode .'"}}}]}';
 
-        $obj = [
-          "messages" => [
-                "recipient" => $strPhone,
-                "message-id" => $strCode,
-          ],
-        ];
-        $json = json_encode($obj);
+
+
+
         $url = "http://91.204.239.44/broker-api/send";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-        $returned = curl_exec($ch);
-        print_r($ch);
-        curl_close ($ch);
-        dd($returned, $json);
-        die();
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Authorization: Basic ".base64_encode("xakimtashkent:ma4PdW1"),
+            'Content-Type: application/json'));
 
+        $returned = curl_exec($ch);
+        curl_close ($ch);
         try {
             $userModel = User::wherePhone($strPhone)->first();
             if(empty($userModel)){
@@ -82,14 +113,21 @@ class RegisterController extends Controller
                 ],200);
             }
             else{
+                if($userModel->verify) {
+                    session(["phone"    => substr($strPhone,3)]);
+                    session(["message"  => __("box.authorized_message")]);
+                    return response()->json([
+                        "url" => "/login",
+                    ], 200);
+                }
                 User::destroy($userModel->id);
                 $user = User::create([
-                    'phone' => $strPhone,
-                    'verifyCode' => $strCode,
+                    'phone'         => $strPhone,
+                    'verifyCode'    => $strCode,
                 ]);
                 return response()->json([
-                    "status" => 'success',
-                    "message" => $user->id
+                    "status"        => 'success',
+                    "message"       => $user->id
                 ],200);
             }
         }
@@ -104,6 +142,8 @@ class RegisterController extends Controller
     public function verifyCode(Request $request){
         $userModel = User::find($request->id);
         if($userModel->verifyCode == $request->verifyCode){
+            $userModel->verifyCode  = "";
+            $userModel->save();
             return response()->json([
                 "status" => 'success',
                 "message" => "verified"
@@ -119,7 +159,8 @@ class RegisterController extends Controller
 
     public function setPassword($id){
         $userModel = User::find($id);
-        if($userModel->password != null){
+
+        if(!is_null($userModel->password)){
             return redirect()->route("register.verifyPhone");
         }
         else{
@@ -132,6 +173,13 @@ class RegisterController extends Controller
 
     public function savePassword($id,Request $request){
         $userModel = User::find($id);
+        if ($request->password === $request->confirm_password) {
+            $userModel->password = bcrypt($request->password);
+            $userModel->save();
+
+            return redirect($id."/register");
+        }
+
     }
 
     /**
@@ -143,9 +191,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'FIO'       => ['required', 'string', 'max:255'],
+            'gender'    => ['required', 'string'],
+            'birth'     => ['required', 'string'],
         ]);
     }
 
@@ -155,20 +203,30 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array $data, $photo = null)
     {
         $user = User::find($data["id"]);
-        if (is_null($data['file'])) {
-            $user->FIO      = $data["FIO"];
+//        dd($data, $photo);
+        if (is_null($photo)) {
             $user->gender   = $data["gender"];
+            $user->FIO      = $data["FIO"];
             $user->birth    = $data["birth"];
-//            $user->save();
+            $user->verify   = "1";
+            $user->role     = "3";
+            $user->save();
         }
         else {
-            $user->FIO      = $data["FIO"];
+            $extension = $data["photo"]->getClientOriginalExtension();
+            $photo_name = "IMG_".date("Y-m-d_H-i-s.").$extension;
+            $data["photo"]->storeAs("/public/avatars", $photo_name);
+
             $user->gender   = $data["gender"];
+            $user->FIO      = $data["FIO"];
             $user->birth    = $data["birth"];
-//            $user->save();
+            $user->verify   = "1";
+            $user->photo    = $photo_name;
+            $user->role     = "3";
+            $user->save();
         }
         return $user;
     }

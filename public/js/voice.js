@@ -2,11 +2,6 @@ let constraintObj = {
     audio: true,
     video: false
 };
-var wavesurfer = WaveSurfer.create({
-    container: '#waveform',
-    waveColor: 'violet',
-    progressColor: 'purple'
-});
 // width: 1280, height: 720  -- preference only
 // facingMode: {exact: "user"}
 // facingMode: "environment"
@@ -93,7 +88,7 @@ navigator.mediaDevices.getUserMedia(constraintObj)
             let audioURL = window.URL.createObjectURL(blob);
             // vidSave.src = audioURL;
             wavesurfer.load(audioURL);
-            audioInput.value(audioURL);
+            audioInput.value = audioURL;
         }
     })
     .catch(function(err) {

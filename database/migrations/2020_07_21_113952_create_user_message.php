@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMoodsTable extends Migration
+class CreateUserMessage extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateMoodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('moods', function (Blueprint $table) {
-            $table->bigIncrements('id');
-//            $table->string("name");
-            $table->integer("rank");
-            $table->integer("user_id");
-            $table->integer("category_id");
-            $table->integer("survey_id");
+        Schema::create('user_messages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string("smsCode");
+            $table->string("phone");
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateMoodsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('moods');
+        Schema::dropIfExists('user_message');
     }
 }

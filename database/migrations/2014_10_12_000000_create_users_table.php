@@ -17,12 +17,13 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('FIO')->nullable();
             $table->string('phone')->unique();
-            $table->integer('sex')->nullable();
+            $table->integer('gender')->nullable();
             $table->date('birth')->nullable();
             $table->string('photo')->nullable();
             $table->string('verify')->nullable();
-            $table->string('verifyCode');
+            $table->string('verifyCode')->nullable();
             $table->string('password')->nullable();
+            $table->string('role')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

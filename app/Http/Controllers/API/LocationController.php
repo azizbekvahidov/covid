@@ -32,7 +32,8 @@ class LocationController extends Controller
     public function getLocation(Request $request){
         $closer = array(
             "place" => "",
-            "coords" => ""
+            "coords" => "",
+            "id" => ""
         );
         $model = Location::all();
         $coord = 0;
@@ -43,11 +44,12 @@ class LocationController extends Controller
                 $coord = $dist;
                 $closer["place"] = $item->location_title;
                 $closer["coords"] = $item->coords_lat.",".$item->coords_lng;
+                $closer["id"] = $item->id;
             }
             elseif ($coord == 0){
                 $coord = $dist;
                 $closer["place"] = $item->location_title;
-                $closer["coords"] = $item->coords_lat.",".$item->coords_lng;
+                $closer["id"] = $item->id;
             }
         }
         return response()->json($closer);
@@ -55,6 +57,8 @@ class LocationController extends Controller
     }
 
     public function lat_long_dist_of_two_points($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo){
+        $longitudeTo = floatval($longitudeTo);
+        $latitudeTo = floatval($latitudeTo);
         $pi = pi();
         $x = sin($latitudeFrom * $pi/180) *
         sin($latitudeTo * $pi/180) +

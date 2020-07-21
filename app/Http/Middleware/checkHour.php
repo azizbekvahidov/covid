@@ -20,7 +20,7 @@ class checkHour
         $array = explode("/", $request->url());
 
         $category = SurveyCategories::find($array["4"]);
-        $survey = Survey::where("user_id", "1")->where("category_id", $array["4"])->orderBy("id", "desc")->first();
+        $survey = Survey::where("user_id", \Auth::user()->id)->where("category_id", $array["4"])->orderBy("id", "desc")->first();
         if (!is_null($survey)) {
             if (time() - strtotime(date($survey->created_at)) < 43200) {
                 return redirect("/survey/category")->with(["message" => "Выберите другую категорию"]);

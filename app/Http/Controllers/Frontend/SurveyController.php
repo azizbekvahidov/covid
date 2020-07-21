@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Mood, Survey, SurveyCategories, SurveyMediaFiles};
+use App\{Location, Mood, Survey, SurveyCategories, SurveyMediaFiles, User};
 use Illuminate\Support\Facades\{Validator,Storage};
 
 class SurveyController extends Controller
@@ -38,7 +38,9 @@ class SurveyController extends Controller
     public function create($id)
     {
         $category = SurveyCategories::find($id);
-        $old_mood_mark = Mood::where("user_id", "1")->orderBy("id", "desc")->first();
+        $locations = Location::all();
+
+        $old_mood_mark = Mood::where("user_id", \Auth::user()->id)->orderBy("id", "desc")->first();
         $old_mark_time = 0;
         if(!empty($old_mood_mark)){
             $old_mark_time = strtotime(date($old_mood_mark->created_at));
@@ -46,7 +48,9 @@ class SurveyController extends Controller
 
         return view("frontend.survey.create", [
             "category" => $category,
-            "old_mood_mark" => $old_mark_time,
+            "old_mark_time" => $old_mark_time,
+            "old_mood_mark" => $old_mood_mark,
+            'locations' => $locations
         ]);
     }
 
@@ -58,15 +62,15 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
+        $userId = \Auth::user()->id;
         $file_name = null;
-        $rules = [
-            "category"  => "required",
-            "opinion"   => "required:max:1500",
-            "rank"      => "required",
-            "files.*"   => "file|size:6000",
-        ];
-
-        Validator::make($request->all(), $rules)->validate();
+//        $rules = [
+//            "category"  => "required",
+//            "opinion"   => "required:max:1500",
+//            "rank"      => "required",
+//            "files.*"   => "file|size:5000",
+//        ];
+//        Validator::make($request->all(), $rules)->validate();
 
         $files = $request->file("files");
 
@@ -74,35 +78,35 @@ class SurveyController extends Controller
             "rank"          => $request->rank,
             "opinion"       => $request->opinion,
             "category_id"   => $request->category,
-            "user_id"       => "1",
+            "audio"         => $request->audio,
+            "user_id"       => $userId,
             "status"        => "1",
+            "location_id"   => $request->locate,
         ]);
+        if(isset($request->mood )) {
+            $old_mood_mark = Mood::where("user_id", $userId)->orderBy("id", "desc")->first();
 
-        $old_mood_mark = Mood::where("user_id", "1")->orderBy("id", "desc")->first();
+            if (!is_null($old_mood_mark)) {
 
-        if(!is_null($old_mood_mark)) {
+                $time = strtotime(date($old_mood_mark->created_at));
 
-            $time = strtotime(date($old_mood_mark->created_at));
-
-            if (time() - $time >= 43200) {
+                if (time() - $time >= 43200) {
+                    Mood::create([
+                        "rank" => $request->mood,
+                        "user_id" => $userId,
+                        "category_id" => $request->category,
+                        "survey_id" => $survey->id,
+                    ]);
+                }
+            } else {
                 Mood::create([
-                    "rank"          => $request->mood,
-                    "user_id"       => "1",
-                    "category_id"   => $request->category,
-                    "survey_id"     => $survey->id,
+                    "rank" => $request->mood,
+                    "user_id" => $userId,
+                    "category_id" => $request->category,
+                    "survey_id" => $survey->id,
                 ]);
             }
         }
-
-        else {
-            Mood::create([
-                "rank"          => $request->mood,
-                "user_id"       => "1",
-                "category_id"   => $request->category,
-                "survey_id"     => $survey->id,
-            ]);
-        }
-
         if (!is_null($files)) {
             foreach ($files as $file) {
                 $path_name = null;
@@ -121,7 +125,7 @@ class SurveyController extends Controller
                 }
                 $path_name = str_replace("public", "storage", $path_name);
                 SurveyMediaFiles::create([
-                    "user_id"   => "1",
+                    "user_id"   => $userId,
                     "status"    => "1",
                     "survey_id" => $survey->id,
                     "path"      => $path_name,
@@ -129,10 +133,41 @@ class SurveyController extends Controller
                 ]);
             }
         }
-
-        return redirect("/survey")->with(["message" => "Добавлено!"]);
+        //return redirect("/survey")->with(["message" => "Добавлено!"]);*/
     }
 
+
+    public function storeFiles(Request $request){
+
+        $userId = \Auth::user()->id;
+        $files = $request->file("files");
+        if (!is_null($files)) {
+            foreach ($files as $file) {
+                $path_name = null;
+                $mime_type = $file->getClientMimeType();
+                $time = date("Ymd_His", time());
+                $extension = $file->getClientOriginalExtension();
+                if (str_contains($mime_type, "image")) {
+                    $file_name = "IMG_".$time.".".$extension;
+                    $path_name = "/public/files/images";
+                    $file->storeAs($path_name, $file_name);
+                }
+                elseif (str_contains($mime_type, "video")) {
+                    $file_name = "VID_".$time.".".$extension;
+                    $path_name = "/public/files/videos";
+                    $file->storeAs($path_name, $file_name);
+                }
+                $path_name = str_replace("public", "storage", $path_name);
+                SurveyMediaFiles::create([
+                    "user_id"   => $userId,
+                    "status"    => "1",
+                    "survey_id" => $request->id,
+                    "path"      => $path_name,
+                    "name"      => $file_name,
+                ]);
+            }
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -178,5 +213,12 @@ class SurveyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function list($id){
+        $user = User::find($id);
+        dd($user);
+        $surveyList = Survey::where('user_id',$id)->with('Category')->get();
+        return view("frontend.survey.list");
     }
 }

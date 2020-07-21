@@ -1,5 +1,5 @@
 @extends("frontend.layout")
-@section("title", " —")
+@section("title", "")
 @section("content")
     <div class="pa-15">
         <div class="category-panel">
@@ -10,12 +10,12 @@
 
                 @php
 
-                    $survey = \App\Survey::where("user_id", "1")->where("category_id", $category->id)->orderBy("id", "desc")->first();
+                    $survey = \App\Survey::where("user_id", \Auth::user()->id)->where("category_id", $category->id)->orderBy("id", "desc")->first();
                     if (!is_null($survey)) {
                     $date = strtotime(date($survey->created_at));
                 @endphp
             <div class="category-item">
-                <a href="/survey/{{$category->id}}/create" class="link" time="{{$date}}">
+                <a href="{{ route("survey.create",$category->id) }}" class="link" time="{{$date}}">
                     <?=$category->icon ?>
                     <strong>{{__($category->name)}}</strong>
                 </a>
@@ -26,7 +26,7 @@
                     else {
                 @endphp
                 <div class="category-item">
-                    <a href="/survey/{{$category->id}}/create" class="link" time="">
+                    <a href="{{ route("survey.create",$category->id) }}" class="link" time="">
                         <?=$category->icon ?>
                         <strong>{{__($category->name)}}</strong>
                     </a>

@@ -4,8 +4,9 @@
     <div class="pa-15">
         <div class="banner">
             <h1>Sogboling.uz</h1>
-            <p>Это сервис для получения обратной связи о качесте предоставления медицинских услуг во время лечения или прохождения карантина в медицинских учреждениях г. Ташкент</p>
-            <a href="#" class="btn">Отправить сигнал</a>
+            <p>{{__("box.index_main_title")}}</p>
+                {{-- Это сервис для получения обратной связи о качесте предоставления медицинских услуг во время лечения или прохождения карантина в медицинских учреждениях г. Ташкент  --}}
+            <a href="/survey/category" class="btn">{{__("box.send_signal")}}</a>
             <svg width="344" height="244" viewBox="0 0 344 244" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M167.305 204.878C194.079 204.878 215.783 183.178 215.783 156.409C215.783 129.64 194.079 107.94 167.305 107.94C140.531 107.94 118.826 129.64 118.826 156.409C118.826 183.178 140.531 204.878 167.305 204.878Z" fill="#EBEDF3"/>
                 <path d="M180.587 125.296H152.812V146.059H180.587V125.296Z" fill="black"/>
@@ -186,8 +187,8 @@
             </svg>
         </div>
         <div class="service-panel">
-            <h3>Как воспользоваться сервисом?</h3>
-            <p>Очень просто! Пройдите регистрацию, затем укажите необходимую котегорию и опишите проблему.</p>
+            <h3>{{__("box.how_to_use_service")}}</h3>
+            <p>{{__("box.explaining_of_using_service")}}</p>
             <div class="item">
                 <i>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -198,8 +199,8 @@
                     </svg>
                 </i>
                 <div class="info">
-                    <strong>Выберите котегорию</strong>
-                    <p>Нажмите на необходимую котегорию, которую вы хотите оценить</p>
+                    <strong>{{__("box.choose_category")}}</strong>
+                    <p>{{__("box.explaining_category")}}</p>
                 </div>
             </div>
             <div class="item">
@@ -213,8 +214,8 @@
                     </svg>
                 </i>
                 <div class="info">
-                    <strong>Опишите проблему</strong>
-                    <p>Опишите проблему текстом, фото или аудио сообщением</p>
+                    <strong>{{__("box.describe_problem")}}</strong>
+                    <p>{{__("box.explaining_describing_problem")}}</p>
                 </div>
             </div>
             <div class="item">
@@ -225,14 +226,49 @@
                     </svg>
                 </i>
                 <div class="info">
-                    <strong>Выберите мед.учреждение</strong>
-                    <p>Укажите точку местоположения проблемы на карте или воспользуйтесь поиском</p>
+                    <strong>{{__("box.choose_hospital")}}</strong>
+                    <p>{{__("box.explaining_hospital")}}</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="send-problems">
-        <strong>Хотите сообщить о проблеме?</strong>
-        <a href="#" class="btn">Отправить сигнал</a>
+        <strong>{{__("box.do_message_problem")}}</strong>
+        <a href="/survey/category" class="btn">{{__("box.send_signal")}}</a>
+    </div>
+    <style>
+        .popup .popup-content{
+            width: 100%;
+            margin: 0;
+            border-radius: 20px;
+        }
+        .popup .popup-content a{
+
+            width: 100%;
+            font-weight: 500;
+            font-size: 3.73333333vw;
+            line-height: 4.26666667vw;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5.33333333vw;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            display: inline-block;
+            border: 0.26666667vw solid #000000;
+            padding: 3.2vw 5.33333333vw;
+            margin-bottom: 4vw;
+            color: #000000;
+        }
+    </style>
+
+    <div class="popup show">
+        <div class="overlay"></div>
+        <div class="popup-content">
+            <strong>{{ __("box.selectLanguage") }}</strong>
+            <div class="locales">
+                <a href="/locale/uz">O’zbekcha</a>
+                <a href="/locale/ru">Русский</a>
+            </div>
+        </div>
     </div>
 @endsection
