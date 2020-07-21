@@ -3,7 +3,31 @@
 @section("content")
     @include("errors")
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey={{config("map")["map_apikey"]}}" type="text/javascript"></script>
-    <script src="{{ asset("js/wavesurfer.js") }}"></script>
+
+    <style>
+        .popup .popup-content{
+            width: 100%;
+            margin: 0;
+            border-radius: 20px;
+        }
+        .popup .popup-content a{
+
+            width: 100%;
+            font-weight: 500;
+            font-size: 3.73333333vw;
+            line-height: 4.26666667vw;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5.33333333vw;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            display: inline-block;
+            background: #0085FF;
+            padding: 3.2vw 18.4vw 3.2vw 18.93333333vw;
+            margin-bottom: 4vw;
+            color: #FFFFFF;
+        }
+    </style>
     <div class="pa-15">
         <a href="{{ route("survey.category") }}" class="back">
             <i>

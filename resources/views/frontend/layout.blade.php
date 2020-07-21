@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
     <link rel="stylesheet" href="{{asset("assets/css/select2.css")}}">
+    <script src="{{ asset("js/wavesurfer.js") }}"></script>
     @yield("css")
     <style>
         #logout-btn {

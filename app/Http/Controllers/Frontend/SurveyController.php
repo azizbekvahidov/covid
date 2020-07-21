@@ -133,7 +133,7 @@ class SurveyController extends Controller
                 ]);
             }
         }
-        //return redirect("/survey")->with(["message" => "Добавлено!"]);*/
+        return response()->json("ok",200);
     }
 
 
