@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="cleartype" content="on">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="initial-scale=1">
+  <meta name="description" content="">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/media.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/select2.js"></script>
+  <script src="js/main.js"></script>
+  <title>Sogboling.uz</title>
+</head>
+<body>
+<div class="login-page">
+  <header>
+    <div class="logo">
+      <a href="#">Sogboling.uz</a>
+    </div>
+  </header>
+  <div class="auth-page full">
+    <form>
+      <div class="top">
+        <h1>Авторизоваться</h1>
+        <p>Войдите чтобы сообщить о проблеме и оценить мед учереждении</p>
+        <div class="input-thumbs">
+          <label>Номер мобильного телефона</label>
+          <div class="input">
+            <div class="helper">+998</div>
+            <input type="text" onkeypress="onlyNumber(event)"  maxlength="7" value="" name="" placeholder="Введите мобильный номер"/>
+          </div>
+        </div>
+        <div class="input-thumbs password">
+          <label>Пароль</label>
+          <input type="password" value="" name="" placeholder="Введите пароль"/>
+        </div>
+        <div class="remember-panel d-flex align-center">
+          <label>
+            <input type="checkbox" value="on" name="">
+            <i>
+              <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 1L5 8.9748L1 4.9874" stroke="#0085FF" stroke-width="1.68" stroke-linecap="round"/>
+              </svg>
+            </i>
+            <span>Запомнить меня</span>
+          </label>
+          <a href="#" class="recover-password">Забыли пароль?</a>
+        </div>
+      </div>
+      <div class="bottom">
+        <button type="submit">Войти</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
