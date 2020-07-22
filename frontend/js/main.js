@@ -2,7 +2,6 @@ $(document).ready(function(){
 
   $('.overlay').on('click', function(){
     closeMenu();
-    $('.popup').removeClass('show')
   })
   $('.burger').on('click', function(){
     openMenu()
