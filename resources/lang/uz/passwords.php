@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Password Reset Language Lines
@@ -12,11 +11,10 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-
-    'password' => 'Passwords must be at least eight characters and match the confirmation.',
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
-
+    'password'  => 'Parol kamida 8 ta belgidan iborat bo‘lishi va tasdiqlanishi kerak.',
+    'reset'     => 'Sizning parolingiz tiklandi!',
+    'sent'      => 'Parolni tiklash havolasini elektron pochta orqali yubordik!',
+    'throttled' => 'Iltimos birozdan so‘ng qayta urinib ko‘ring.',
+    'token'     => 'Ushbu parolni qayta tiklash kodi noto‘g‘ri.',
+    'user'      => 'Ushbu elektron pochta manziliga ega foydalanuvchi topilmadi.',
 ];

@@ -95,7 +95,7 @@ return [
     'numeric' => 'The :attribute must be a number.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => 'Поле :attribute должен быть заполнен.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -145,6 +145,19 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'question'  => '<strong>Вопрос</strong>',
+        'subject'   => '<strong>Предмет</strong>',
+        'option.0'  => '<strong>Ответ 1</strong>',
+        'option.1'  => '<strong>Ответ 2</strong>',
+        'option.2'  => '<strong>Ответ 3</strong>',
+        'option.3'  => '<strong>Ответ 4</strong>',
+        'option.4'  => '<strong>Ответ 5</strong>',
+        'option.5'  => '<strong>Ответ 6</strong>',
+        'option.6'  => '<strong>Ответ 7</strong>',
+        'option.7'  => '<strong>Ответ 8</strong>',
+        'option.8'  => '<strong>Ответ 9</strong>',
+        'option.9'  => '<strong>Ответ 10</strong>',
+    ],
 
 ];

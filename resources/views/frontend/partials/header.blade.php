@@ -15,8 +15,8 @@
             </div>
         @endif
     @else
-        <div class="burger">
-            <a href="javascript:">
+        <div class="">
+            <a href="{{ route("survey.list")}}">
                 <img src="/assets/img/image%201.png" alt=""/>
             </a>
         </div>

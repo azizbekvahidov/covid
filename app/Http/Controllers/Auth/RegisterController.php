@@ -70,30 +70,7 @@ class RegisterController extends Controller
     }
 
     public function sendMessage(Request $request){
-        $strCode = mt_rand(100000,999999);
         $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
-        $userMessage = UserMessage::create([
-            'phone'=>$strPhone,
-            'smsCode'=>$strCode
-        ]);
-        $user_mes_id = $userMessage->id;
-
-        $data = [
-            "app"   => "ws",
-            "u"     => "fyd7a",
-            "h"     => "ec9114005d6f0515b4ea2f2743909a9a",
-            "op"    => "pv",
-            "to"    => $strPhone,
-            "msg"   => $strCode,
-        ];
-        $url = "https://account.apix.uz";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $returned = curl_exec($ch);
-        curl_close ($ch);
         /*$data = '{ "messages": [{'.
                         '"recipient": "'. $strPhone .'",'.
                         '"message-id": "sogbolinguz' . $user_mes_id . '",'.
@@ -120,6 +97,29 @@ class RegisterController extends Controller
         try {
             $userModel = User::wherePhone($strPhone)->first();
             if(empty($userModel)){
+                $strCode = mt_rand(100000,999999);
+                $userMessage = UserMessage::create([
+                    'phone'=>$strPhone,
+                    'smsCode'=>$strCode
+                ]);
+                $user_mes_id = $userMessage->id;
+
+                $data = [
+                    "app"   => "ws",
+                    "u"     => "fyd7a",
+                    "h"     => "ec9114005d6f0515b4ea2f2743909a9a",
+                    "op"    => "pv",
+                    "to"    => $strPhone,
+                    "msg"   => $strCode,
+                ];
+                $url = "https://account.apix.uz";
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL,$url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                $returned = curl_exec($ch);
+                curl_close ($ch);
                 $user = User::create([
                     'phone' => $strPhone,
                     'verifyCode' => $strCode,
@@ -131,10 +131,9 @@ class RegisterController extends Controller
             }
             else{
                 if($userModel->verify) {
-                    session(["phone"    => substr($strPhone,3)]);
-                    session(["message"  => __("box.authorized_message")]);
                     return response()->json([
-                        "url" => "/login",
+                        "message1" => __("box.you_already_registered"),
+                        "message2" => __("box.drop_password"),
                     ], 200);
                 }
                 User::destroy($userModel->id);
@@ -190,7 +189,8 @@ class RegisterController extends Controller
 
     public function savePassword($id,Request $request){
         $userModel = User::find($id);
-        if ($request->password === $request->confirm_password) {
+
+        if ($request->password === $request->password_confirmation) {
             $userModel->password = bcrypt($request->password);
             $userModel->save();
 

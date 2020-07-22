@@ -3,8 +3,8 @@
 @section("content")
     <div class="pa-15">
         <div class="category-panel">
-            <strong>Хотите сообщить о проблеме? </strong>
-            <span>Выберите категорию</span>
+            <strong>{{__("box.do_message_problem")}}</strong>
+            <span>{{__("box.choose_category")}}</span>
             @include("message")
             @foreach($categories as $category)
 

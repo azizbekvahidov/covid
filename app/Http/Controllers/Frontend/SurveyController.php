@@ -76,12 +76,24 @@ class SurveyController extends Controller
 //        Validator::make($request->all(), $rules)->validate();
 
         $files = $request->file("files");
+        $audio = $request->file("audio");
+        $audioName = null;
+        if (!is_null($audio)) {
 
+                $path_name = null;
+                $mime_type = $audio->getClientMimeType();
+                $time = date("Ymd_His", time());
+                $extension = $audio->getClientOriginalExtension();
+                $audioName = "AUD_".$time.".mp3";
+                $path_name = "/public/files";
+                $audio->storeAs($path_name, $audioName);
+
+        }
         $survey = Survey::create([
             "rank"          => $request->rank,
             "opinion"       => $request->opinion,
             "category_id"   => $request->category,
-            "audio"         => $request->audio,
+            "audio"         => $audioName,
             "user_id"       => $userId,
             "status"        => "1",
             "location_id"   => $request->locate,
@@ -111,18 +123,18 @@ class SurveyController extends Controller
             }
         }
         if (!is_null($files)) {
-            foreach ($files as $file) {
+            foreach ($files as $key => $file) {
                 $path_name = null;
                 $mime_type = $file->getClientMimeType();
                 $time = date("Ymd_His", time());
                 $extension = $file->getClientOriginalExtension();
                 if (str_contains($mime_type, "image")) {
-                    $file_name = "IMG_".$time.".".$extension;
+                    $file_name = "IMG_".$time.$key.".".$extension;
                     $path_name = "/public/files/images";
                     $file->storeAs($path_name, $file_name);
                 }
                 elseif (str_contains($mime_type, "video")) {
-                    $file_name = "VID_".$time.".".$extension;
+                    $file_name = "VID_".$time.$key.".".$extension;
                     $path_name = "/public/files/videos";
                     $file->storeAs($path_name, $file_name);
                 }
@@ -187,9 +199,9 @@ class SurveyController extends Controller
         //
     }
 
-    public function list($id){
-        $user = User::find($id);
-        $surveyList = Survey::where('user_id',$id)->with('Category')->get();
+    public function list(){
+        $user = User::find(\Auth::user()->id);
+        $surveyList = Survey::where('user_id',$user->id)->with('Category')->get();
         return view("frontend.survey.list",[
             "user" => $user,
             "surveyList" => $surveyList

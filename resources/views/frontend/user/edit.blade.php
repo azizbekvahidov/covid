@@ -3,7 +3,7 @@
     <div class="auth-page">
         @include("errors")
         @include("message")
-        <form action="{{route("user.update")}}" method="post" enctype="multipart/form-data">
+        <form action="{{route("user.update")}}" method="post" id="editForm" enctype="multipart/form-data">
             @csrf
             <div class="top">
                 <h1>{{__("box.personal_data")}}</h1>
@@ -39,16 +39,16 @@
                     </div>
                     <div class="input-thumbs">
                         <label>{{__("box.birth_date")}}</label>
-                        <input type="date" value="{{\Auth::user()->birth}}" name="birth" placeholder="{{__("box.enter_birth_date")}}"/>
+                        <input type="text" id="birth" value="{{date("d.m.Y",strtotime(\Auth::user()->birth))}}" name="birth" placeholder="{{__("box.enter_birth_date")}}"/>
                     </div>
                     <div class="input-thumbs">
                         <label>{{__("box.gender")}}</label>
                         <div class="gender mb-0">
             <span class="checkbox">
                 @if(\Auth::user()->gender == 1)
-                <input type="radio" value="male" name="gender" checked>
+                <input type="radio" value="1" name="gender" checked>
                 @else
-                    <input type="radio" value="male" name="gender">
+                    <input type="radio" value="1" name="gender">
                 @endif
               <i>
                 <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,9 +62,9 @@
             </span>
             <span class="checkbox">
                 @if(\Auth::user()->gender == 2)
-                    <input type="radio" value="female" name="gender" checked>
+                    <input type="radio" value="2" name="gender" checked>
                 @else
-                    <input type="radio" value="female" name="gender">
+                    <input type="radio" value="2" name="gender">
                 @endif
               <i>
                 <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,7 +123,7 @@
                     <label>{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
-                        <input type="text" onkeypress="onlyNumber(event)" maxlength="9" value="" id="phone" placeholder="{{__("box.mobile_num")}}"/>
+                        <input type="tel" onkeypress="onlyNumber(event)" maxlength="9" value="" id="phone" placeholder="{{__("box.mobile_num")}}"/>
                         <input type="text" value="" name="phone" hidden/>
                     </div>
                     <br><br><br>
@@ -142,7 +142,20 @@
     </div>
 @endsection
 @section("js")
+    <script src="{{ asset("js/jquery.maskedinput.min.js") }}"></script>
     <script>
+        $(function(){
+            //2. Получить элемент, к которому необходимо добавить маску
+            $("#phone").mask("(99)999-9999");
+            $("#birth").mask("99.99.9999");
+        });
+        $("#editForm").submit(function (e) {
+            var phone = $("#phone").val();
+            phone = phone.replace(")","");
+            phone = phone.replace("(","");
+            phone = phone.replace("-","");
+            $("input[name=phone]").val("998"+phone);
+        });
         $("#sendSMS").click(function () {
             let thisBtn = $(this);
             let data = {
@@ -189,24 +202,49 @@
         $("input[name=password]").on("keyup", function () {
             if($(this).val().length != 0 && $(this).val().length < 8) {
                 $("button[type=submit]").attr("disabled", "disabled");
-                $(this).css("border-color", "red");
+                $(this).removeClass("right");
+                $(this).addClass("wrong");
             }
             else if($(this).val().length == 0 || $(this).val().length >= 8) {
                 $("button[type=submit]").removeAttr("disabled");
+                $(this).removeClass("wrong");
+                $(this).addClass("right");
             }
 
             if($(this).val().length >=8) {
-                $(this).css("border-color", "green");
+                $(this).addClass("right");
+                $(this).removeClass("wrong");
+            }
+            if($(this).val().length == 0) {
+                $(this).removeClass("wrong");
+                $(this).removeClass("right");
             }
         });
         $("input[name=password_confirmation]").on("keyup", function () {
             if($(this).val() != $("input[name=password]").val()) {
-                $(this).css("border-color", "red");
+                $(this).removeClass("right");
+                $(this).addClass("wrong");
             }
             else {
-                $(this).css("border-color", "green");
+                $(this).removeClass("wrong");
+                $(this).addClass("right");
+            }
+            if($(this).val().length == 0) {
+                $(this).removeClass("wrong");
+                $(this).removeClass("right");
             }
         });
 
     </script>
+@endsection
+
+@section("css")
+    <style>
+        .right {
+            border: 2px solid green!important;
+        }
+        .wrong {
+            border: 2px solid red!important;
+        }
+    </style>
 @endsection

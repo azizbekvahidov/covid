@@ -45,11 +45,13 @@ class LocationController extends Controller
                 $closer["place"] = $item->location_title;
                 $closer["coords"] = $item->coords_lat.",".$item->coords_lng;
                 $closer["id"] = $item->id;
+                $closer["region"] = $item->addressline2;
             }
             elseif ($coord == 0){
                 $coord = $dist;
                 $closer["place"] = $item->location_title;
                 $closer["id"] = $item->id;
+                $closer["region"] = $item->addressline2;
             }
         }
         return response()->json($closer);

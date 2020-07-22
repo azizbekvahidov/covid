@@ -21,7 +21,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::get("/category", ['as' => 'survey.category', 'uses' => "SurveyController@category"]);
             Route::get("/{id}/create", ['as' => 'survey.create', 'uses' => "SurveyController@create"])->middleware("checkTime");
             Route::post("/store", ['as' => 'survey.store', 'uses' => "SurveyController@store"]);
-            Route::get("/{ID}/list", ['as' => 'survey.list', 'uses' => "SurveyController@list"]);
+            Route::get("/list", ['as' => 'survey.list', 'uses' => "SurveyController@list"]);
             Route::get("/{ID}/detail", ['as' => 'survey.detail', 'uses' => "SurveyController@detail"]);
         });
 

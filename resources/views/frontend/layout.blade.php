@@ -60,7 +60,6 @@
     <div class="content">
         @yield("content")
     </div>
-    @include("frontend.partials.footer")
     @yield("footer")
 </div>
 

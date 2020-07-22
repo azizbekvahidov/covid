@@ -7,6 +7,15 @@
             <p>{{__("box.registration_paragraph")}}</p>
             <form autocomplete="off" id="phoneForm">
                 @csrf
+                <div class="alert warning hidden">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="9" cy="9" r="9" fill="#FFC611"/>
+                        <path d="M9 14C11.7614 14 14 11.7614 14 9C14 6.23858 11.7614 4 9 4C6.23858 4 4 6.23858 4 9C4 11.7614 6.23858 14 9 14Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="alert-message"></span><br>
+               </div>
                 <div class="input-thumbs">
                     <label for="phone" id="phoneLabel">{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
@@ -34,7 +43,7 @@
                             </svg>
                           </i>
                           <span>
-                            Я ознакомился и согласен с условиями <a href="#">публичной оферты</a>
+                            {!! __("box.agreement_with_terms") !!}
                           </span>
                       </label>
                 </span>
@@ -63,8 +72,16 @@
                 type: "POST",
                 data: $("#phoneForm").serialize(),
                 success: function (data) {
-                    if (data.url) {
-                        window.location.replace(data.url);
+                    if (data.message1 && data.message2) {
+                        let text = data.message1 + " " + data.message2;
+                        console.log(text);
+                        $(".alert").removeClass("hidden");
+                        $(".alert-message").text(text);
+                        setTimeout(function () {
+                            $(".alert").addClass("hidden");
+                            $(".alert-message").text("");
+                        },5000);
+
                     }
                     else if(data.status == "success") {
                         let id  = $("#verifyCodeLabel").attr('id'),
@@ -171,6 +188,9 @@
             letter-spacing:-0.044vw;
             color:#0085FF;
             text-decoration:none;
+        }
+        .hidden {
+            display: none!important;
         }
     </style>
 @endsection

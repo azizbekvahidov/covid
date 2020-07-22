@@ -19,7 +19,7 @@
 
     </div>
     <div class="pa-15">
-        <strong class="edit-title">История сигналов</strong>
+        <strong class="edit-title">{{__("box.signal_history")}}</strong>
         @foreach($surveyList as $value)
 
             <a href="{{ route("survey.detail",$value->id) }}" class="items-problems">
@@ -41,21 +41,11 @@
         @endforeach
     </div>
     <div class="send-problems blue-bg">
-        <strong>Хотите сообщить о проблеме?</strong>
-        <a href="{{ route("survey.category") }}" class="btn">Отправить сигнал</a>
+        <strong>{{__("box.do_message_problem")}}</strong>
+        <a href="{{ route("survey.category") }}" class="btn">{{__("box.send_signal")}}</a>
     </div>
 </div>
 @endsection
 @section("footer")
-    <footer>
-        <a href="#" class="f-logo">Sogboling.uz</a>
-        <strong>{{__("box.userful")}}</strong>
-        <ul>
-            <li><a href="#">{{__("box.how_to_post_message")}}</a> </li>
-            <li><a href="#">{{__("box.user_agreements")}}</a> </li>
-        </ul>
-        <div class="copy">
-            &copy; 2020 Хокимият города Ташкента. Все права защищены
-        </div>
-    </footer>
+    @include("frontend.partials.footer")
 @endsection

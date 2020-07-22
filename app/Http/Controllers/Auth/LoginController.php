@@ -73,10 +73,20 @@ class LoginController extends Controller
     }
 
 
-        public function username()
-        {
-            return 'phone';
-        }
+    public function username()
+    {
+        return 'phone';
+    }
+
+    public function logout(Request $request){
+        $lang = app()->getLocale();
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+        session(["locale" => $lang]);
+
+        return $this->loggedOut($request) ?: redirect("/");
+    }
 
 
 }

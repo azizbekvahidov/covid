@@ -35,10 +35,10 @@
                 </div>
             </div>
             <div class="pa-15">
-                <label>Опишите проблему</label>
+                <label>{{__("box.describe_problem")}}</label>
                 <textarea name="opinion" class=" validate" ></textarea>
                 <div class="fileUpload">
-                    <label>Приложить Фото</label>
+                    <label>{{__("box.put_photo")}}</label>
                     <div class="thumbs">
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
@@ -75,7 +75,8 @@
                         <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    Размер файла не должно превышать 5Mb
+                    {{__("box.photo_rule")}}
+{{--                    Размер файла не должно превышать 5Mb--}}
                 </div>
 
                 <div class="player">
@@ -97,7 +98,7 @@
             </div>
 
             <div class="blue-bg">
-                <strong>Как ваше настроение?</strong>
+                <strong>{{__("box.your_mood")}}</strong>
                 <div class="smile-panel">
                     <div class="thumbs">
                         <input type="radio" value="5" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 5) ? "checked" : ""?>>
@@ -188,7 +189,7 @@
                     </svg>
                     Настроение можно отправлять 1 раз в 12 часов
                 </div>
-                <label>Выберите медицинское учреждение</label>
+                <label>{{__("box.choose_hospital")}}</label>
                 <div id="map">
                     <a href="javascript:;" class="getCoordinate">
                         <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -213,9 +214,9 @@
                 </select>
             </div>
             <div class="confirm-hospital" hidden>
-                <strong>Это ваша больница?</strong>
-                <a href="javascript:;" id="yesClinik" class="primary">Да, это моя больница!</a>
-                <a href="javascript:;" id="notClinik">Нет не этот больница</a>
+                <strong>{{__("box.is_it_your_hospital")}}</strong>
+                <a href="javascript:;" id="yesClinik" class="primary">{{__("box.yes_it_is")}}</a>
+                <a href="javascript:;" id="notClinik">{{__("box.no_it_is_not")}}</a>
             </div>
             <div class="pa-15" >
                 <div class="alert valid" style="display: none;background: rgba(255, 198, 17, 0.15); margin-bottom: 10px">
@@ -228,33 +229,23 @@
                     <span></span>
                 </div>
             </div>
-            <button type="submit" id="sendMood" disabled>Отправить сигнал</button>
+            <button type="submit" id="sendMood" disabled>{{__("box.send_signal")}}</button>
         </form>
 
     <div class="popup ">
         <div class="overlay"></div>
         <div class="popup-content">
-            <strong>Спасибо за ваш Сигнал</strong>
+            <strong>{{__("box.thanks_for_signal")}}</strong>
             <div class="locales">
-                <a href="{{ route("survey.category") }}" class="btn">Оцените другие категории</a>
-                <a href="{{ route("survey.list",\Auth::user()->id) }}" class="btn">В личный кабинет</a>
+                <a href="{{ route("survey.category") }}"class="btn">{{__('box.another_categories')}}</a>
+                <a href="{{ route("survey.list",\Auth::user()->id) }}" class="btn">{{__("box.to_personal_account")}}</a>
             </div>
         </div>
     </div>
 
 @endsection
 @section("footer")
-    <footer>
-        <a href="#" class="f-logo">Sogboling.uz</a>
-        <strong>{{__("box.userful")}}</strong>
-        <ul>
-            <li><a href="#">{{__("box.how_to_post_message")}}</a> </li>
-            <li><a href="#">{{__("box.user_agreements")}}</a> </li>
-        </ul>
-        <div class="copy">
-            &copy; 2020 Хокимият города Ташкента. Все права защищены
-        </div>
-    </footer>
+    @include("frontend.partials.footer")
 @endsection
 @section("js")
     <script src="{{ asset('js/map.js') }}" defer></script>

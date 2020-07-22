@@ -83,6 +83,7 @@ ymaps.ready(function () {
                 $("#selected_place input").attr('checked', true);
                 $("#selected_place input").val(data.id);
                 $("#selected_place strong").text(data.place);
+                $("#selected_place p").text(data.region);
                 $("#locate option").each(function () {
                     if ($(this).text() == data.place) {
                         $(this).attr("selected", "selected");

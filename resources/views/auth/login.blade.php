@@ -14,10 +14,10 @@
                 {{--                <p>Войдите чтобы сообщить о проблеме и оценить мед учереждение</p>--}}
                 <p>{{__("box.auth_paragraph")}}</p>
                 <div class="input-thumbs">
-                    <label>{{__("mobile_phone_num")}}</label>
+                    <label>{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
-                        <input type="tel" onkeypress="onlyNumber(event)" id="phone" value="{{session()->get("phone")}}" maxlength="9" placeholder="{{__("box.mobile_phone")}}"/>
+                        <input type="tel" onkeypress="onlyNumber(event)" id="phone" value="{{session()->get("phone")}}" maxlength="9" placeholder="{{__("box.mobile_num")}}"/>
                         <input type="text" name="phone" hidden/>
                     </div>
 <?php

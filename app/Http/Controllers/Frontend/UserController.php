@@ -24,7 +24,6 @@ class UserController extends Controller
 
     public function update(Request $request) {
         $rule = [];
-
 //        dd(bcrypt("11111111"));
 //        dd($request->all(), \Auth::user());
         if (!is_null($request->old_password)) {
@@ -64,14 +63,15 @@ class UserController extends Controller
         }
         $user = User::find(\Auth::user()->id);
         $user->FIO  = $request->name;
-        $request->birth ? $user->birth = $request->birth : "";
+        $user->gender  = $request->gender;
+        $request->birth ? $user->birth = date("Y-m-d",strtotime($request->birth)): "";
         $request->old_password ? $user->password = bcrypt($request->password) : "";
         $request->phone ? $user->phone = $request->phone: "";
         $file ? $user->photo = $photo_name : "";
         $file ? $user->verifyCode = "" : "";
         $user->save();
 
-        return redirect("/user/index")->with(["message" => __("box.user_data_changed")]);
+        return redirect("/survey/list")->with(["message" => __("box.user_data_changed")]);
     }
 
     public function sendMessage(Request $request) {
@@ -84,7 +84,22 @@ class UserController extends Controller
         ]);
         try {
             User::wherePhone($strPhone)->update(["verifyCode" => $strCode]);
-
+            $data = [
+                "app"   => "ws",
+                "u"     => "fyd7a",
+                "h"     => "ec9114005d6f0515b4ea2f2743909a9a",
+                "op"    => "pv",
+                "to"    => $strPhone,
+                "msg"   => $strCode,
+            ];
+            $url = "https://account.apix.uz";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            $returned = curl_exec($ch);
+            curl_close ($ch);
             return response()->json([
                 "status"        => 'success',
                 "message"       => \Auth::user()->id,
