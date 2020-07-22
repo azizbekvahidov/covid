@@ -236,38 +236,15 @@
         <strong>{{__("box.do_message_problem")}}</strong>
         <a href="/survey/category" class="btn">{{__("box.send_signal")}}</a>
     </div>
-    <style>
-        .popup .popup-content{
-            width: 100%;
-            margin: 0;
-            border-radius: 20px;
-        }
-        .popup .popup-content a{
 
-            width: 100%;
-            font-weight: 500;
-            font-size: 3.73333333vw;
-            line-height: 4.26666667vw;
-            text-decoration: none;
-            text-align: center;
-            border-radius: 5.33333333vw;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            display: inline-block;
-            border: 0.26666667vw solid #000000;
-            padding: 3.2vw 5.33333333vw;
-            margin-bottom: 4vw;
-            color: #000000;
-        }
-    </style>
 
     <div class="popup show">
         <div class="overlay"></div>
         <div class="popup-content">
             <strong>{{ __("box.selectLanguage") }}</strong>
             <div class="locales">
-                <a href="/locale/uz">O’zbekcha</a>
-                <a href="/locale/ru">Русский</a>
+                <a href="/locale/uz" class="btn">O’zbekcha</a>
+                <a href="/locale/ru" class="btn">Русский</a>
             </div>
         </div>
     </div>

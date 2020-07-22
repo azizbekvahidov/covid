@@ -36,6 +36,6 @@
 		"gender"						=> "Пол",
 		"male"							=> "Мужчина",
 		"female"						=> "Женщина",
-        "selectLanguage"                => "Выберите свой язык"
+        "select_language"                => "Выберите свой язык"
 
     ];

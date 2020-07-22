@@ -40,6 +40,7 @@ Route::namespace("Auth")->group(function () {
     Route::get("{ID}/setPassword",      ['as' => 'register.setPassword',  'uses' => "RegisterController@setPassword"]);
     Route::post("{ID}/savePassword",    ['as' => 'register.savePassword', 'uses' => "RegisterController@savePassword"]);
     Route::get("/{ID}/register",    "RegisterController@showRegistrationForm");
+    Route::post("/sendMessage", "RegisterController@sendMessage");
 });
 Auth::routes();
 
