@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\SendMessage;
 use App\User;
 use App\UserMessage;
 use Dotenv\Validator;
@@ -84,22 +85,9 @@ class UserController extends Controller
         ]);
         try {
             User::wherePhone($strPhone)->update(["verifyCode" => $strCode]);
-            $data = [
-                "app"   => "ws",
-                "u"     => "fyd7a",
-                "h"     => "ec9114005d6f0515b4ea2f2743909a9a",
-                "op"    => "pv",
-                "to"    => $strPhone,
-                "msg"   => $strCode,
-            ];
-            $url = "https://account.apix.uz";
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL,$url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            $returned = curl_exec($ch);
-            curl_close ($ch);
+
+            $send = new SendMessage();
+            $send->sendSMS($strPhone,"Verify code: ".$strCode);
             return response()->json([
                 "status"        => 'success',
                 "message"       => \Auth::user()->id,

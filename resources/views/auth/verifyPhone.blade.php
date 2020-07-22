@@ -88,6 +88,7 @@
                             top = $("#"+id).offset().top;
                         $('body,html').animate({scrollTop: top}, 500);
                         userID = data.message;
+                        console.log(userID);
                         setIntervalTime();
                         thisBtn.attr("disabled", "disabled");
                         $("#phone").attr("disabled", "disabled");
