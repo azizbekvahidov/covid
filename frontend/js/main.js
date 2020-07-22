@@ -1,7 +1,11 @@
 $(document).ready(function(){
-
+  $('.eye').click(function(){
+    let input = $(this).siblings('input')
+    input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
+  });
   $('.overlay').on('click', function(){
-    closeMenu();
+    closeMenu()
+    $('.popup').removeClass('show')
   })
   $('.burger').on('click', function(){
     openMenu()
@@ -14,11 +18,12 @@ $(document).ready(function(){
     var seconds = parseInt(timer[1], 10);
     --seconds;
     minutes = (seconds < 0) ? --minutes : minutes;
-    if (minutes < 0) clearInterval(interval);
+    if (minutes < 0 && seconds <= 0) return false;
     seconds = (seconds < 0) ? 59 : seconds;
     seconds = (seconds < 10) ? '0' + seconds : seconds;
     $('.timer').html(minutes + ':' + seconds);
     timer2 = minutes + ':' + seconds;
+    if(seconds <= 0) return false
   }, 1000);
 })
 function onlyNumber(event) {
