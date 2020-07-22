@@ -38,7 +38,7 @@
             <strong>{{ __($category->name) }}</strong>
         </a>
     </div>
-        <form  method="post" enctype="multipart/form-data" class="categoryForm">
+        <form id="surveyForm"  method="post" enctype="multipart/form-data" class="categoryForm">
             @csrf
             <input type="text" name="category" value="{{$category->id}}" hidden>
             <div class="blue-bg" id="rating">
@@ -124,7 +124,7 @@
                 <strong>Как ваше настроение?</strong>
                 <div class="smile-panel">
                     <div class="thumbs">
-                        <input type="radio" value="5" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($old_mood_mark->rank == 5) ? "checked" : ""?>>
+                        <input type="radio" value="5" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 5) ? "checked" : ""?>>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -141,7 +141,7 @@
                         </i>
                     </div>
                     <div class="thumbs">
-                        <input type="radio" value="4" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($old_mood_mark->rank == 4) ? "checked" : ""?>>
+                        <input type="radio" value="4" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 4) ? "checked" : ""?>>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18 38.0654C27.9411 38.0654 36 29.6943 36 19.3681C36 9.04189 27.9411 0.670837 18 0.670837C8.05887 0.670837 0 9.04189 0 19.3681C0 29.6943 8.05887 38.0654 18 38.0654Z" fill="url(#paint0_linear)"/>
@@ -158,7 +158,7 @@
                         </i>
                     </div>
                     <div class="thumbs">
-                        <input type="radio" value="3" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($old_mood_mark->rank == 3) ? "checked" : ""?>>
+                        <input type="radio" value="3" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 3) ? "checked" : ""?>>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -173,7 +173,7 @@
                         </i>
                     </div>
                     <div class="thumbs">
-                        <input type="radio" value="2" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($old_mood_mark->rank == 2) ? "checked" : ""?>>
+                        <input type="radio" value="2" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 2) ? "checked" : ""?>>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -192,7 +192,7 @@
                         </i>
                     </div>
                     <div class="thumbs">
-                        <input type="radio" value="1" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($old_mood_mark->rank == 1) ? "checked" : ""?>>
+                        <input type="radio" value="1" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 1) ? "checked" : ""?>>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.06 38.0654 0 29.6942 0 19.3681C0 9.04306 8.06 0.670837 18 0.670837C27.941 0.670837 36 9.04306 36 19.3681Z" fill="#DA2F47"/>
@@ -261,14 +261,26 @@
             <strong>Спасибо за ваш Сигнал</strong>
             <a href="{{ route("survey.category") }}"class="btn">Оцените другие категории</a>
             <br>
-            <a href="#" class="btn">В личный кабинет</a>
+            <a href="{{ route("survey.list",\Auth::user()->id) }}" class="btn">В личный кабинет</a>
         </div>
     </div>
 
 @endsection
+@section("footer")
+    <footer>
+        <a href="#" class="f-logo">Sogboling.uz</a>
+        <strong>{{__("box.userful")}}</strong>
+        <ul>
+            <li><a href="#">{{__("box.how_to_post_message")}}</a> </li>
+            <li><a href="#">{{__("box.user_agreements")}}</a> </li>
+        </ul>
+        <div class="copy">
+            &copy; 2020 Хокимият города Ташкента. Все права защищены
+        </div>
+    </footer>
+@endsection
 @section("js")
     <script src="{{ asset('js/map.js') }}" defer></script>
-    <script src="{{asset("js/imgSelected.js")}}"></script>
 
     <script>
         var sound;
@@ -368,7 +380,7 @@
             locate = true;
             checkValidate()
         });
-        $('form').on('submit', function(event){
+        $('#surveyForm').on('submit', function(event){
             event.preventDefault();
             var data = new FormData(this);
             data.append('audio',sound);

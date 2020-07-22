@@ -39,8 +39,11 @@ class SurveyController extends Controller
     {
         $category = SurveyCategories::find($id);
         $locations = Location::all();
-
+        $rank = 0;
         $old_mood_mark = Mood::where("user_id", \Auth::user()->id)->orderBy("id", "desc")->first();
+        if(!empty($old_mood_mark)){
+            $rank = $old_mood_mark->rank;
+        }
         $old_mark_time = 0;
         if(!empty($old_mood_mark)){
             $old_mark_time = strtotime(date($old_mood_mark->created_at));
@@ -49,7 +52,7 @@ class SurveyController extends Controller
         return view("frontend.survey.create", [
             "category" => $category,
             "old_mark_time" => $old_mark_time,
-            "old_mood_mark" => $old_mood_mark,
+            "rank" => $rank,
             'locations' => $locations
         ]);
     }
@@ -137,37 +140,6 @@ class SurveyController extends Controller
     }
 
 
-    public function storeFiles(Request $request){
-
-        $userId = \Auth::user()->id;
-        $files = $request->file("files");
-        if (!is_null($files)) {
-            foreach ($files as $file) {
-                $path_name = null;
-                $mime_type = $file->getClientMimeType();
-                $time = date("Ymd_His", time());
-                $extension = $file->getClientOriginalExtension();
-                if (str_contains($mime_type, "image")) {
-                    $file_name = "IMG_".$time.".".$extension;
-                    $path_name = "/public/files/images";
-                    $file->storeAs($path_name, $file_name);
-                }
-                elseif (str_contains($mime_type, "video")) {
-                    $file_name = "VID_".$time.".".$extension;
-                    $path_name = "/public/files/videos";
-                    $file->storeAs($path_name, $file_name);
-                }
-                $path_name = str_replace("public", "storage", $path_name);
-                SurveyMediaFiles::create([
-                    "user_id"   => $userId,
-                    "status"    => "1",
-                    "survey_id" => $request->id,
-                    "path"      => $path_name,
-                    "name"      => $file_name,
-                ]);
-            }
-        }
-    }
     /**
      * Display the specified resource.
      *
@@ -217,8 +189,18 @@ class SurveyController extends Controller
 
     public function list($id){
         $user = User::find($id);
-        dd($user);
         $surveyList = Survey::where('user_id',$id)->with('Category')->get();
-        return view("frontend.survey.list");
+        return view("frontend.survey.list",[
+            "user" => $user,
+            "surveyList" => $surveyList
+        ]);
+    }
+    public function detail($id){
+        $survey = Survey::where('id',$id)->with('Category','Files')->first();
+        $user = User::find($survey->user_id);
+        return view("frontend.survey.detail",[
+            "user" => $user,
+            "survey" => $survey
+        ]);
     }
 }

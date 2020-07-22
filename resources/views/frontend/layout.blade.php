@@ -61,6 +61,7 @@
         @yield("content")
     </div>
     @include("frontend.partials.footer")
+    @yield("footer")
 </div>
 
 <div class="left-menu">

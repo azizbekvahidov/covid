@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -41,15 +42,17 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-        $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
-        $data = [
-            "_token" => $request->_token,
-            "phone"  => "998".$strPhone,
-            "password"  => $request->password,
-        ];
+//        $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
+
+//        $data = [
+//            "_token" => $request->_token,
+//            "phone"  => $strPhone,
+//            "password"  => $request->password,
+//        ];
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
+
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
@@ -58,9 +61,9 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-
             return $this->sendLoginResponse($request);
         }
+//        $this->authenticate($request);
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
@@ -68,5 +71,12 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
         return $this->sendFailedLoginResponse($request);
     }
+
+
+        public function username()
+        {
+            return 'phone';
+        }
+
 
 }

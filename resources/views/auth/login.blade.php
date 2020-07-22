@@ -1,12 +1,13 @@
 @extends("frontend.layout")
 @section("title", " — Авторизация")
 @section("content")
+    @include("errors")
     <div class="auth-page full">
         {{session()->get("message")}}
         <?php
             session()->forget("message");
         ?>
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" id="loginForm" action="{{ route('login') }}">
             @csrf
             <div class="top">
                 <h1>{{__("box.authorize")}}</h1>
@@ -49,9 +50,16 @@
             //2. Получить элемент, к которому необходимо добавить маску
             $("#phone").mask("(99)999-9999");
         });
-
-        $("#phone").on("change", function () {
-            $("input[name=phone]").val("998"+$(this).val());
+        $("#loginForm").submit(function (e) {
+            var phone = $("#phone").val();
+            phone = phone.replace(")","");
+            phone = phone.replace("(","");
+            phone = phone.replace("-","");
+            $("input[name=phone]").val("998"+phone);
         });
+
+        // $("#phone").on("change", function () {
+        //     $("input[name=phone]").val("998"+$(this).val());
+        // });
     </script>
 @endsection

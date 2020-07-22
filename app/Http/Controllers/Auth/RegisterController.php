@@ -77,7 +77,24 @@ class RegisterController extends Controller
             'smsCode'=>$strCode
         ]);
         $user_mes_id = $userMessage->id;
-        $data = '{ "messages": [{'.
+
+        $data = [
+            "app"   => "ws",
+            "u"     => "fyd7a",
+            "h"     => "ec9114005d6f0515b4ea2f2743909a9a",
+            "op"    => "pv",
+            "to"    => $strPhone,
+            "msg"   => $strCode,
+        ];
+        $url = "https://account.apix.uz";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $returned = curl_exec($ch);
+        curl_close ($ch);
+        /*$data = '{ "messages": [{'.
                         '"recipient": "'. $strPhone .'",'.
                         '"message-id": "sogbolinguz' . $user_mes_id . '",'.
                         '"sms": {'.
@@ -99,7 +116,7 @@ class RegisterController extends Controller
             'Content-Type: application/json'));
 
         $returned = curl_exec($ch);
-        curl_close ($ch);
+        curl_close ($ch);*/
         try {
             $userModel = User::wherePhone($strPhone)->first();
             if(empty($userModel)){
@@ -210,7 +227,7 @@ class RegisterController extends Controller
         if (is_null($photo)) {
             $user->gender   = $data["gender"];
             $user->FIO      = $data["FIO"];
-            $user->birth    = $data["birth"];
+            $user->birth    = date("Y-m-d",strtotime($data["birth"]) );
             $user->verify   = "1";
             $user->role     = "3";
             $user->save();
@@ -222,7 +239,7 @@ class RegisterController extends Controller
 
             $user->gender   = $data["gender"];
             $user->FIO      = $data["FIO"];
-            $user->birth    = $data["birth"];
+            $user->birth    = date("Y-m-d",strtotime($data["birth"]) );
             $user->verify   = "1";
             $user->photo    = $photo_name;
             $user->role     = "3";
