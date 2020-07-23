@@ -25,12 +25,12 @@ $(document).ready(function(){
     timer2 = minutes + ':' + seconds;
     if(seconds <= 0) return false
   }, 1000);
-    $('.smile-panel .thumbs input[type=radio]').change(function(){
-        $(this).parent('.thumbs').removeClass('opacity').siblings().removeClass('checked')
-        if($(this).is(':checked')){
-            $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity')
-        }
-    })
+  $('.smile-panel .thumbs input[type=radio]').change(function(){
+    $(this).parent('.thumbs').removeClass('opacity').siblings().removeClass('checked')
+    if($(this).is(':checked')){
+      $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity')
+    }
+  })
 })
 function onlyNumber(event) {
   var key = window.event ? event.keyCode : event.which;
@@ -62,27 +62,11 @@ function createObjectURL ( file ) {
 }
 function fileCHeck(el){
   let file = $(el)[0].files;
+  let parent = $(el).data('target');
   var url = createObjectURL(file[0]);
   var img = document.createElement('img')
   img.setAttribute('src', url)
-  if(file[0].size > 10000000){
-    $('.alert.error').fadeIn();
-    setTimeout(()=>{
-      $('.alert.error').fadeOut();
-    }, 2000);
-    return false;
-  }
-  if(file[0].type.includes('image')){
-    $(el).siblings('.preview').addClass('active')
-    $(el).parent().addClass('active')
-    $(el).siblings('.preview').prepend(img);
-
-  }else{
-    $('.alert').toggle();
-    setTimeout(()=>{
-      $('.alert').toggle();
-      $(this).val('')
-    }, 5000);
-    return false;
-  }
+  $(el).parents(parent).find('.preview').addClass('active')
+  $(el).parent().addClass('active')
+  $(el).parents(parent).find('.preview').empty().prepend(img);
 }
