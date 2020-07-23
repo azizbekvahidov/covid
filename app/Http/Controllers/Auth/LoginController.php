@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\SendMessage;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -27,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -42,13 +45,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-//        $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
 
-//        $data = [
-//            "_token" => $request->_token,
-//            "phone"  => $strPhone,
-//            "password"  => $request->password,
-//        ];
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -78,15 +75,42 @@ class LoginController extends Controller
         return 'phone';
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $lang = app()->getLocale();
         $this->guard()->logout();
 
         $request->session()->invalidate();
+
         session(["locale" => $lang]);
 
-        return $this->loggedOut($request) ?: redirect("/");
+        return $this->loggedOut($request) ?: redirect('/');
     }
 
 
+    public function resetPassword(Request $request) {
+
+        $message_text = null;
+        $trim_phone_number = str_replace("(", "", str_replace(")", "", str_replace("-", "", $request->phone)));
+        $phone_num = "998".$trim_phone_number;
+
+        $password_str = Str::random(8);
+        User::where("phone", $phone_num)->update([
+            "password"  => bcrypt($password_str),
+        ]);
+        if (app()->getLocale() == "uz") {
+            $message_text = "Sizni yangi parolingiz: ".$password_str;
+        }
+        elseif (app()->getLocale() == "ru") {
+            $message_text = "Ваш новый пароль: ".$password_str;
+        }
+        $send = new SendMessage();
+        $send->sendSMS($phone_num, $message_text);
+
+        return response()->json(["status" => 1]);
+    }
+
+    public function changePassword(Request $request) {
+        dd($request);
+    }
 }

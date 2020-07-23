@@ -37,6 +37,7 @@ class SurveyController extends Controller
      */
     public function create($id)
     {
+
         $category = SurveyCategories::find($id);
         $locations = Location::all();
         $rank = 0;
@@ -66,6 +67,14 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         $userId = \Auth::user()->id;
+
+        $survey = \App\Survey::where("user_id", $userId)->where("category_id", $request->category)->orderBy("id", "desc")->first();
+        if (!is_null($survey)) {
+            $date = strtotime(date($survey->created_at));
+            if ((strtotime(date("Y-m-d H:i:s")) - $date) < 43200) {
+                return response()->json("redirect",200);
+            }
+        }
         $file_name = null;
 //        $rules = [
 //            "category"  => "required",

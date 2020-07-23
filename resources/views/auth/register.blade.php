@@ -29,7 +29,7 @@
                 </div>
                 <div class="input-thumbs">
                     <label>{{__("box.birth_date")}}</label>
-                    <input type="text" value="{{old("birth")}}" name="birth" id="birth" placeholder="{{__("box.enter_birth_date")}}"/>
+                    <input type="date" value="01.01.1990" name="birth" id="birth" placeholder="{{__("box.enter_birth_date")}}"/>
                 </div>
                 <div class="input-thumbs">
                     <label>{{__("box.gender")}}</label>
@@ -73,7 +73,7 @@
     <script>
         $(function(){
             //2. Получить элемент, к которому необходимо добавить маску
-            $("#birth").mask("99.99.9999");
+            // $("#birth").mask("99.99.9999");
         });
     </script>
 @endsection

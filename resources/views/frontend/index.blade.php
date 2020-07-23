@@ -3,7 +3,7 @@
 @section("content")
     <div class="pa-15">
         <div class="banner">
-            <h1>Sogboling.uz</h1>
+            <h1>sogboling.uz</h1>
             <p>{{__("box.index_main_title")}}</p>
                 {{-- Это сервис для получения обратной связи о качесте предоставления медицинских услуг во время лечения или прохождения карантина в медицинских учреждениях г. Ташкент  --}}
             <a href="/survey/category" class="btn">{{__("box.send_signal")}}</a>

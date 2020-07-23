@@ -34,13 +34,18 @@ Route::group(['middleware' => ['auth']], function() {
             Route::post("/sendMessage",     "UserController@sendMessage");
         });
     });
+
+    Route::prefix("/admin")->middleware("checkRole")->namespace("Admin")->group(function () {
+        Route::redirect("/","/admin/index");
+        Route::get("/index", ["as" => "admin.index", "uses" => "AdminController@index"]);
+    });
 });
 Route::namespace("Auth")->group(function () {
     Route::get("/verifyPhone",          ['as' => 'register.verifyPhone',  'uses' => "RegisterController@verifyPhone"]);
     Route::get("{ID}/setPassword",      ['as' => 'register.setPassword',  'uses' => "RegisterController@setPassword"]);
     Route::post("{ID}/savePassword",    ['as' => 'register.savePassword', 'uses' => "RegisterController@savePassword"]);
     Route::get("/{ID}/register",    "RegisterController@showRegistrationForm");
-    Route::post("/sendMessage", "RegisterController@sendMessage");
+    Route::post("/sendMessage",     "RegisterController@sendMessage");
 });
 Auth::routes();
 

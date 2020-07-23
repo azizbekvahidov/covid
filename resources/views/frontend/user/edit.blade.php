@@ -39,7 +39,7 @@
                     </div>
                     <div class="input-thumbs">
                         <label>{{__("box.birth_date")}}</label>
-                        <input type="text" id="birth" value="{{date("d.m.Y",strtotime(\Auth::user()->birth))}}" name="birth" placeholder="{{__("box.enter_birth_date")}}"/>
+                        <input type="date" id="birth" value="{{date("d.m.Y",strtotime(\Auth::user()->birth))}}" name="birth" placeholder="{{__("box.enter_birth_date")}}"/>
                     </div>
                     <div class="input-thumbs">
                         <label>{{__("box.gender")}}</label>
@@ -147,14 +147,14 @@
         $(function(){
             //2. Получить элемент, к которому необходимо добавить маску
             $("#phone").mask("(99)999-9999");
-            $("#birth").mask("99.99.9999");
+            // $("#birth").mask("99.99.9999");
         });
         $("#editForm").submit(function (e) {
             var phone = $("#phone").val();
             phone = phone.replace(")","");
             phone = phone.replace("(","");
             phone = phone.replace("-","");
-            $("input[name=phone]").val("998"+phone);
+            $("input[name=phone]").val(phone);
         });
         $("#sendSMS").click(function () {
             let thisBtn = $(this);

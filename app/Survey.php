@@ -31,4 +31,8 @@ class Survey extends Model
     public function mood() {
         return $this->hasOne(Mood::class, "user_id", "id");
     }
+
+    public function location() {
+        return $this->hasOne(Location::class, "id", "location_id");
+    }
 }

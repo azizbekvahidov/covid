@@ -16,8 +16,12 @@
                 @endphp
             <div class="category-item">
                 <a href="{{ route("survey.create",$category->id) }}" class="link" time="{{$date}}">
-                    <?=$category->icon ?>
-                    <strong>{{__($category->name)}}</strong>
+                    <?=$category->icon;?>
+                    @if(app()->getLocale() == "uz")
+                        <strong>{{$category->uz_name}}</strong>
+                    @elseif(app()->getLocale() == "ru")
+                        <strong>{{$category->ru_name}}</strong>
+                    @endif
                 </a>
             </div>
 
@@ -27,8 +31,12 @@
                 @endphp
                 <div class="category-item">
                     <a href="{{ route("survey.create",$category->id) }}" class="link" time="">
-                        <?=$category->icon ?>
-                        <strong>{{__($category->name)}}</strong>
+                        <?=$category->icon;?>
+                            @if(app()->getLocale() == "uz")
+                                <strong>{{$category->uz_name}}</strong>
+                            @elseif(app()->getLocale() == "ru")
+                                <strong>{{$category->ru_name}}</strong>
+                            @endif
                     </a>
                 </div>
             <?php } ?>

@@ -15,7 +15,8 @@ class CreateSurveyCategoriesTable extends Migration
     {
         Schema::create('survey_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("name");
+            $table->string("uz_name");
+            $table->string("ru_name");
             $table->text("description")->nullable();
             $table->string("status");
             $table->text("icon");
@@ -27,7 +28,8 @@ class CreateSurveyCategoriesTable extends Migration
         DB::connection('mysql')->table('survey_categories')->insert([
 
             [
-                'name' => 'Питание',
+                'uz_name' => 'Oziqlanish',
+                'ru_name' => 'Питание',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -61,7 +63,8 @@ class CreateSurveyCategoriesTable extends Migration
 </svg>",
             ],
             [
-                'name' => 'Условия Лечение',
+                'uz_name' => 'Davolash',
+                'ru_name' => 'Лечение',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -83,7 +86,8 @@ class CreateSurveyCategoriesTable extends Migration
                     </svg>",
             ],
             [
-                'name' => 'Условия содержания',
+                'uz_name' => 'Yashash sharoitlari',
+                'ru_name' => 'Условия содержания',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -113,7 +117,8 @@ class CreateSurveyCategoriesTable extends Migration
                         </svg>",
             ],
             [
-                'name' => 'Обеспечение медикаментами',
+                'uz_name' => "Dori-darmon ta'minoti",
+                'ru_name' => 'Обеспечение медикаментами',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -141,7 +146,8 @@ class CreateSurveyCategoriesTable extends Migration
                         </svg>",
             ],
             [
-                'name' => 'Противоправные действия',
+                'uz_name' => 'Noqonuniy harakatlar',
+                'ru_name' => 'Противоправные действия',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -159,7 +165,8 @@ class CreateSurveyCategoriesTable extends Migration
                             </svg>",
             ],
             [
-                'name' => 'Отношение  медперсонала',
+                'uz_name' => 'Tibbiyot xodimlarining munosabati',
+                'ru_name' => 'Отношение  медперсонала',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -183,7 +190,8 @@ class CreateSurveyCategoriesTable extends Migration
                         </svg>",
             ],
             [
-                'name' => 'Другое',
+                'uz_name' => 'Boshqa',
+                'ru_name' => 'Другое',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">

@@ -7,20 +7,22 @@
             <p>{{__("box.registration_paragraph")}}</p>
             <form autocomplete="off" id="phoneForm">
                 @csrf
-                <div class="alert warning hidden">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="9" cy="9" r="9" fill="#FFC611"/>
-                        <path d="M9 14C11.7614 14 14 11.7614 14 9C14 6.23858 11.7614 4 9 4C6.23858 4 4 6.23858 4 9C4 11.7614 6.23858 14 9 14Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="alert-message"></span><br>
-               </div>
                 <div class="input-thumbs">
                     <label for="phone" id="phoneLabel">{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
                         <input type="tel" onkeypress="onlyNumber(event)" maxlength="9" required name="phone" value="{{old("phone")}}" id="phone" placeholder="{{__("box.mobile_num")}}"/>
+                    </div>
+                    <div class="alert warning hidden">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="9" cy="9" r="9" fill="#FFC611"/>
+                            <path d="M9 14C11.7614 14 14 11.7614 14 9C14 6.23858 11.7614 4 9 4C6.23858 4 4 6.23858 4 9C4 11.7614 6.23858 14 9 14Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="alert-message">
+
+                        </span><br>
                     </div>
                     <br><br><br>
                     <button type="button" id="sendSMS">{{ __('box.get_sms') }}</button>
@@ -34,14 +36,14 @@
                     <span class="timer">03:00</span>
                 </div>
                 <span class="checkbox">
-                      <input type="checkbox" value="on" name="" id="confirmCheckbox">
+                      <input type="checkbox" value="on" checked hidden name="" id="confirmCheckbox">
                       <label for="confirmCheckbox">
-                          <i>
-                            <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 15C2 8.37258 7.37258 3 14 3C20.6274 3 26 8.37258 26 15C26 21.6274 20.6274 27 14 27C7.37258 27 2 21.6274 2 15Z" fill="#0085FF"/>
-                              <path d="M12.5535 17.5593L19.0048 10.8045C19.3926 10.3985 20.0213 10.3985 20.4091 10.8045C20.7969 11.2105 20.7969 11.8689 20.4091 12.2749L12.5535 20.5L7.99079 15.7227C7.603 15.3167 7.603 14.6584 7.99079 14.2524C8.37858 13.8464 9.00731 13.8464 9.3951 14.2524L12.5535 17.5593Z" fill="white"/>
-                            </svg>
-                          </i>
+{{--                          <i >--}}
+{{--                            <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
+{{--                              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 15C2 8.37258 7.37258 3 14 3C20.6274 3 26 8.37258 26 15C26 21.6274 20.6274 27 14 27C7.37258 27 2 21.6274 2 15Z" fill="#0085FF"/>--}}
+{{--                              <path d="M12.5535 17.5593L19.0048 10.8045C19.3926 10.3985 20.0213 10.3985 20.4091 10.8045C20.7969 11.2105 20.7969 11.8689 20.4091 12.2749L12.5535 20.5L7.99079 15.7227C7.603 15.3167 7.603 14.6584 7.99079 14.2524C8.37858 13.8464 9.00731 13.8464 9.3951 14.2524L12.5535 17.5593Z" fill="white"/>--}}
+{{--                            </svg>--}}
+{{--                          </i>--}}
                           <span>
                             {!! __("box.agreement_with_terms") !!}
                           </span>
@@ -63,6 +65,7 @@
     <script src="{{ asset("js/jquery.maskedinput.min.js") }}"></script>
     <script>
         var userID;
+        var resetSuccess;
 
         $("#sendSMS").click(function () {
             let thisBtn = $(this);
@@ -73,14 +76,9 @@
                 data: $("#phoneForm").serialize(),
                 success: function (data) {
                     if (data.message1 && data.message2) {
-                        let text = data.message1 + " " + data.message2;
-                        console.log(text);
+                        let text = data.message1 + " <a href='javascript:' class='reset-password'>" + data.message2 + "</a>";
                         $(".alert").removeClass("hidden");
-                        $(".alert-message").text(text);
-                        setTimeout(function () {
-                            $(".alert").addClass("hidden");
-                            $(".alert-message").text("");
-                        },5000);
+                        $(".alert-message").html(text);
 
                     }
                     else if(data.status == "success") {
@@ -119,7 +117,9 @@
 
 
         $("#verifyBtn").click(function () {
+            console.log(resetSuccess);
             console.log(userID);
+            if(resetSuccess)
             $.ajax({
                 url: "api/verifyCode",
                 type: "POST",
@@ -146,6 +146,22 @@
                     event.preventDefault();
                     return false;
                 }
+            });
+        });
+        $(document).on("click", ".reset-password", function () {
+
+            let data = {
+                 "_token":  "{{csrf_token()}}",
+                 "phone":   $("input[name=phone]").val(),
+            };
+
+            $.post("/api/resetPassword", data, function (response) {
+                 if (response.status) {
+                     window.location.replace("/login");
+                 }
+                 else {
+                     alert("Error");
+                 }
             });
         });
     </script>

@@ -72,38 +72,12 @@ class RegisterController extends Controller
 
     public function sendMessage(Request $request){
         $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
-        /*$data = '{ "messages": [{'.
-                        '"recipient": "'. $strPhone .'",'.
-                        '"message-id": "sogbolinguz' . $user_mes_id . '",'.
-                        '"sms": {'.
-                            '"originator": "3700",'.
-                            '"content":{ '.
-                                '"text": "'. $strCode .'"}}}]}';
 
-
-
-
-        $url = "http://91.204.239.44/broker-api/send";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Authorization: Basic ".base64_encode("xakimtashkent:ma4PdW1"),
-            'Content-Type: application/json'));
-
-        $returned = curl_exec($ch);
-        curl_close ($ch);*/
         try {
             $userModel = User::wherePhone($strPhone)->first();
             if(empty($userModel)){
                 $strCode = mt_rand(100000,999999);
-                $userMessage = UserMessage::create([
-                    'phone'=>$strPhone,
-                    'smsCode'=>$strCode
-                ]);
-                $user_mes_id = $userMessage->id;
+
 
                 $send = new SendMessage();
                 $send->sendSMS($strPhone,"Verify code: ".$strCode);

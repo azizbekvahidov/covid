@@ -3,26 +3,18 @@
 @section("content")
     @include("errors")
     <div class="auth-page full">
-        {{session()->get("message")}}
-        <?php
-            session()->forget("message");
-        ?>
         <form method="POST" id="loginForm" action="{{ route('login') }}">
             @csrf
             <div class="top">
                 <h1>{{__("box.authorize")}}</h1>
-                {{--                <p>Войдите чтобы сообщить о проблеме и оценить мед учереждение</p>--}}
                 <p>{{__("box.auth_paragraph")}}</p>
                 <div class="input-thumbs">
                     <label>{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
-                        <input type="tel" onkeypress="onlyNumber(event)" id="phone" value="{{session()->get("phone")}}" maxlength="9" placeholder="{{__("box.mobile_num")}}"/>
+                        <input type="tel" onkeypress="onlyNumber(event)" id="phone" value="" maxlength="9" placeholder="{{__("box.mobile_num")}}"/>
                         <input type="text" name="phone" hidden/>
                     </div>
-<?php
-    session()->forget("phone");
-?>
                 </div>
                 <div class="input-thumbs">
                     <label>{{__("box.password")}}</label>

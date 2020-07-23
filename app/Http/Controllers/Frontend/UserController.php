@@ -67,7 +67,7 @@ class UserController extends Controller
         $user->gender  = $request->gender;
         $request->birth ? $user->birth = date("Y-m-d",strtotime($request->birth)): "";
         $request->old_password ? $user->password = bcrypt($request->password) : "";
-        $request->phone ? $user->phone = $request->phone: "";
+        $request->phone ? $user->phone = "998".$request->phone: "";
         $file ? $user->photo = $photo_name : "";
         $file ? $user->verifyCode = "" : "";
         $user->save();
@@ -79,10 +79,7 @@ class UserController extends Controller
 //        dd($request->all());
         $strCode = mt_rand(100000,999999);
         $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
-        $userMessage = UserMessage::create([
-            'phone'=>$strPhone,
-            'smsCode'=>$strCode
-        ]);
+
         try {
             User::wherePhone($strPhone)->update(["verifyCode" => $strCode]);
 

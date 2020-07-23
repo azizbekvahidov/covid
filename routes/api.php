@@ -13,9 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/map-marker', 'API\LocationController@mapMarker');
-Route::get('/getLocation', 'API\LocationController@getLocation');
-Route::post("/verifyCode", "Auth\RegisterController@verifyCode");
+Route::get('/map-marker',       'API\LocationController@mapMarker');
+Route::get('/getLocation',      'API\LocationController@getLocation');
+Route::post("/verifyCode",      "Auth\RegisterController@verifyCode");
+Route::post("/resetPassword",   "Auth\LoginController@resetPassword");
+Route::post("/changePassword",  "Auth\LoginController@changePassword");
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -11,7 +11,13 @@
                     <path d="M0.292892 7.29289C-0.0976315 7.68342 -0.0976315 8.31658 0.292892 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292892 7.29289ZM16 7L0.999999 7V9L16 9V7Z" fill="black"/>
                 </svg>
             </i>
-            <strong>{{ __($category->name) }}</strong>
+            <strong>
+                @if(app()->getLocale() == "uz")
+                    {{$category->uz_name}}
+                @elseif(app()->getLocale() == "ru")
+                    {{$category->ru_name}}
+                @endif
+            </strong>
         </a>
     </div>
         <form id="surveyForm"  method="post" enctype="multipart/form-data" class="categoryForm">
@@ -19,7 +25,11 @@
             <input type="text" name="category" value="{{$category->id}}" hidden>
             <div class="blue-bg" id="rating">
                 <div class="rating-panel">
-                    <strong>Оцените {{ __($category->name) }} в мед учереждении</strong>
+                    <strong>{{ __("box.rate") }} @if(app()->getLocale() == "uz")
+                            <span style="text-transform: lowercase" >{{$category->uz_name}}</span>{{__("box.rate_continue")}}
+                        @elseif(app()->getLocale() == "ru")
+                            <span style="text-transform: lowercase" >{{$category->ru_name}}</span>{{__("box.rate_continue")}}
+                        @endif</strong>
                     <span class="starRating">
                       <input id="rating5" type="radio" class="rate validate" name="rank" value="5">
                       <label for="rating5">5</label>
@@ -187,7 +197,7 @@
                         <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    Настроение можно отправлять 1 раз в 12 часов
+                    {{ __("box.mood_rule") }}
                 </div>
                 <label>{{__("box.choose_hospital")}}</label>
                 <div id="map">
@@ -200,8 +210,8 @@
                 <div  id="selected_place" hidden class="hospital-list">
                   <span class="radio">
                     <input type="radio" class=" validate" name="mapSelected" value=""/>
-                    <strong>МЧЖ “Здорова всем”</strong>
-                    <p>Мирзо-Улугбекский район</p>
+                    <strong></strong>
+                    <p></p>
                   </span>
                 </div>
             </div>
@@ -266,9 +276,7 @@
         var ratio = false;
         var opinion = false;
         var locate = false;
-        $(".overlay").click(function (event) {
-            event.preventDefault();
-        });
+
         $("#yesClinik").click(function () {
             locate = true;
             validate();
@@ -279,9 +287,13 @@
             $(".confirm-hospital").attr("hidden","hidden");
             $("#selected_place input").attr('checked', false);
             $("#selected_place").attr("hidden","hidden");
+            $("#map").attr("hidden","hidden");
             $(".selectbox").removeAttr("hidden");
         });
         $(".validate").change(function () {
+            validate();
+        });
+        $("textarea").keyup(function () {
             validate();
         });
         $(".selectbox").change(function () {
@@ -320,20 +332,21 @@
                 $("#sendMood").removeAttr("disabled");
             }
             else {
+
                 $("#sendMood").attr("disabled","disabled");
             }
         }
-        $
+
         function checkValidate(){
             let text = "";
             if(!ratio){
-                text += "Оцените медицинское учереждение<br>";
+                text += "{{ __("box.alert_rate_clinic") }}<br>";
             }
             if(!opinion){
-                text += "Опишите роблему<br>";
+                text += "{{ __("box.describe_problem") }}<br>";
             }
             if(!locate){
-                text += "Выберите медицинское учреждение<br>";
+                text += "{{ __("box.choose_hospital") }}<br>";
             }
             if(text!= ""){
                 $('.alert.valid span').html(text);
@@ -349,6 +362,7 @@
             checkValidate()
         });
         $('#surveyForm').on('submit', function(event){
+
             event.preventDefault();
             var data = new FormData(this);
             data.append('audio',sound);
@@ -364,72 +378,79 @@
                 cache: false,
                 processData: false,
                 success: function(response){
-                    $(".popup").addClass("show");
+                    if(response == "redirect"){
+                        window.location.replace("/survey/category");
+                    }
+                    else {
+                        $(".popup").addClass("show");
+                    }
                 },
             });
 
         });
     </script>
     <script>
-        navigator.mediaDevices.getUserMedia(constraintObj)
-            .then(function(mediaStreamObj) {
-                let audioInput = document.getElementById('audioInput');
-                let del = document.getElementById('btnDel');
-                let wave = document.getElementById('waveform');
-                let isStart = false;
-                // let vidSave = document.getElementById('aud2');
-                let mediaRecorder = new MediaRecorder(mediaStreamObj);
-                let chunks = [];
-                $("#btnStart").click(function () {
-                    if(isStart){
-                        mediaRecorder.stop();
-                        $(this).removeClass("active");
-                        isStart = false;
-                    }
-                    else{
-                        mediaRecorder.start();
-                        $(this).addClass("active");
-                        isStart = true;
-                    }
-                });
-
-                del.addEventListener('click', (ev)=>{
-                    wavesurfer.empty();
-                    audioInput.value("");
-                    // console.log(mediaRecorder.state);
-                });
-
-                wave.addEventListener("click",(ev)=>{
-                    wavesurfer.playPause();
-                    // console.log(mediaRecorder.state);
-                });
-
-                mediaRecorder.ondataavailable = function(ev) {
-                    chunks.push(ev.data);
+        var isPermissionRecord = false;
+        let isStart = false;
+        $(document).ready(function () {
+            $(".player").click(function () {
+                if(!isPermissionRecord){
+                    recorder();
                 }
-                mediaRecorder.onstop = (ev)=>{
-                    let blob = new Blob(chunks, { 'type' : 'audio/mp3;' });
-                    chunks = [];
-                    let audioURL = window.URL.createObjectURL(blob);
-                    // vidSave.src = audioURL;
-                    wavesurfer.load(audioURL);
-                    sound = blob;
-                }
-            })
-            .catch(function(err) {
-                console.log(err.name, err.message);
             });
+           recorder();
+
+        });
 
 
-        function getFormData($form){
-            var unindexed_array = $form.serializeArray();
-            var indexed_array = {};
+        function recorder() {
+            navigator.mediaDevices.getUserMedia(constraintObj)
+                .then(function (mediaStreamObj) {
+                    isPermissionRecord = true;
+                    let audioInput = document.getElementById('audioInput');
+                    let del = document.getElementById('btnDel');
+                    let wave = document.getElementById('waveform');
+                    // let vidSave = document.getElementById('aud2');
+                    let mediaRecorder = new MediaRecorder(mediaStreamObj);
+                    let chunks = [];
+                    $("#btnStart").click(function () {
+                        if (isStart) {
+                            mediaRecorder.stop();
+                            $(this).removeClass("active");
+                            isStart = false;
+                        } else {
+                            mediaRecorder.start();
+                            $(this).addClass("active");
+                            isStart = true;
+                        }
+                    });
 
-            $.map(unindexed_array, function(n, i){
-                indexed_array[n['name']] = n['value'];
-            });
+                    del.addEventListener('click', (ev) => {
+                        wavesurfer.empty();
+                        audioInput.value("");
+                        // console.log(mediaRecorder.state);
+                    });
 
-            return indexed_array;
+                    wave.addEventListener("click", (ev) => {
+                        wavesurfer.playPause();
+                        // console.log(mediaRecorder.state);
+                    });
+
+                    mediaRecorder.ondataavailable = function (ev) {
+                        chunks.push(ev.data);
+                    }
+                    mediaRecorder.onstop = (ev) => {
+                        let blob = new Blob(chunks, {'type': 'audio/mp3;'});
+                        chunks = [];
+                        let audioURL = window.URL.createObjectURL(blob);
+                        // vidSave.src = audioURL;
+                        wavesurfer.load(audioURL);
+                        sound = blob;
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err.name, err.message);
+                });
         }
 
     </script>

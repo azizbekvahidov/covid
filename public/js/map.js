@@ -26,7 +26,7 @@ ymaps.ready(function () {
         }
 
         if(!navigator.geolocation) {
-            console.log('Geolocation is not supported by your browser');
+            alert('Geolocation is not supported by your browser');
             null;
         } else {
             console.log('Locating…');
@@ -35,43 +35,43 @@ ymaps.ready(function () {
 
     }
 
-    $.ajax({
-        url: "/api/map-marker",
-        success: function (data) {
-            for(var i of data){
-                if(i.coords_lat != "" || i.coords_lat != null) {
-                    myMap.geoObjects
-                        .add(new ymaps.Placemark([i.coords_lat, i.coords_lng], {
-                            balloonContent: i.location_title
-                        }, {
-                            preset: 'islands#icon',
-                            iconColor: '#0095b6'
-                        }));
-                }
-            }
-        }
-    });
-
-    myMap.events.add('click', function (e) {
-        var coords = e.get('coords');
-        getLocation(coords[0].toPrecision(8),coords[1].toPrecision(8))
-
-    });
-    // var geolocationControl = new ymaps.control.GeolocationControl({
-    //     options: {
-    //         noPlacemark: true
+    // $.ajax({
+    //     url: "/api/map-marker",
+    //     success: function (data) {
+    //         for(var i of data){
+    //             if(i.coords_lat != "" || i.coords_lat != null) {
+    //                 myMap.geoObjects
+    //                     .add(new ymaps.Placemark([i.coords_lat, i.coords_lng], {
+    //                         balloonContent: i.location_title
+    //                     }, {
+    //                         preset: 'islands#icon',
+    //                         iconColor: '#0095b6'
+    //                     }));
+    //             }
+    //         }
     //     }
     // });
-    // geolocationControl.events.add('locationchange', function (event) {
-    //     var position = event.get('position'),
-    //         // При создании метки можно задать ей любой внешний вид.
-    //         locationPlacemark = new ymaps.Placemark(position);
-    //     myMap.geoObjects.add(locationPlacemark);
-    //     // Установим новый центр карты в текущее местоположение пользователя.
-    //     myMap.panTo(position);
-    //     getLocation(position[0],position[1]);
+
+    // myMap.events.add('click', function (e) {
+    //     var coords = e.get('coords');
+    //     getLocation(coords[0].toPrecision(8),coords[1].toPrecision(8))
+    //
     // });
-    // myMap.controls.add(geolocationControl);
+    var geolocationControl = new ymaps.control.GeolocationControl({
+        options: {
+            noPlacemark: true
+        }
+    });
+    geolocationControl.events.add('locationchange', function (event) {
+        var position = event.get('position'),
+            // При создании метки можно задать ей любой внешний вид.
+            locationPlacemark = new ymaps.Placemark(position);
+        myMap.geoObjects.add(locationPlacemark);
+        // Установим новый центр карты в текущее местоположение пользователя.
+        myMap.panTo(position);
+        getLocation(position[0],position[1]);
+    });
+    myMap.controls.add(geolocationControl);
 
     function getLocation(lat,long) {
         $.ajax({
