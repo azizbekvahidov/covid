@@ -8,18 +8,20 @@
     <meta name="viewport" content="initial-scale=1">
     <meta name="description" content="">
     <meta charset="UTF-8">
-    <title>Sogboling.uz @yield("title")</title>
+    <title>Sogboling.uz</title>
     <link rel="stylesheet" href="/assets/admin/css/select2.css">
     <link rel="stylesheet" href="/assets/admin/css/style.css">
     <link rel="stylesheet" href="/assets/admin/css/media.css">
-    <script src="/assets/admin/js/jquery-3.2.1.min.js"></script>
-    <script src="/assets/admin/js/select2.js"></script>
-    <script src="/assets/admin/js/main.js"></script>
+    @yield("css")
 </head>
 <body>
 <div class="wrapper">
     @include("admin.partials.header")
     @yield("content")
 </div>
+<script src="/assets/admin/js/jquery-3.2.1.min.js"></script>
+<script src="/assets/admin/js/select2.js"></script>
+<script src="/assets/admin/js/main.js"></script>
+@yield("js")
 </body>
 </html>

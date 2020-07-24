@@ -13,4 +13,18 @@ class AdminController extends Controller
             "surveys"   => Survey::get(),
         ]);
     }
+
+    public function selectSurvey(Request $request) {
+        $survey = Survey::find($request->id);
+        if ($survey) {
+            return response()->json([
+                "survey"    => $survey,
+                "user"      => $survey->user,
+                "hospital"  => $survey->location,
+                "mood"      => $survey->mood,
+                "photo"     => $survey->files,
+                "status"    => "success",
+            ]);
+        }
+    }
 }

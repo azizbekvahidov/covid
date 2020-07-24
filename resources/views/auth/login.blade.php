@@ -21,6 +21,8 @@
                     <input type="password" value="" name="password" placeholder="{{__("box.enter_password")}}"/>
                 </div>
                 <a href="javascript:;" class='reset-password'>{{__("box.forgot_password")}}</a>
+                <br>
+                <span class="timer">03:00</span>
             </div>
             <br><br><br>
             <div class="bottom">
@@ -50,7 +52,7 @@
             phone = phone.replace("-","");
             $("input[name=phone]").val("998"+phone);
         });
-
+        var active = true
         $(document).on("click", ".reset-password", function () {
 
             {{--var confirmation = confirm("{{__("box.ask_change_password")}}");--}}
@@ -59,9 +61,15 @@
                     "_token":  "{{csrf_token()}}",
                     "phone":   $("#phone").val(),
                 };
-
+                if(active)
                 $.post("/api/resetPassword", data, function (response) {
                     if (response.status) {
+                        active = false;
+                        setIntervalTime();
+                        setTimeout(function () {
+                            active = true;
+                            $(".timer").text("03:00");
+                        },180000);
                         // window.location.replace("/login");
                     }
                     else {

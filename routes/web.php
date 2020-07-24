@@ -1,6 +1,6 @@
 <?php
-
-
+use \App\Exports\SurveyExport;
+use \Maatwebsite\Excel\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +37,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::prefix("/admin")->middleware("checkRole")->namespace("Admin")->group(function () {
         Route::redirect("/","/admin/index");
-        Route::get("/index", ["as" => "admin.index", "uses" => "AdminController@index"]);
+        Route::get("/index",            ["as" => "admin.index",         "uses" => "AdminController@index"]);
+        Route::post("/selectSurvey",    ["as" => "admin.selectSurvey",  "uses" => "AdminController@selectSurvey"]);
     });
 });
 Route::namespace("Auth")->group(function () {
@@ -68,4 +69,8 @@ Route::get("locale/{locale}", function($locale) {
 
 Route::get("offer", function () {
     return view("frontend.pages.offer");
+});
+
+Route::get("/download", function (){
+    return Excel::download(new SurveyExport, "survey.xlsx");
 });

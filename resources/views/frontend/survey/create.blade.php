@@ -91,7 +91,35 @@
                     {{__("box.photo_rule")}}
 {{--                    Размер файла не должно превышать 5Mb--}}
                 </div>
-
+                <div class="player">
+                    <div class="thumbs unactive">
+                        <a href="#" class="playingbutton active">
+                            <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 5.66667V8.33333C0 11.3105 0 12.799 0.971008 13.3817C1.94202 13.9643 3.25546 13.2638 5.88235 11.8627L8.38235 10.5294C11.2941 8.97647 12.75 8.2 12.75 7C12.75 5.8 11.2941 5.02353 8.38235 3.47059L5.88235 2.13725C3.25546 0.736246 1.94202 0.0357424 0.971008 0.618348C0 1.20095 0 2.68952 0 5.66667Z" fill="#007BEC"/>
+                            </svg>
+                        </a>
+                        <div class="line" id="waveform" style="background:none;"></div>
+                        <span class="delay"></span>
+                        <div class="record"></div>
+                    </div>
+                </div>
+                <div class="player">
+                    <div class="thumbs active">
+                        <span class="delay">0:00,12</span>
+                        <div class="record"></div>
+                    </div>
+                </div>
+                <div class="player">
+                    <div class="thumbs stop">
+                        <a href="#" class="playingbutton active">
+                            <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 5.66667V8.33333C0 11.3105 0 12.799 0.971008 13.3817C1.94202 13.9643 3.25546 13.2638 5.88235 11.8627L8.38235 10.5294C11.2941 8.97647 12.75 8.2 12.75 7C12.75 5.8 11.2941 5.02353 8.38235 3.47059L5.88235 2.13725C3.25546 0.736246 1.94202 0.0357424 0.971008 0.618348C0 1.20095 0 2.68952 0 5.66667Z" fill="#007BEC"/>
+                            </svg>
+                        </a>
+                        <span class="delay">0:00,12</span>
+                        <div class="record"></div>
+                    </div>
+                </div>
                 <div class="player">
                     <div class="thumbs">
                         <a href="javascript:;" class="playingbutton " id="btnStart">
@@ -99,7 +127,6 @@
                                 <path d="M0 5.66667V8.33333C0 11.3105 0 12.799 0.971008 13.3817C1.94202 13.9643 3.25546 13.2638 5.88235 11.8627L8.38235 10.5294C11.2941 8.97647 12.75 8.2 12.75 7C12.75 5.8 11.2941 5.02353 8.38235 3.47059L5.88235 2.13725C3.25546 0.736246 1.94202 0.0357424 0.971008 0.618348C0 1.20095 0 2.68952 0 5.66667Z" fill="#007BEC"/>
                             </svg>
                         </a>
-                        <div class="line" id="waveform" style="background:none;"></div>
                         <a href="javascript:;" id="btnDel">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0001 2.10001C9.39847 2.10001 8.1001 3.39838 8.1001 5.00001V5.10001H5.0001H4.0001C3.50304 5.10001 3.1001 5.50295 3.1001 6.00001C3.1001 6.49706 3.50304 6.90001 4.0001 6.90001H5.0001H5.30894L6.13436 19.1715L6.13448 19.1735C6.226 20.6219 7.42747 21.75 8.879 21.75H15.1212C16.5727 21.75 17.7741 20.6219 17.8657 19.1736L17.8658 19.1715L18.6913 6.90001H19.0001H20.0001C20.4972 6.90001 20.9001 6.49706 20.9001 6.00001C20.9001 5.50295 20.4972 5.10001 20.0001 5.10001H19.0001H15.9001V5.00001C15.9001 3.39838 14.6017 2.10001 13.0001 2.10001H11.0001ZM14.1001 5.10001H9.9001V5.00001C9.9001 4.39249 10.3926 3.90001 11.0001 3.90001H13.0001C13.6076 3.90001 14.1001 4.39249 14.1001 5.00001V5.10001ZM10.5993 9.96147C10.578 9.46487 10.1582 9.07955 9.66156 9.10083C9.16496 9.12211 8.77964 9.54194 8.80092 10.0385L9.10092 17.0385C9.12221 17.5351 9.54203 17.9205 10.0386 17.8992C10.5352 17.8779 10.9206 17.4581 10.8993 16.9615L10.5993 9.96147ZM15.1993 10.0385C15.2206 9.54194 14.8352 9.12211 14.3386 9.10083C13.842 9.07955 13.4222 9.46487 13.4009 9.96147L13.1009 16.9615C13.0796 17.4581 13.465 17.8779 13.9616 17.8992C14.4582 17.9205 14.878 17.5351 14.8993 17.0385L15.1993 10.0385Z" fill="#EF006D"/>
@@ -201,36 +228,37 @@
                         <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    {{ __("box.mood_rule") }}
+                    {{ __("box.mood_rule") }} <strong class="timer">{{$mood_time}}</strong>
                 </div>
-                <label>{{__("box.choose_hospital")}}</label>
-                <div id="map">
-                    <a href="javascript:;" class="getCoordinate">
-                        <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.66119 19.7241C11.8954 18.2269 17.5269 13.9398 17.5269 8.76345C17.5269 3.92353 13.6034 0 8.76345 0C3.92353 0 0 3.92353 0 8.76345C0 13.9398 5.63145 18.2269 7.8657 19.7241C8.41457 20.092 9.11233 20.092 9.66119 19.7241ZM8.76345 11.5309C10.2918 11.5309 11.5309 10.2918 11.5309 8.76345C11.5309 7.23505 10.2918 5.99604 8.76345 5.99604C7.23505 5.99604 5.99604 7.23505 5.99604 8.76345C5.99604 10.2918 7.23505 11.5309 8.76345 11.5309Z" fill="white"/>
-                        </svg>
-                    </a>
-                </div>
-                <div  id="selected_place" hidden class="hospital-list">
-                  <span class="radio">
-                    <input type="radio" class=" validate" name="mapSelected" value=""/>
-                    <strong></strong>
-                    <p></p>
-                  </span>
-                </div>
+                    <label>{{__("box.choose_hospital")}}</label>
+                    <div id="map">
+                        <a href="javascript:;" class="getCoordinate">
+                            <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.66119 19.7241C11.8954 18.2269 17.5269 13.9398 17.5269 8.76345C17.5269 3.92353 13.6034 0 8.76345 0C3.92353 0 0 3.92353 0 8.76345C0 13.9398 5.63145 18.2269 7.8657 19.7241C8.41457 20.092 9.11233 20.092 9.66119 19.7241ZM8.76345 11.5309C10.2918 11.5309 11.5309 10.2918 11.5309 8.76345C11.5309 7.23505 10.2918 5.99604 8.76345 5.99604C7.23505 5.99604 5.99604 7.23505 5.99604 8.76345C5.99604 10.2918 7.23505 11.5309 8.76345 11.5309Z" fill="white"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div  id="selected_place" hidden class="hospital-list">
+                      <span class="radio">
+                        <input type="radio" class=" validate" name="mapSelected" value=""/>
+                        <strong></strong>
+                        <p></p>
+                      </span>
+                    </div>
             </div>
 
+
+            <div class="confirm-hospital" hidden>
+                <strong>{{__("box.is_it_your_hospital")}}</strong>
+                <a href="javascript:;" id="yesClinik" class="primary">{{__("box.yes_it_is")}}</a>
+                <a href="javascript:;" id="notClinik">{{__("box.no_it_is_not")}}</a>
+            </div>
             <div class="selectbox pa-15" hidden>
                 <select name="locate" id="locate" class=" validate">
                     @foreach($locations as $location)
                         <option value="{{ $location->id }}">{{ $location->location_title }}</option>
                     @endforeach
                 </select>
-            </div>
-            <div class="confirm-hospital" hidden>
-                <strong>{{__("box.is_it_your_hospital")}}</strong>
-                <a href="javascript:;" id="yesClinik" class="primary">{{__("box.yes_it_is")}}</a>
-                <a href="javascript:;" id="notClinik">{{__("box.no_it_is_not")}}</a>
             </div>
             <div class="pa-15" >
                 <div class="alert valid" style="display: none;background: rgba(255, 198, 17, 0.15); margin-bottom: 10px">
@@ -265,6 +293,7 @@
     <script src="{{ asset('js/map.js') }}" defer></script>
 
     <script>
+        timer($(".timer"));
         var sound;
         let constraintObj = {
             audio: true,
@@ -274,8 +303,7 @@
             container: '#waveform',
             waveColor: 'lightskyblue',
             progressColor: 'skyblue',
-            height: 20,
-            barGap: 5
+            height: 27,
         });
         var ratio = false;
         var opinion = false;
@@ -286,13 +314,13 @@
             locate = true;
             validate();
             checkValidate();
-            $(".confirm-hospital").attr("hidden","hidden");
+            // $(".confirm-hospital").attr("hidden","hidden");
         });
         $("#notClinik").click(function () {
-            $(".confirm-hospital").attr("hidden","hidden");
+            // $(".confirm-hospital").attr("hidden","hidden");
             $("#selected_place input").attr('checked', false);
-            $("#selected_place").attr("hidden","hidden");
-            $("#map").attr("hidden","hidden");
+            // $("#selected_place").attr("hidden","hidden");
+            // $("#map").attr("hidden","hidden");
             $(".selectbox").removeAttr("hidden");
         });
         $(".validate").change(function () {

@@ -50,11 +50,19 @@ class SurveyController extends Controller
             $old_mark_time = strtotime(date($old_mood_mark->created_at));
         }
 
+        $diff = 42300 - (time() - $old_mark_time );
+
+        $sec = ($diff % 60 < 10) ? "0".$diff % 60 : $diff % 60;
+        $minute = ($diff / 60 % 60 < 10) ? "0".($diff / 60 % 60 ) : $diff / 60 % 60  ;
+        $hour = $diff / 3600 % 24;
+
+
         return view("frontend.survey.create", [
             "category" => $category,
             "old_mark_time" => $old_mark_time,
             "rank" => $rank,
-            'locations' => $locations
+            'locations' => $locations,
+            "mood_time" => $hour.":".$minute.":".$sec
         ]);
     }
 

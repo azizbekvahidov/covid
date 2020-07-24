@@ -69,6 +69,7 @@ function setIntervalTime() {
     var timer2 = $(".timer").text();
     var interval = setInterval(function() {
         var timer = timer2.split(':');
+        console.log(timer);
         var minutes = parseInt(timer[0], 10);
         var seconds = parseInt(timer[1], 10);
         --seconds;
@@ -78,8 +79,33 @@ function setIntervalTime() {
         seconds = (seconds < 10) ? '0' + seconds : seconds;
         $('.timer').html(minutes + ':' + seconds);
         timer2 = minutes + ':' + seconds;
-        if(seconds <= 0) return false
+        if (seconds <= 0) return false;
     }, 1000);
 }
+
+function timer(element){
+    var timer2 = $(element).text();
+    var interval = setInterval(function() {
+        var timer = timer2.split(':');
+        var hour    = parseInt(timer[0], 10);
+        var minutes = parseInt(timer[1], 10);
+        var seconds = parseInt(timer[2], 10);
+        --seconds;
+        minutes = (seconds < 0) ? --minutes : minutes;
+        hour = (minutes < 0) ? --hour : hour;
+        if (hour < 0 && minutes <= 0 && seconds <= 0) return false;
+        minutes = (minutes < 0) ? 59 : minutes;
+        minutes = (minutes < 10) ? '0' + minutes : minutes;
+        console.log(hour+"=>"+minutes+"=>"+seconds);
+        if(minutes < 0 && seconds <=0) return false;
+        seconds = (seconds < 0) ? 59 : seconds;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        $(element).html(hour + ':' + minutes + ':' + seconds);
+        timer2 = hour + ':' + minutes + ':' + seconds;
+        if (seconds <= 0) return false;
+    }, 1000);
+}
+
+
 
 
