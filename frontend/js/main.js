@@ -3,17 +3,21 @@ $(document).ready(function(){
     let input = $(this).siblings('input')
     input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
   });
-    $('[data-auth]').on('click',function(e){
-        e.preventDefault();
-        let target = $(this).data('target')
-        $(target).addClass('swipe')
-    });
+  $('[data-auth]').on('click',function(e){
+    e.preventDefault();
+    let target = $(this).data('target')
+    $(target).addClass('swipe')
+    $('body').addClass( "open-modal" );
+  });
   $('.overlay').on('click', function(){
     closeMenu()
+    $('body').removeClass( "open-modal" );
     $('.popup').removeClass('show')
   })
   $('.burger').on('click', function(){
-    openMenu()
+    $(this).toggleClass('active')
+    $('.menu').toggleClass( "swipe" );
+    $('body').toggleClass( "open-modal" );
   })
   $('.selectbox select').select2()
 
@@ -55,11 +59,10 @@ function onlyLetters(event) {
     event.target.value = event.target.value.replace(/[0-9-!$@%#^&*()_+|~=`{}\[\]:";'<>?,.\/]/g, '')
   }
 }
-function openMenu(){
-  $('.left-menu').addClass( "swipe" );
-}
+
 function closeMenu(){
-  $('.left-menu').removeClass( "swipe" );
+  $('body').removeClass( "open-modal" );
+  $('.left-menu, .menu').removeClass( "swipe" );
 }
 function createObjectURL ( file ) {
   if ( window.webkitURL ) {
