@@ -56,28 +56,28 @@
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
                         </svg>
-                        <input type="file" class="photo" onchange="fileCHeck(this)" value="" name="files[]">
+                        <input type="file" onchange="fileCHeck(this)" data-target=".thumbs" value="" name="files[]">
                         <div class="preview"></div>
                     </div>
                     <div class="thumbs">
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
                         </svg>
-                        <input type="file" class="photo" onchange="fileCHeck(this)" value="" name="files[]">
+                        <input type="file" onchange="fileCHeck(this)" data-target=".thumbs" value="" name="files[]">
                         <div class="preview"></div>
                     </div>
                     <div class="thumbs">
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
                         </svg>
-                        <input type="file" class="photo" onchange="fileCHeck(this)" value="" name="files[]">
+                        <input type="file" onchange="fileCHeck(this)" data-target=".thumbs" value="" name="files[]">
                         <div class="preview"></div>
                     </div>
                     <div class="thumbs">
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
                         </svg>
-                        <input type="file" class="photo" onchange="fileCHeck(this)" value="" name="files[]">
+                        <input type="file" onchange="fileCHeck(this)" data-target=".thumbs" value="" name="files[]">
                         <div class="preview"></div>
                     </div>
                 </div>
@@ -113,8 +113,8 @@
             <div class="blue-bg">
                 <strong>{{__("box.your_mood")}}</strong>
                 <div class="smile-panel">
-                    <div class="thumbs {{($rank == 5) ? "" : "opacity"}}">
-                        <input type="radio" value="5" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 5) ? "checked" : ""}}>
+                    <div class="thumbs {{(time() - $old_mark_time < 43200) ? "opacity" : ""}}">
+                        <input type="radio" value="5" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} >
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -130,8 +130,8 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="thumbs {{($rank == 4) ? "" : "opacity"}}">
-                        <input type="radio" value="4" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 4) ? "checked" : ""}}>
+                    <div class="thumbs {{(time() - $old_mark_time < 43200) ? "opacity" : ""}}">
+                        <input type="radio" value="4" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} >
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18 38.0654C27.9411 38.0654 36 29.6943 36 19.3681C36 9.04189 27.9411 0.670837 18 0.670837C8.05887 0.670837 0 9.04189 0 19.3681C0 29.6943 8.05887 38.0654 18 38.0654Z" fill="url(#paint0_linear)"/>
@@ -147,8 +147,8 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="thumbs {{($rank == 3) ? "" : "opacity"}}">
-                        <input type="radio" value="3" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 3) ? "checked" : ""}}>
+                    <div class="thumbs {{(time() - $old_mark_time < 43200) ? "opacity" : ""}}">
+                        <input type="radio" value="3" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} >
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -162,8 +162,8 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="thumbs {{($rank == 2) ? "" : "opacity"}}">
-                        <input type="radio" value="2" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 2) ? "checked" : ""}}>
+                    <div class="thumbs {{(time() - $old_mark_time < 43200) ? "opacity" : ""}}">
+                        <input type="radio" value="2" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} >
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -181,8 +181,8 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="thumbs {{($rank == 1) ? "" : "opacity"}}">
-                        <input type="radio" value="1" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 1) ? "checked" : ""}}>
+                    <div class="thumbs {{(time() - $old_mark_time < 43200) ? "opacity" : ""}}">
+                        <input type="radio" value="1" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} >
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.06 38.0654 0 29.6942 0 19.3681C0 9.04306 8.06 0.670837 18 0.670837C27.941 0.670837 36 9.04306 36 19.3681Z" fill="#DA2F47"/>

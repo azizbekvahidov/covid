@@ -48,6 +48,13 @@ Route::namespace("Auth")->group(function () {
     Route::post("/sendMessage",     "RegisterController@sendMessage");
 });
 Auth::routes();
+Route::get("/login",          ['as' => 'login',  'uses' => "Auth\LoginController@showLoginForm"]);
+Route::get("/logout",          ['as' => 'logout',  'uses' => "Auth\LoginController@logout"]);
+Route::post("/login",          "Auth\LoginController@login");
+//Route::get("/register",          ['as' => 'register',  'uses' => "Auth\RegisterController@showRegistrationForm "]);
+//Route::post("/register",          "Auth\RegisterController@register ");
+//Route::post("{ID}/register",          "\Auth\RegisterController@showRegistrationForm");
+//Auth::routes();
 Route::redirect("/home", "/");
 Route::get('/', function () {
     return view ("frontend.index");

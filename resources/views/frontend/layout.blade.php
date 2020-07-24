@@ -14,44 +14,6 @@
     <link rel="stylesheet" href="{{asset("assets/css/select2.css")}}">
     <script src="{{ asset("js/wavesurfer.js") }}"></script>
     @yield("css")
-    <style>
-        #logout-btn {
-            border: none;
-            background-color: inherit;
-            cursor: pointer;
-        }
-        #logout-btn {
-            outline: none;
-        }
-        .logout-text {
-            background:#0085FF;
-            border:0.26666667vw solid #ffffff;
-            padding:3.2vw 5.33333333vw;
-            margin-bottom:4vw;
-            color:#ffffff;
-            font-weight:500;
-            font-size:3.73333333vw;
-            line-height:4.26666667vw;
-            text-decoration:none;
-            text-align:center;
-            border-radius:5.33333333vw;
-            -webkit-box-sizing:border-box;
-            box-sizing:border-box;
-            display:inline-block;
-        }
-        .buttons a:first-child{
-            border:0.26666667vw solid #000000;
-            padding:3.2vw 5.33333333vw;
-            margin-bottom:4vw;
-            color:#000000;
-         }
-        .buttons a:last-child{
-            background:#0085FF;
-            padding:3.2vw 18.4vw 3.2vw 18.93333333vw;
-            color:#FFFFFF;
-        }
-
-    </style>
     <title>Sogboling.uz @yield("title")</title>
 </head>
 <body>

@@ -236,18 +236,18 @@
         <strong>{{__("box.do_message_problem")}}</strong>
         <a href="/survey/category" class="btn">{{__("box.send_signal")}}</a>
     </div>
-@if(!session()->has("locale"))
-    <div class="popup show">
-        <div class="overlay"></div>
-        <div class="popup-content">
-            <strong>{{ __("box.select_language") }}</strong>
-            <div class="locales">
-                <a href="/locale/uz" class="">O’zbekcha</a>
-                <a href="/locale/ru" class="">Русский</a>
-            </div>
-        </div>
-    </div>
-@endif
+{{--@if(!session()->has("locale"))--}}
+{{--    <div class="popup show">--}}
+{{--        <div class="overlay"></div>--}}
+{{--        <div class="popup-content">--}}
+{{--            <strong>{{ __("box.select_language") }}</strong>--}}
+{{--            <div class="locales">--}}
+{{--                <a href="/locale/uz" class="">O’zbekcha</a>--}}
+{{--                <a href="/locale/ru" class="">Русский</a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--@endif--}}
 @endsection
 @section("footer")
 @include("frontend.partials.footer")

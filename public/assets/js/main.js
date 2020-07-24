@@ -49,7 +49,7 @@ function createObjectURL ( file ) {
 }
 function fileCHeck(el){
     let file = $(el)[0].files;
-    console.log(file);
+    let parent = $(el).data('target');
     var url = createObjectURL(file[0]);
     var img = document.createElement('img')
     img.setAttribute('src', url)
@@ -60,19 +60,10 @@ function fileCHeck(el){
         }, 2000);
         return false;
     }
-    if(file[0].type.includes('image')){
-        $(el).siblings('.preview').addClass('active')
-        $(el).parent().addClass('active')
-        $(el).siblings('.preview').prepend(img);
 
-    }else{
-        $('.alert').toggle();
-        setTimeout(()=>{
-            $('.alert').toggle();
-            $(this).val('')
-        }, 5000);
-        return false;
-    }
+    $(el).parents(parent).find('.preview').addClass('active')
+  $(el).parent().addClass('active')
+  $(el).parents(parent).find('.preview').empty().prepend(img);
 }
 function setIntervalTime() {
     var timer2 = $(".timer").text();

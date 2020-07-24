@@ -28,10 +28,11 @@
         <div class="pa-15">
             <div class=" bordered">
                 <div class="info-rating">
-                    <div class="mr-70">
+                    <div class="mr-23">
                         <span>{{__("box.date")}}:</span>
                         <strong>{{ date("d.m.Y H:i",strtotime($survey->created_at)) }}</strong>
                     </div>
+
                     <div>
                         <span>{{__("box.mark")}}</span>
                         <div class="rating">

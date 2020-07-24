@@ -9,4 +9,7 @@
     <div class="copy">
         &copy; 2020 {{__("box.company_data")}} {{__("box.copyright")}}
     </div>
+    <div class="lab">
+        <a href="#">{{ __("box.department") }}</a>
+    </div>
 </footer>

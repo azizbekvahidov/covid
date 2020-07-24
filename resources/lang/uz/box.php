@@ -24,7 +24,7 @@
 		"register"						=> "Ro'yxatdan o'tish",
 		"registration"					=> "Ro'yxatdan o'tish",
 		"login"							=> "Kirish",
-		"logout"						=> "Chiqish",
+		"logout"						=> "Akkauntdan chiqish",
 		"registration_paragraph"		=> "Muammo haqida xabar berish va tibbiy muassasani baholash uchun tizimga kiring",
 		"mobile_tel_num"				=> "Mobil telefon raqamingiz",
 		"change_tel_num"				=> "Telefon raqamni o'zgartirish",
@@ -95,4 +95,5 @@
         "rate_continue"                 => "ni baholang",
         "alert_rate_clinic"             => "Tibbiy muassasani baholang",
         "ask_change_password"			=> "Parolni o'zgartirasizmi?",
+        "department"                    => "Департамент цифрового развития"
     ];
