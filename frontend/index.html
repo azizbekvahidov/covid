@@ -15,9 +15,22 @@
 <body>
     <div class="wrapper">
       <header>
-        <div class="lang-switcher">
-          <a href="#" class="uz">O‘zbekcha</a>
-          <a href="#" class="ru">Русский</a>
+        <div class="logo">
+          <a href="#">Sogboling.uz</a>
+        </div>
+        <div class="right-side">
+          <div class="lang-switcher">
+            <a href="#" class="uz">Ru</a>
+          </div>
+          <div class="burger">
+            <a href="#">
+              <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="1" x2="19" y2="1" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <line x1="9" y1="8" x2="19" y2="8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <line x1="1" y1="15" x2="19" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </header>
       <div class="content">
@@ -253,7 +266,7 @@
         </div>
         <div class="send-problems blue-bg">
           <strong>Хотите сообщить о проблеме?</strong>
-          <a href="#" class="btn">Отправить сигнал</a>
+          <a href="#" class="btn" data-target=".auth" data-auth>Отправить сигнал</a>
         </div>
       </div>
       <footer>
@@ -271,14 +284,46 @@
         </div>
       </footer>
     </div>
-    <div class="left-menu">
+    <div class="left-menu ">
       <div class="overlay"></div>
       <div class="menu-content">
-        <a href="registration.html">Зарегистрироваться</a>
-        <a href="auth.html">Войти</a>
+        <ul>
+          <li>
+            <div class="user">
+              <div class="img">
+                <img src="img/empty.svg" alt=""/>
+              </div>
+              <div class="info-profile">
+                <a href="#">Пулатов Мавлонбек</a>
+                <span class="tags">Персональное данные</span>
+              </div>
+            </div>
+          </li>
+          <li><a href="#">О проекте</a> </li>
+          <li><a href="#">Личный кабинет</a> </li>
+          <li><a href="#">Как оставить сообщение?</a> </li>
+        </ul>
+        <div class="action-button">
+          <strong>Чтобы сообщить о проблеме войдите</strong>
+          <a href="registration.html" class="registration">Зарегистрироваться</a>
+          <a href="auth.html" class="signin">Войти</a>
+          <a href="auth.html" class="logout">Выйти из аккаунта</a>
+        </div>
+      </div>
+    </div>
+    <div class="left-menu bottom auth swipe">
+      <div class="overlay"></div>
+      <div class="menu-content">
+        <div class="action-button">
+          <strong>Чтобы сообщить о проблеме войдите</strong>
+          <a href="registration.html" class="registration">Зарегистрироваться</a>
+          <a href="auth.html" class="signin">Войти</a>
+          <a href="auth.html" class="logout">Выйти из аккаунта</a>
+        </div>
       </div>
     </div>
     <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/select2.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

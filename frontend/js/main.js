@@ -3,6 +3,11 @@ $(document).ready(function(){
     let input = $(this).siblings('input')
     input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
   });
+    $('[data-auth]').on('click',function(e){
+        e.preventDefault();
+        let target = $(this).data('target')
+        $(target).addClass('swipe')
+    });
   $('.overlay').on('click', function(){
     closeMenu()
     $('.popup').removeClass('show')
@@ -11,6 +16,7 @@ $(document).ready(function(){
     openMenu()
   })
   $('.selectbox select').select2()
+
   var timer2 = "3:00";
   var interval = setInterval(function() {
     var timer = timer2.split(':');
@@ -30,6 +36,10 @@ $(document).ready(function(){
     if($(this).is(':checked')){
       $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity')
     }
+  })
+  $('.confirm-hospital a').last().on('click', function(e){
+    e.preventDefault();
+    $('.hospital-search').addClass('disabled');
   })
 })
 function onlyNumber(event) {
