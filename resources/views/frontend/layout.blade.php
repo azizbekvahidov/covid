@@ -25,23 +25,68 @@
     @yield("footer")
 </div>
 
-<div class="left-menu">
+<div class="left-menu ">
     <div class="overlay"></div>
     <div class="menu-content">
-@if(!\Auth::user())
-            <a href="{{route("register.verifyPhone")}}">{{__("box.register")}}</a>
-            <a href="{{route("login")}}">{{__("box.login")}}</a>
-@else
-            <form action="/logout" method="post">
-                @csrf
-                <button type="submit" id="logout-btn">
-                    <p class="logout-text">{{__("box.logout")}}</p>
-                </button>
-            </form>
-@endif
+        <ul>
 
+            @if(\Auth::user())
+            <li>
+                <div class="user">
+                    <div class="img">
+                        <img src="img/empty.svg" alt=""/>
+                    </div>
+                    <div class="info-profile">
+                        <a href="#">Пулатов Мавлонбек</a>
+                        <span class="tags">Персональное данные</span>
+                    </div>
+                </div>
+            </li>
+            @endif
+            <li><a href="#">О проекте</a> </li>
+            <li><a href="#">Личный кабинет</a> </li>
+            <li><a href="#">Как оставить сообщение?</a> </li>
+        </ul>
+        <div class="action-button">
+            <strong>Чтобы сообщить о проблеме войдите</strong>
+            @if(!\Auth::user())
+                <a href="{{ route("register") }}" class="registration">Зарегистрироваться</a>
+                <a href="{{ route("login") }}" class="signin">Войти</a>
+            @else
+                <a href="/logout" class="logout">Выйти из аккаунта</a>
+            @endif
+        </div>
     </div>
 </div>
+{{--@else--}}
+
+    <div class="left-menu bottom auth swipe">
+        <div class="overlay"></div>
+        <div class="menu-content">
+            <div class="action-button">
+                <strong>Чтобы сообщить о проблеме войдите</strong>
+                <a href="registration.html" class="registration">Зарегистрироваться</a>
+                <a href="auth.html" class="signin">Войти</a>
+                <a href="auth.html" class="logout">Выйти из аккаунта</a>
+            </div>
+        </div>
+    </div>
+{{--@endif--}}
+{{--<div class="left-menu">--}}
+{{--    <div class="overlay"></div>--}}
+{{--    <div class="menu-content">--}}
+{{--            <a href="{{route("register.verifyPhone")}}">{{__("box.register")}}</a>--}}
+{{--            <a href="{{route("login")}}">{{__("box.login")}}</a>--}}
+{{--@else--}}
+{{--            <form action="/logout" method="post">--}}
+{{--                @csrf--}}
+{{--                <button type="submit" id="logout-btn">--}}
+{{--                    <p class="logout-text">{{__("box.logout")}}</p>--}}
+{{--                </button>--}}
+{{--            </form>--}}
+
+{{--    </div>--}}
+{{--</div>--}}
 
 <script src="/assets/js/jquery-3.2.1.min.js"></script>
 {{--<script src="/assets/js/jquery.mobile-1.4.5.min.js"></script>--}}
