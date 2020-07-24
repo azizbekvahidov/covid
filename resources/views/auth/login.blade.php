@@ -20,13 +20,14 @@
                     <label>{{__("box.password")}}</label>
                     <input type="password" value="" name="password" placeholder="{{__("box.enter_password")}}"/>
                 </div>
-                <a href="#" class="recover-password">{{__("box.forgot_password")}}?</a>
+                <a href="javascript:;" class='reset-password'>{{__("box.forgot_password")}}</a>
             </div>
+            <br><br><br>
             <div class="bottom">
                 <button type="submit">{{__("box.login")}}</button>
                 <div class="form-text">
-                    <span class="helper-text">{{__("box.do_not_have_account")}}?</span>
-                    <a href="{{route("register.verifyPhone")}}" class="registration-link">{{__("box.register")}}.</a>
+                    <span class="helper-text">{{__("box.do_not_have_account")}}</span>
+                    <a href="{{route("register.verifyPhone")}}" class="registration-link">{{__("box.register")}}</a>
                 </div>
             </div>
         </form>
@@ -50,8 +51,25 @@
             $("input[name=phone]").val("998"+phone);
         });
 
-        // $("#phone").on("change", function () {
-        //     $("input[name=phone]").val("998"+$(this).val());
-        // });
+        $(document).on("click", ".reset-password", function () {
+
+            {{--var confirmation = confirm("{{__("box.ask_change_password")}}");--}}
+            {{--if (confirmation) {--}}
+                let data = {
+                    "_token":  "{{csrf_token()}}",
+                    "phone":   $("#phone").val(),
+                };
+
+                $.post("/api/resetPassword", data, function (response) {
+                    if (response.status) {
+                        // window.location.replace("/login");
+                    }
+                    else {
+                        alert("Error");
+                    }
+                });
+            // }
+        });
+
     </script>
 @endsection

@@ -48,7 +48,7 @@ Route::namespace("Auth")->group(function () {
     Route::post("/sendMessage",     "RegisterController@sendMessage");
 });
 Auth::routes();
-
+Route::redirect("/home", "/");
 Route::get('/', function () {
     return view ("frontend.index");
 });
@@ -57,4 +57,8 @@ Route::get('/', function () {
 Route::get("locale/{locale}", function($locale) {
 	session(["locale" => $locale]);
 	return redirect()->back();
+});
+
+Route::get("offer", function () {
+    return view("frontend.pages.offer");
 });

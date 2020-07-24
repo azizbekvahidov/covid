@@ -8,6 +8,7 @@ use App\UserMessage;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -59,6 +60,7 @@ class UserController extends Controller
         if($file) {
             $extension = $file->getClientOriginalExtension();
             $photo_name = "IMG_".date("Y-m-d_H-i-s.").$extension;
+            Storage::delete("/public/avatars/".\Auth::user()->photo);
             $file->storeAs("/public/avatars", $photo_name);
 
         }
@@ -97,6 +99,18 @@ class UserController extends Controller
                 "message" => $exception->getMessage()
             ],500);
         }
+    }
+
+    public function removeImg($id){
+        $user = User::find($id);
+        $user->photo = "";
+        if($user->save())
+            Storage::delete("/public/avatars/".$user->photo);
+
+        return response()->json([
+            "status"        => 'success',
+            "message"       => $id,
+        ],200);
     }
 
 

@@ -108,9 +108,9 @@
             });
         });
 
-        $("#confirmCheckbox").on("change", function () {
+        $("#verifyCode").on("keyup", function () {
             console.log($("#verifyCode").val().length);
-            if($(this).prop("checked") && $("#verifyCode").val().length == "6") {
+            if($("#confirmCheckbox").prop("checked") && $("#verifyCode").val().length == "6") {
                 $("#verifyBtn").removeAttr("disabled");
             }
         });
@@ -119,7 +119,6 @@
         $("#verifyBtn").click(function () {
             console.log(resetSuccess);
             console.log(userID);
-            if(resetSuccess)
             $.ajax({
                 url: "api/verifyCode",
                 type: "POST",

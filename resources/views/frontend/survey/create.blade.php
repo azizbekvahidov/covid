@@ -45,8 +45,11 @@
                 </div>
             </div>
             <div class="pa-15">
-                <label>{{__("box.describe_problem")}}</label>
-                <textarea name="opinion" class=" validate" ></textarea>
+                <div class="text-area">
+                    <label>{{__("box.describe_problem")}}</label>
+                    <textarea name="opinion" class="check-length validate" maxlength="1200"></textarea>
+                    <div class="length-counter">1200</div>
+                </div>
                 <div class="fileUpload">
                     <label>{{__("box.put_photo")}}</label>
                     <div class="thumbs">
@@ -110,8 +113,8 @@
             <div class="blue-bg">
                 <strong>{{__("box.your_mood")}}</strong>
                 <div class="smile-panel">
-                    <div class="thumbs">
-                        <input type="radio" value="5" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 5) ? "checked" : ""?>>
+                    <div class="thumbs {{($rank == 5) ? "" : "opacity"}}">
+                        <input type="radio" value="5" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 5) ? "checked" : ""}}>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -127,8 +130,8 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="thumbs">
-                        <input type="radio" value="4" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 4) ? "checked" : ""?>>
+                    <div class="thumbs {{($rank == 4) ? "" : "opacity"}}">
+                        <input type="radio" value="4" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 4) ? "checked" : ""}}>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18 38.0654C27.9411 38.0654 36 29.6943 36 19.3681C36 9.04189 27.9411 0.670837 18 0.670837C8.05887 0.670837 0 9.04189 0 19.3681C0 29.6943 8.05887 38.0654 18 38.0654Z" fill="url(#paint0_linear)"/>
@@ -144,8 +147,8 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="thumbs">
-                        <input type="radio" value="3" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 3) ? "checked" : ""?>>
+                    <div class="thumbs {{($rank == 3) ? "" : "opacity"}}">
+                        <input type="radio" value="3" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 3) ? "checked" : ""}}>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -159,8 +162,8 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="thumbs">
-                        <input type="radio" value="2" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 2) ? "checked" : ""?>>
+                    <div class="thumbs {{($rank == 2) ? "" : "opacity"}}">
+                        <input type="radio" value="2" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 2) ? "checked" : ""}}>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.059 38.0654 0 29.6942 0 19.3681C0 9.04202 8.059 0.670837 18 0.670837C27.941 0.670837 36 9.04202 36 19.3681Z" fill="url(#paint0_linear)"/>
@@ -178,8 +181,8 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="thumbs">
-                        <input type="radio" value="1" name="mood" <?=(time() - $old_mark_time < 43200) ? "disabled" : ""?> <?=($rank == 1) ? "checked" : ""?>>
+                    <div class="thumbs {{($rank == 1) ? "" : "opacity"}}">
+                        <input type="radio" value="1" name="mood" {{(time() - $old_mark_time < 43200) ? "disabled" : ""}} {{($rank == 1) ? "checked" : ""}}>
                         <i>
                             <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36 19.3681C36 29.6942 27.941 38.0654 18 38.0654C8.06 38.0654 0 29.6942 0 19.3681C0 9.04306 8.06 0.670837 18 0.670837C27.941 0.670837 36 9.04306 36 19.3681Z" fill="#DA2F47"/>
@@ -188,6 +191,7 @@
                         </i>
                     </div>
                 </div>
+
             </div>
             <div class="pa-15">
                 <div class="alert warning">
@@ -276,6 +280,7 @@
         var ratio = false;
         var opinion = false;
         var locate = false;
+        var time = "";
 
         $("#yesClinik").click(function () {
             locate = true;
@@ -388,6 +393,9 @@
             });
 
         });
+        $(document).on("keyup", ".check-length", function () {
+            $(".length-counter").html(1200 - $(this).val().length);
+        });
     </script>
     <script>
         var isPermissionRecord = false;
@@ -453,5 +461,33 @@
                 });
         }
 
+        function setCount(){
+            startTime = Date.now();
+            let curTime, mSec, sec, min, res;
+            interval = setInterval(function(){
+                curTime = Date.now() - startTime;
+                mSec = parseInt(curTime/100);
+                sec = parseInt(curTime/1000);
+                min = parseInt(curTime/60000);
+                res = min+":"+sec+","+mSec;
+                console.log(mSec);
+            });
+
+        }
+
     </script>
+@endsection
+@section("css")
+    <style>
+        .text-area {
+            position: relative;
+        }
+        .length-counter {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            font-size: 4.5vw;
+            /*font-size: 4.5vmin;*/
+        }
+    </style>
 @endsection

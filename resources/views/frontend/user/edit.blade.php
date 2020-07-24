@@ -156,6 +156,14 @@
             phone = phone.replace("-","");
             $("input[name=phone]").val(phone);
         });
+
+        $(".trash").click(function () {
+            $(".preview").html("");
+            $.post("{{ route("api.user.removeImg",\Auth::user()->id) }}", function () {
+                $(".preview").html("");
+            });
+        });
+
         $("#sendSMS").click(function () {
             let thisBtn = $(this);
             let data = {

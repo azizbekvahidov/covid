@@ -29,11 +29,11 @@
             <div class=" bordered">
                 <div class="info-rating">
                     <div class="mr-70">
-                        <span>Дата:</span>
+                        <span>{{__("box.date")}}:</span>
                         <strong>{{ date("d.m.Y H:i",strtotime($survey->created_at)) }}</strong>
                     </div>
                     <div>
-                        <span>Оценка:</span>
+                        <span>{{__("box.mark")}}</span>
                         <div class="rating">
                             @for($i = 1; $i <= 5; $i++)
                                 @if($i <= $survey->rank)
@@ -52,7 +52,7 @@
             </div>
             <div class=" bordered">
                 <div class="caption">
-                    <strong>{{ __("box.describing_problem") }}:</strong>
+                    <strong>{{__("box.describing_problem")}}</strong>
                     <p>
                         {{ $survey->opinion }}
                     </p>
@@ -61,7 +61,7 @@
             <div class=" bordered">
                 <div class="info-rating">
                     <div>
-                        <span>Вложенные фото:</span>
+                        <span>{{__("box.attached_photos")}}</span>
                         <div class="fileUpload">
                             @foreach($survey->files as $val)
                                 <div class="thumbs active">
@@ -80,7 +80,7 @@
             @if($survey->audio != null)
             <div class="info-rating">
                 <div class="audio">
-                    <span>Прослушать аудио:</span>
+                    <span>{{__("box.listen_to_audio")}}</span>
                     <div class="player">
                         <div class="thumbs">
                             <a href="#" class="playingbutton " id="btnStart">

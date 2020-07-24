@@ -12,6 +12,12 @@ $(document).ready(function(){
     })
     $('.selectbox select').select2()
 
+    $('.smile-panel .thumbs input[type=radio]').change(function(){
+        $(this).parent('.thumbs').removeClass('opacity').siblings().removeClass('checked')
+        if($(this).is(':checked')){
+            $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity')
+        }
+    })
 })
 function onlyNumber(event) {
     var key = window.event ? event.keyCode : event.which;
@@ -84,3 +90,5 @@ function setIntervalTime() {
         if(seconds <= 0) return false
     }, 1000);
 }
+
+
