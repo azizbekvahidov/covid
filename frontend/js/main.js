@@ -12,12 +12,15 @@ $(document).ready(function(){
   $('.overlay').on('click', function(){
     closeMenu()
     $('body').removeClass( "open-modal" );
-    $('.popup').removeClass('show')
+    $('.popup').removeClass('show');
+    $('.burger').removeClass('active')
+    $('header').removeClass('menu-open')
   })
   $('.burger').on('click', function(){
     $(this).toggleClass('active')
     $('.menu').toggleClass( "swipe" );
     $('body').toggleClass( "open-modal" );
+    $('header').toggleClass('menu-open')
   })
   $('.selectbox select').select2()
 
