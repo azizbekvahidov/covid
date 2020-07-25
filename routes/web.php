@@ -18,7 +18,6 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::prefix("/survey")->group(function () {
             Route::get("/", "SurveyController@index");
-            Route::get("/category", ['as' => 'survey.category', 'uses' => "SurveyController@category"]);
             Route::get("/{id}/create", ['as' => 'survey.create', 'uses' => "SurveyController@create"])->middleware("checkTime");
             Route::post("/store", ['as' => 'survey.store', 'uses' => "SurveyController@store"]);
             Route::get("/list", ['as' => 'survey.list', 'uses' => "SurveyController@list"]);
@@ -41,6 +40,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post("/selectSurvey",    ["as" => "admin.selectSurvey",  "uses" => "AdminController@selectSurvey"]);
     });
 });
+Route::get("/survey/category", ['as' => 'survey.category', 'uses' => "Frontend\SurveyController@category"]);
 Route::namespace("Auth")->group(function () {
     Route::get("/verifyPhone",          ['as' => 'register.verifyPhone',  'uses' => "RegisterController@verifyPhone"]);
     Route::get("{ID}/setPassword",      ['as' => 'register.setPassword',  'uses' => "RegisterController@setPassword"]);

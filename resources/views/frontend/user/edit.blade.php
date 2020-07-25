@@ -16,27 +16,29 @@
                     <h1>{{__("box.personal_data")}}</h1>
                 </div>
             </a>
-            <div class="profile-content content">
-                <div class="profile-photo">
-                    <div class="img">
-                        <div class="preview">
-                            <img src="{{ asset((\Auth::user()->photo == "" || \Auth::user()->photo == null) ? "assets/img/user-empty.png" : "storage/avatars/".\Auth::user()->photo)}}" alt="{{\Auth::user()->name}}"/>
+                <div class="bordered ma-25">
+                    <div class="profile-content">
+                        <div class="profile-photo">
+                            <div class="img">
+                                <input type="file" onchange="fileCHeck(this)" data-target=".img" value="" name="photo"/>
+                                <div class="preview">
+                                    <img src="{{ asset((\Auth::user()->photo == "" || \Auth::user()->photo == null) ? "assets/img/user-empty.png" : "storage/avatars/".\Auth::user()->photo)}}" alt=""/>
+                                </div>
+                                <span class="trash">
+                                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69999 1.20001C6.49712 1.20001 5.50992 2.12341 5.40857 3.30001H3.49999H2.79999C2.30294 3.30001 1.89999 3.70296 1.89999 4.20001C1.89999 4.69707 2.30294 5.10001 2.79999 5.10001H3.49999H3.50884L4.06941 13.4341L4.06954 13.4361C4.14132 14.5683 5.08055 15.45 6.21523 15.45H10.5848C11.7195 15.45 12.6587 14.5682 12.7305 13.436L12.7306 13.4341L13.2912 5.10001H13.3H14C14.497 5.10001 14.9 4.69707 14.9 4.20001C14.9 3.70296 14.497 3.30001 14 3.30001H13.3H11.3914C11.2901 2.12341 10.3029 1.20001 9.09999 1.20001H7.69999ZM9.55839 3.30001H7.2416C7.31875 3.12342 7.49496 3.00001 7.69999 3.00001H9.09999C9.30503 3.00001 9.48123 3.12342 9.55839 3.30001ZM7.68917 6.96147C7.66789 6.46487 7.24806 6.07955 6.75146 6.10084C6.25486 6.12212 5.86954 6.54195 5.89082 7.03855L6.10082 11.9385C6.1221 12.4351 6.54193 12.8205 7.03853 12.7992C7.53513 12.7779 7.92045 12.3581 7.89917 11.8615L7.68917 6.96147ZM10.9092 7.03855C10.9305 6.54195 10.5451 6.12212 10.0485 6.10084C9.55193 6.07955 9.1321 6.46487 9.11082 6.96147L8.90082 11.8615C8.87954 12.3581 9.26486 12.7779 9.76146 12.7992C10.2581 12.8205 10.6779 12.4351 10.6992 11.9385L10.9092 7.03855Z" fill="black"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="info-profile">
+                                <a href="#">{{\Auth::user()->FIO}}</a>
+                                <a href="{{ route("logout") }}" class="tags">{{ __("box.logout") }}</a>
+                            </div>
+
                         </div>
-                        <span>
-                <input type="file" onchange="fileCHeck(this)" data-target=".img" value="" name="photo"/>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M14.75 5.25C14.2415 5.75853 13.9872 6.01279 13.6814 6.0692C13.5615 6.09132 13.4385 6.09132 13.3186 6.0692C13.0128 6.01279 12.7585 5.75853 12.25 5.25L10.75 3.75C10.2415 3.24147 9.98721 2.98721 9.93081 2.68139C9.90869 2.56147 9.90869 2.43853 9.93081 2.31862C9.98721 2.01279 10.2415 1.75853 10.75 1.25V1.25C11.2585 0.741474 11.5128 0.487211 11.8186 0.430803C11.9385 0.408686 12.0615 0.408686 12.1814 0.430803C12.4872 0.487211 12.7415 0.741474 13.25 1.25L14.75 2.75C15.2585 3.25853 15.5128 3.51279 15.5692 3.81862C15.5913 3.93853 15.5913 4.06147 15.5692 4.18139C15.5128 4.48721 15.2585 4.74147 14.75 5.25V5.25ZM2 16C1.05719 16 0.585786 16 0.292893 15.7071C0 15.4142 0 14.9428 0 14V12.8284C0 12.4197 0 12.2153 0.0761205 12.0315C0.152241 11.8478 0.296756 11.7032 0.585787 11.4142L7.08579 4.91421C7.75245 4.24755 8.08579 3.91421 8.5 3.91421C8.91421 3.91421 9.24755 4.24755 9.91421 4.91421L11.0858 6.08579C11.7525 6.75245 12.0858 7.08579 12.0858 7.5C12.0858 7.91421 11.7525 8.24755 11.0858 8.91421L4.58579 15.4142C4.29676 15.7032 4.15224 15.8478 3.96847 15.9239C3.7847 16 3.58032 16 3.17157 16H2Z" fill="#000"/>
-                </svg>
-              </span>
                     </div>
-                    <div class="info-profile">
-                        <a href="javascript:;">{{\Auth::user()->FIO}}</a>
-
-                        <a href="{{ route("logout") }}" class="tags">Выйти из аккаунта</a>
-                    </div>
-
                 </div>
-            </div>
+
                 <div class="bordered">
                     <div class="input-thumbs">
                         <label>{{__("box.how_to_contact_you")}}</label>
@@ -163,9 +165,8 @@
         });
 
         $(".trash").click(function () {
-            $(".preview").html("");
             $.post("{{ route("api.user.removeImg",\Auth::user()->id) }}", function () {
-                $(".preview").html("");
+                $(".preview img").attr("src","/assets/img/user-empty.png");
             });
         });
 

@@ -34,7 +34,7 @@
 		"get_sms"						=> "Получить СМС",
 		"confirm_code"					=> "Код подтверждения",
 		"enter_code"					=> "Введите код",
-		"agreement_with_terms"			=> "Регистрируясь вы соглашаетесь с<a href='offer'>публичной офертой</a>",
+		"agreement_with_terms"			=> "Регистрируясь вы соглашаетесь с <a href='offer'>публичной офертой</a>",
 		"confirm"						=> "Подтвердить",
 		"create_password"				=> "Создайте пароль",
 		"creating_password"				=> "Создайте пароль",
@@ -88,6 +88,9 @@
         "rate_continue"                 => " в медучреждении",
         "alert_rate_clinic"             => "Оцените медучреждение",
         "ask_change_password"			=> "Поменять пароль?",
-        "department"                    => "Департамент цифрового развития"
-
+        "department"                    => "Департамент цифрового развития",
+        "about_project"                 => "О проекте",
+        "personal_cabinet"              => "Личный кабинет",
+        "auth_for_set_problem"          => "Чтобы сообщить о проблеме войдите",
+        "public_offer"                  => "Публичная оферта"
     ];

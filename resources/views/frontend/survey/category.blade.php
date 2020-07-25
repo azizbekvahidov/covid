@@ -9,7 +9,7 @@
             @foreach($categories as $category)
 
                 @php
-                    $survey = \App\Survey::where("user_id", \Auth::user()->id)->where("category_id", $category->id)->orderBy("id", "desc")->first();
+                    $survey = \Auth::check() ? \App\Survey::where("user_id", \Auth::user()->id)->where("category_id", $category->id)->orderBy("id", "desc")->first() : null;
 
                 @endphp
                 @if (!is_null($survey))
@@ -27,11 +27,11 @@
                     }
                 @endphp
                     <div class="category-item">
-                        <a href="{{ route("survey.create",$category->id) }}" class="link" time="{{$date}}">
+                        <a href="{{ route("survey.create",$category->id) }}"  class="link {{ ($res != "") ? 'disabled' : "" }}" time="{{$date}}">
                             @if($res != "")
-                            <div class="countdown">
-                                <strong class="timer" >{{ $res }}</strong>
-                            </div>
+                                <div class="countdown">
+                                    <span class="timer" >{{ $res }}</span>
+                                </div>
                             @endif
                             <?=$category->icon;?>
                             @if(app()->getLocale() == "uz")
@@ -44,7 +44,7 @@
 
                 @else
                     <div class="category-item">
-                        <a href="{{ route("survey.create",$category->id) }}" class="link" time="">
+                        <a href="{{ route("survey.create",$category->id) }}" class="link" time="" {{\Auth::check() ? "" : 'data-target=.auth data-auth'}}>
                             <?=$category->icon;?>
                                 @if(app()->getLocale() == "uz")
                                     <strong>{{$category->uz_name}}</strong>
@@ -56,9 +56,16 @@
                 @endif
             @endforeach
 
+            <div class="alert error">
+                Повторно подать сигнал можно через 12 часов с момента последней подачи
+            </div>
+
         </div>
     </div>
 @endsection
+@section("footer")
+    @include("frontend.partials.footer")
+@endsection()
 @section("js")
     <script>
         $(".timer").each(function () {

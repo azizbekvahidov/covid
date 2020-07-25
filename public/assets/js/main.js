@@ -1,23 +1,40 @@
 $(document).ready(function(){
-    $('.eye').click(function(){
-        let input = $(this).siblings('input')
-        input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
-    });
-    $('.overlay').on('click', function(){
-        closeMenu();
-        $('.popup').removeClass('show')
-    })
-    $('.burger').on('click', function(){
-        openMenu()
-    })
-    $('.selectbox select').select2()
+  $('.eye').click(function(){
+    let input = $(this).siblings('input')
+    input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
+  });
+  $('[data-auth]').on('click',function(e){
+    e.preventDefault();
+    console.log(this);
+    let target = $(this).data('target')
+    $(target).addClass('swipe')
+    $('body').addClass( "open-modal" );
+  });
+  $('.overlay').on('click', function(){
+    closeMenu()
+    $('body').removeClass( "open-modal" );
+    $('.popup').removeClass('show');
+    $('.burger').removeClass('active')
+    $('header').removeClass('menu-open')
+  })
+  $('.burger').on('click', function(){
+    $(this).toggleClass('active')
+    $('.menu').toggleClass( "swipe" );
+    $('body').toggleClass( "open-modal" );
+    $('header').toggleClass('menu-open')
+  })
+  $('.selectbox select').select2()
 
-    $('.smile-panel .thumbs input[type=radio]').change(function(){
-        $(this).parent('.thumbs').removeClass('opacity').siblings().removeClass('checked')
-        if($(this).is(':checked')){
-            $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity')
-        }
-    })
+  $('.smile-panel .thumbs input[type=radio]').change(function(){
+    $(this).parent('.thumbs').removeClass('opacity').siblings().removeClass('checked')
+    if($(this).is(':checked')){
+      $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity')
+    }
+  })
+  $('.confirm-hospital a').last().on('click', function(e){
+    e.preventDefault();
+    $('.hospital-search').addClass('disabled');
+  })
 })
 function onlyNumber(event) {
     var key = window.event ? event.keyCode : event.which;
@@ -32,11 +49,10 @@ function onlyLetters(event) {
         event.target.value = event.target.value.replace(/[0-9-!$@%#^&*()_+|~=`{}\[\]:";'<>?,.\/]/g, '')
     }
 }
-function openMenu(){
-    $('.left-menu').addClass( "swipe" );
-}
+
 function closeMenu(){
-    $('.left-menu').removeClass( "swipe" );
+  $('body').removeClass( "open-modal" );
+  $('.left-menu, .menu').removeClass( "swipe" );
 }
 function createObjectURL ( file ) {
     if ( window.webkitURL ) {
@@ -69,7 +85,6 @@ function setIntervalTime() {
     var timer2 = $(".timer").text();
     var interval = setInterval(function() {
         var timer = timer2.split(':');
-        console.log(timer);
         var minutes = parseInt(timer[0], 10);
         var seconds = parseInt(timer[1], 10);
         --seconds;
@@ -96,7 +111,6 @@ function timer(element){
         if (hour < 0 && minutes <= 0 && seconds <= 0) return false;
         minutes = (minutes < 0) ? 59 : minutes;
         minutes = (minutes < 10) ? '0' + minutes : minutes;
-        console.log(hour+"=>"+minutes+"=>"+seconds);
         if(minutes < 0 && seconds <=0) return false;
         seconds = (seconds < 0) ? 59 : seconds;
         seconds = (seconds < 10) ? '0' + seconds : seconds;

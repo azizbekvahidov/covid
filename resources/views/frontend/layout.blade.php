@@ -25,52 +25,55 @@
     @yield("footer")
 </div>
 
-<div class="left-menu ">
+<div class="left-menu menu">
     <div class="overlay"></div>
     <div class="menu-content">
         <ul>
-
             @if(\Auth::user())
             <li>
                 <div class="user">
                     <div class="img">
-                        <img src="img/empty.svg" alt=""/>
+                        <img src="{{ asset((\Auth::user()->photo == "" || \Auth::user()->photo == null) ? "assets/img/user-empty.png" : "storage/avatars/".\Auth::user()->photo) }}" alt=""/>
                     </div>
                     <div class="info-profile">
-                        <a href="#">Пулатов Мавлонбек</a>
-                        <span class="tags">Персональное данные</span>
+                        <a href="#">{{\Auth::user()->FIO}}</a>
+                        <span class="tags">{{ __("box.personal_data") }}</span>
                     </div>
                 </div>
             </li>
             @endif
-            <li><a href="#">О проекте</a> </li>
-            <li><a href="#">Личный кабинет</a> </li>
-            <li><a href="#">Как оставить сообщение?</a> </li>
+            <li><a href="#">{{ __("box.about_project") }}</a> </li>
+            <li><a href="{{ route("survey.list") }}">{{ __("box.personal_cabinet") }}</a> </li>
+            <li><a href="#">{{ __("box.how_to_post_message") }}</a> </li>
         </ul>
         <div class="action-button">
-            <strong>Чтобы сообщить о проблеме войдите</strong>
+            <strong>{{ __("box.auth_for_set_problem") }}</strong>
             @if(!\Auth::user())
-                <a href="{{ route("register") }}" class="registration">Зарегистрироваться</a>
-                <a href="{{ route("login") }}" class="signin">Войти</a>
+            <a href="{{ route("register.verifyPhone") }}" class="registration">{{ __("box.register") }}</a>
+            <a href="{{ route("login") }}" class="signin">{{ __("box.login") }}</a>
             @else
-                <a href="/logout" class="logout">Выйти из аккаунта</a>
+                <a href="/logout" class="logout">{{ __("box.logout") }}</a>
             @endif
         </div>
     </div>
 </div>
 {{--@else--}}
 
-    <div class="left-menu bottom auth swipe">
-        <div class="overlay"></div>
-        <div class="menu-content">
-            <div class="action-button">
-                <strong>Чтобы сообщить о проблеме войдите</strong>
-                <a href="registration.html" class="registration">Зарегистрироваться</a>
-                <a href="auth.html" class="signin">Войти</a>
-                <a href="auth.html" class="logout">Выйти из аккаунта</a>
-            </div>
+
+<div class="left-menu bottom auth ">
+    <div class="overlay"></div>
+    <div class="menu-content">
+        <div class="action-button">
+            <strong style="text-align: center">{{ __("box.auth_for_set_problem") }}</strong>
+            @if(!\Auth::user())
+            <a href="{{ route("register.verifyPhone") }}" class="registration">{{ __("box.register") }}</a>
+            <a href="{{ route("login") }}" class="signin">{{ __("box.login") }}</a>
+            @else
+            <a href="/logout" class="logout">{{ __("box.logout") }}</a>
+            @endif
         </div>
     </div>
+</div>
 {{--@endif--}}
 {{--<div class="left-menu">--}}
 {{--    <div class="overlay"></div>--}}

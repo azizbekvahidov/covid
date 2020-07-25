@@ -93,48 +93,18 @@
                 </div>
                 <div class="player">
                     <div class="thumbs unactive">
-                        <a href="#" class="playingbutton active">
+                        <a href="javascript:;" class="playingbutton"  id="btnStart">
                             <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 5.66667V8.33333C0 11.3105 0 12.799 0.971008 13.3817C1.94202 13.9643 3.25546 13.2638 5.88235 11.8627L8.38235 10.5294C11.2941 8.97647 12.75 8.2 12.75 7C12.75 5.8 11.2941 5.02353 8.38235 3.47059L5.88235 2.13725C3.25546 0.736246 1.94202 0.0357424 0.971008 0.618348C0 1.20095 0 2.68952 0 5.66667Z" fill="#007BEC"/>
                             </svg>
                         </a>
-                        <div class="line" id="waveform" style="background:none;"></div>
-                        <span class="delay"></span>
-                        <div class="record"></div>
+                        <div id="waveform" class="line" style="background: none;"></div>
+                        <span class="delay" style="display: none;"><span id="minutes">00</span>:<span id="seconds">00</span></span>
+                        <div class="record recorder" ></div>
+                        <div class="record record-delete" style="display: none;" onclick="refreshRecord(this)"></div>
                     </div>
                 </div>
-                <div class="player">
-                    <div class="thumbs active">
-                        <span class="delay">0:00,12</span>
-                        <div class="record"></div>
-                    </div>
-                </div>
-                <div class="player">
-                    <div class="thumbs stop">
-                        <a href="#" class="playingbutton active">
-                            <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 5.66667V8.33333C0 11.3105 0 12.799 0.971008 13.3817C1.94202 13.9643 3.25546 13.2638 5.88235 11.8627L8.38235 10.5294C11.2941 8.97647 12.75 8.2 12.75 7C12.75 5.8 11.2941 5.02353 8.38235 3.47059L5.88235 2.13725C3.25546 0.736246 1.94202 0.0357424 0.971008 0.618348C0 1.20095 0 2.68952 0 5.66667Z" fill="#007BEC"/>
-                            </svg>
-                        </a>
-                        <span class="delay">0:00,12</span>
-                        <div class="record"></div>
-                    </div>
-                </div>
-                <div class="player">
-                    <div class="thumbs">
-                        <a href="javascript:;" class="playingbutton " id="btnStart">
-                            <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 5.66667V8.33333C0 11.3105 0 12.799 0.971008 13.3817C1.94202 13.9643 3.25546 13.2638 5.88235 11.8627L8.38235 10.5294C11.2941 8.97647 12.75 8.2 12.75 7C12.75 5.8 11.2941 5.02353 8.38235 3.47059L5.88235 2.13725C3.25546 0.736246 1.94202 0.0357424 0.971008 0.618348C0 1.20095 0 2.68952 0 5.66667Z" fill="#007BEC"/>
-                            </svg>
-                        </a>
-                        <a href="javascript:;" id="btnDel">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0001 2.10001C9.39847 2.10001 8.1001 3.39838 8.1001 5.00001V5.10001H5.0001H4.0001C3.50304 5.10001 3.1001 5.50295 3.1001 6.00001C3.1001 6.49706 3.50304 6.90001 4.0001 6.90001H5.0001H5.30894L6.13436 19.1715L6.13448 19.1735C6.226 20.6219 7.42747 21.75 8.879 21.75H15.1212C16.5727 21.75 17.7741 20.6219 17.8657 19.1736L17.8658 19.1715L18.6913 6.90001H19.0001H20.0001C20.4972 6.90001 20.9001 6.49706 20.9001 6.00001C20.9001 5.50295 20.4972 5.10001 20.0001 5.10001H19.0001H15.9001V5.00001C15.9001 3.39838 14.6017 2.10001 13.0001 2.10001H11.0001ZM14.1001 5.10001H9.9001V5.00001C9.9001 4.39249 10.3926 3.90001 11.0001 3.90001H13.0001C13.6076 3.90001 14.1001 4.39249 14.1001 5.00001V5.10001ZM10.5993 9.96147C10.578 9.46487 10.1582 9.07955 9.66156 9.10083C9.16496 9.12211 8.77964 9.54194 8.80092 10.0385L9.10092 17.0385C9.12221 17.5351 9.54203 17.9205 10.0386 17.8992C10.5352 17.8779 10.9206 17.4581 10.8993 16.9615L10.5993 9.96147ZM15.1993 10.0385C15.2206 9.54194 14.8352 9.12211 14.3386 9.10083C13.842 9.07955 13.4222 9.46487 13.4009 9.96147L13.1009 16.9615C13.0796 17.4581 13.465 17.8779 13.9616 17.8992C14.4582 17.9205 14.878 17.5351 14.8993 17.0385L15.1993 10.0385Z" fill="#EF006D"/>
-                            </svg>
-                        </a>
-                    </div>
-                    {{--                <div class="playing"></div>--}}
-                </div>
+
             </div>
 
             <div class="blue-bg">
@@ -295,16 +265,8 @@
     <script>
         timer($(".timer"));
         var sound;
-        let constraintObj = {
-            audio: true,
-            video: false
-        };
-        var wavesurfer = WaveSurfer.create({
-            container: '#waveform',
-            waveColor: 'lightskyblue',
-            progressColor: 'skyblue',
-            height: 27,
-        });
+
+
         var ratio = false;
         var opinion = false;
         var locate = false;
@@ -425,69 +387,69 @@
             $(".length-counter").html(1200 - $(this).val().length);
         });
     </script>
+    <script src="/assets/js/recorder.js"></script>
     <script>
         var isPermissionRecord = false;
-        let isStart = false;
-        $(document).ready(function () {
-            $(".player").click(function () {
-                if(!isPermissionRecord){
-                    recorder();
-                }
-            });
-           recorder();
+        // $(document).ready(function () {
+        //     $(".player").click(function () {
+        //         if(!isPermissionRecord){
+        //             recorder();
+        //         }
+        //     });
+        //    recorder();
+        //
+        // });
 
-        });
 
-
-        function recorder() {
-            navigator.mediaDevices.getUserMedia(constraintObj)
-                .then(function (mediaStreamObj) {
-                    isPermissionRecord = true;
-                    let audioInput = document.getElementById('audioInput');
-                    let del = document.getElementById('btnDel');
-                    let wave = document.getElementById('waveform');
-                    // let vidSave = document.getElementById('aud2');
-                    let mediaRecorder = new MediaRecorder(mediaStreamObj);
-                    let chunks = [];
-                    $("#btnStart").click(function () {
-                        if (isStart) {
-                            mediaRecorder.stop();
-                            $(this).removeClass("active");
-                            isStart = false;
-                        } else {
-                            mediaRecorder.start();
-                            $(this).addClass("active");
-                            isStart = true;
-                        }
-                    });
-
-                    del.addEventListener('click', (ev) => {
-                        wavesurfer.empty();
-                        audioInput.value("");
-                        // console.log(mediaRecorder.state);
-                    });
-
-                    wave.addEventListener("click", (ev) => {
-                        wavesurfer.playPause();
-                        // console.log(mediaRecorder.state);
-                    });
-
-                    mediaRecorder.ondataavailable = function (ev) {
-                        chunks.push(ev.data);
-                    }
-                    mediaRecorder.onstop = (ev) => {
-                        let blob = new Blob(chunks, {'type': 'audio/mp3;'});
-                        chunks = [];
-                        let audioURL = window.URL.createObjectURL(blob);
-                        // vidSave.src = audioURL;
-                        wavesurfer.load(audioURL);
-                        sound = blob;
-                    }
-                })
-                .catch(function (err) {
-                    console.log(err.name, err.message);
-                });
-        }
+        // function recorder() {
+        //     navigator.mediaDevices.getUserMedia(constraintObj)
+        //         .then(function (mediaStreamObj) {
+        //             isPermissionRecord = true;
+        //             let audioInput = document.getElementById('audioInput');
+        //             let del = document.getElementById('btnDel');
+        //             let wave = document.getElementById('waveform');
+        //             // let vidSave = document.getElementById('aud2');
+        //             let mediaRecorder = new MediaRecorder(mediaStreamObj);
+        //             let chunks = [];
+        //             $("#btnStart").click(function () {
+        //                 if (isStart) {
+        //                     mediaRecorder.stop();
+        //                     $(this).removeClass("active");
+        //                     isStart = false;
+        //                 } else {
+        //                     mediaRecorder.start();
+        //                     $(this).addClass("active");
+        //                     isStart = true;
+        //                 }
+        //             });
+        //
+        //             del.addEventListener('click', (ev) => {
+        //                 wavesurfer.empty();
+        //                 audioInput.value("");
+        //                 // console.log(mediaRecorder.state);
+        //             });
+        //
+        //             wave.addEventListener("click", (ev) => {
+        //                 wavesurfer.playPause();
+        //                 // console.log(mediaRecorder.state);
+        //             });
+        //
+        //             mediaRecorder.ondataavailable = function (ev) {
+        //                 chunks.push(ev.data);
+        //             }
+        //             mediaRecorder.onstop = (ev) => {
+        //                 let blob = new Blob(chunks, {'type': 'audio/mp3;'});
+        //                 chunks = [];
+        //                 let audioURL = window.URL.createObjectURL(blob);
+        //                 // vidSave.src = audioURL;
+        //                 wavesurfer.load(audioURL);
+        //                 sound = blob;
+        //             }
+        //         })
+        //         .catch(function (err) {
+        //             console.log(err.name, err.message);
+        //         });
+        // }
 
         function setCount(){
             startTime = Date.now();
@@ -498,7 +460,6 @@
                 sec = parseInt(curTime/1000);
                 min = parseInt(curTime/60000);
                 res = min+":"+sec+","+mSec;
-                console.log(mSec);
             });
 
         }

@@ -95,5 +95,9 @@
         "rate_continue"                 => "ni baholang",
         "alert_rate_clinic"             => "Tibbiy muassasani baholang",
         "ask_change_password"			=> "Parolni o'zgartirasizmi?",
-        "department"                    => "Департамент цифрового развития"
+        "department"                    => "Департамент цифрового развития",
+        "about_project"                 => "Loyiha haqida",
+        "personal_cabinet"              => "Shaxsiy kabinet",
+        "auth_for_set_problem"          => "Muammo haqida xabar berish uchun tizimga kiring",
+        "public_offer"                  => "Ommaviy oferta"
     ];
