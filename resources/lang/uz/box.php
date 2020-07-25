@@ -100,5 +100,6 @@
         "public_offer"                  => "Ommaviy oferta",
         "category_rule"                 => "Oxirgi signaldan 12 soat o'tgach signalni qayta yuborish mumkin",
         "clear"                         => "Tozalash",
+        "photo_rule_type"               => "Faqat sur'at yuklashiz mumkin",
 
     ];

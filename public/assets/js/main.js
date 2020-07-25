@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    var userAgent = window.navigator.userAgent;
+
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+        $('.player').hide()
+    }
+    let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   $('.eye').click(function(){
     let input = $(this).siblings('input')
     input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
@@ -74,14 +82,27 @@ function fileCHeck(el){
     let file = $(el)[0].files;
     let parent = $(el).data('target');
     var url = createObjectURL(file[0]);
-    var img = document.createElement('img')
-    img.setAttribute('src', url)
-    if(file[0].size > 5242880){
-        $('.alert.error').fadeIn();
+    const  fileType = file[0]['type'];
+    console.log(fileType);
+    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg'];
+    var img = document.createElement('img');
+    if (!validImageTypes.includes(fileType)) {
+        $('.alert.error.type').fadeIn();
         setTimeout(()=>{
-            $('.alert.error').fadeOut();
+            $('.alert.error.type').fadeOut();
         }, 2000);
         return false;
+        // invalid file type code goes here.
+    }
+    else {
+        img.setAttribute('src', url)
+        if (file[0].size > 5242880) {
+            $('.alert.error.size').fadeIn();
+            setTimeout(() => {
+                $('.alert.error.size').fadeOut();
+            }, 2000);
+            return false;
+        }
     }
 
     $(el).parents(parent).find('.preview').addClass('active')

@@ -85,7 +85,7 @@
                         <div class="preview"></div>
                     </div>
                 </div>
-                <div class="alert error" style="background: rgba(250, 74, 74, 0.15); margin-bottom: 10px; display: none">
+                <div class="alert error size" style="background: rgba(250, 74, 74, 0.15); margin-bottom: 10px; display: none">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="9" cy="9" r="9" fill="#f32525"/>
                         <path d="M9 14C11.7614 14 14 11.7614 14 9C14 6.23858 11.7614 4 9 4C6.23858 4 4 6.23858 4 9C4 11.7614 6.23858 14 9 14Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -94,6 +94,16 @@
                     </svg>
                     {{__("box.photo_rule")}}
 {{--                    Размер файла не должно превышать 5Mb--}}
+                </div>
+                <div class="alert error type" style="background: rgba(250, 74, 74, 0.15); margin-bottom: 10px; display: none">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="9" cy="9" r="9" fill="#f32525"/>
+                        <path d="M9 14C11.7614 14 14 11.7614 14 9C14 6.23858 11.7614 4 9 4C6.23858 4 4 6.23858 4 9C4 11.7614 6.23858 14 9 14Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {{__("box.photo_rule_type")}}
+                    {{--                    Размер файла не должно превышать 5Mb--}}
                 </div>
                 <div class="player">
                     <div class="thumbs unactive">
