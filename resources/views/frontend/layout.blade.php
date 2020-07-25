@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
     <link rel="stylesheet" href="{{asset("assets/css/select2.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/css/dop.css")}}">
     <script src="{{ asset("js/wavesurfer.js") }}"></script>
     @yield("css")
     <title>Sogboling.uz</title>
@@ -71,6 +72,18 @@
             @else
             <a href="/logout" class="logout">{{ __("box.logout") }}</a>
             @endif
+        </div>
+    </div>
+</div>
+
+<div class="popup " id="lang">
+    <div class="overlay"></div>
+    <div class="popup-content">
+        <strong>Выберите язык сайта</strong>
+        <div class="popup-buttons locales">
+            <a href="/locale/uz" >O‘zbekcha</a>
+            <a href="/locale/cyrillic_uz" >Узбекский</a>
+            <a href="/locale/ru" >Русский</a>
         </div>
     </div>
 </div>

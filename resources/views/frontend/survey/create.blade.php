@@ -16,6 +16,8 @@
                     {{$category->uz_name}}
                 @elseif(app()->getLocale() == "ru")
                     {{$category->ru_name}}
+                @elseif(app()->getLocale() == "cyrillic_uz")
+                    {{$category->cyrillic_uz_name}}
                 @endif
             </strong>
         </a>
@@ -29,6 +31,8 @@
                             <span style="text-transform: lowercase" >{{$category->uz_name}}</span>{{__("box.rate_continue")}}
                         @elseif(app()->getLocale() == "ru")
                             <span style="text-transform: lowercase" >{{$category->ru_name}}</span>{{__("box.rate_continue")}}
+                        @elseif(app()->getLocale() == "cyrillic_uz")
+                            <span style="text-transform: lowercase" >{{$category->cyrillic_uz_name}}</span>{{__("box.rate_continue")}}
                         @endif</strong>
                     <span class="starRating">
                       <input id="rating5" type="radio" class="rate validate" name="rank" value="5">
@@ -45,13 +49,13 @@
                 </div>
             </div>
             <div class="pa-15">
-                <div class="text-area">
+                <div class="text-area" id="opinion">
                     <label>{{__("box.describe_problem")}}</label>
                     <textarea name="opinion" class="check-length validate" maxlength="1200"></textarea>
                     <div class="length-counter">1200</div>
                 </div>
                 <div class="fileUpload">
-                    <label>{{__("box.put_photo")}}</label>
+                    <label>{{__("box.put_photo")}} <a href="javascript:;" class="clearFiles">{{ __("box.clear") }}</a></label>
                     <div class="thumbs">
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
@@ -198,7 +202,10 @@
                         <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    {{ __("box.mood_rule") }} {{ (time() - $old_mark_time < 43200) ? '<strong class="timer">'.$mood_time.'</strong>' : "" }}
+                    {{ __("box.mood_rule") }}
+                    @if((time() - $old_mark_time) < 43200)
+                        <strong class="timer">{{ $mood_time }}</strong>
+                    @endif
                 </div>
                 <label>{{__("box.choose_hospital")}}</label>
                 <div class="hospital-search">
@@ -229,7 +236,15 @@
             <div class="selectbox pa-15" hidden>
                 <select name="locate" id="locate" class=" validate">
                     @foreach($locations as $location)
-                        <option value="{{ $location->id }}">{{ $location->location_title }}</option>
+                        <option value="{{ $location->id }}">
+                            @if(app()->getLocale() == "uz")
+                                {{$location->uz_title}}
+                            @elseif(app()->getLocale() == "ru")
+                                {{$location->ru_title}}
+                            @elseif(app()->getLocale() == "cyrillic_uz")
+                                {{$location->cyrillic_uz_title}}
+                            @endif
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -247,7 +262,7 @@
             <button type="submit" id="sendMood" disabled>{{__("box.send_signal")}}</button>
         </form>
 
-    <div class="popup ">
+    <div class="popup " id="createPopup">
         <div class="overlay"></div>
         <div class="popup-content">
             <strong>{{__("box.thanks_for_signal")}}</strong>
@@ -338,10 +353,10 @@
         function checkValidate(){
             let text = "";
             if(!ratio){
-                text += "{{ __("box.alert_rate_clinic") }}<br>";
+                text += "<a href='#rating' >{{ __("box.alert_rate_clinic") }}</a><br>";
             }
             if(!opinion){
-                text += "{{ __("box.describe_problem") }}<br>";
+                text += "<a href='#opinion' >{{ __("box.describe_problem") }}</a><br>";
             }
             if(!locate){
                 text += "{{ __("box.choose_hospital") }}<br>";
@@ -380,7 +395,7 @@
                         window.location.replace("/survey/category");
                     }
                     else {
-                        $(".popup").addClass("show");
+                        $("#createPopup").addClass("show");
                     }
                 },
             });
@@ -453,19 +468,6 @@
         //             console.log(err.name, err.message);
         //         });
         // }
-
-        function setCount(){
-            startTime = Date.now();
-            let curTime, mSec, sec, min, res;
-            interval = setInterval(function(){
-                curTime = Date.now() - startTime;
-                mSec = parseInt(curTime/100);
-                sec = parseInt(curTime/1000);
-                min = parseInt(curTime/60000);
-                res = min+":"+sec+","+mSec;
-            });
-
-        }
 
     </script>
 @endsection

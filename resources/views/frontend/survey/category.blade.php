@@ -38,6 +38,8 @@
                                 <strong>{{$category->uz_name}}</strong>
                             @elseif(app()->getLocale() == "ru")
                                 <strong>{{$category->ru_name}}</strong>
+                            @elseif(app()->getLocale() == "cyrillic_uz")
+                                <strong>{{$category->cyrillic_uz_name}}</strong>
                             @endif
                         </a>
                     </div>
@@ -50,6 +52,8 @@
                                     <strong>{{$category->uz_name}}</strong>
                                 @elseif(app()->getLocale() == "ru")
                                     <strong>{{$category->ru_name}}</strong>
+                                @elseif(app()->getLocale() == "cyrillic_uz")
+                                    <strong>{{$category->cyrillic_uz_name}}</strong>
                                 @endif
                         </a>
                     </div>

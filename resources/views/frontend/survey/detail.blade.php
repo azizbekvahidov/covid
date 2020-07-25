@@ -18,6 +18,8 @@
                                 {{$survey->category->uz_name}}
                             @elseif(app()->getLocale() == "ru")
                                 {{$survey->category->ru_name}}
+                            @elseif(app()->getLocale() == "cyrillic_uz")
+                                {{$survey->category->cyrillic_uz_name}}
                             @endif
                         </strong>
                         <span class="tags">ID A-{{ $survey->id }}</span>

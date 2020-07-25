@@ -17,6 +17,7 @@ class CreateSurveyCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string("uz_name");
             $table->string("ru_name");
+            $table->string("cyrillic_uz_name");
             $table->text("description")->nullable();
             $table->string("status");
             $table->text("icon");
@@ -30,6 +31,7 @@ class CreateSurveyCategoriesTable extends Migration
             [
                 'uz_name' => 'Oziqlanish',
                 'ru_name' => 'Питание',
+                'cyrillic_uz_name' => 'Озиқланиш',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -65,6 +67,7 @@ class CreateSurveyCategoriesTable extends Migration
             [
                 'uz_name' => 'Davolash',
                 'ru_name' => 'Лечение',
+                'cyrillic_uz_name' => 'Даволаниш',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -88,6 +91,7 @@ class CreateSurveyCategoriesTable extends Migration
             [
                 'uz_name' => 'Yashash sharoitlari',
                 'ru_name' => 'Условия содержания',
+                'cyrillic_uz_name' => 'Яшаш шароитлари',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -119,6 +123,7 @@ class CreateSurveyCategoriesTable extends Migration
             [
                 'uz_name' => "Dori-darmon ta'minoti",
                 'ru_name' => 'Обеспечение медикаментами',
+                'cyrillic_uz_name' => "Дори-дармон таъминоти",
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -148,6 +153,7 @@ class CreateSurveyCategoriesTable extends Migration
             [
                 'uz_name' => 'Noqonuniy harakatlar',
                 'ru_name' => 'Противоправные действия',
+                'cyrillic_uz_name' => 'Ноқонуний ҳаракатлар',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -167,6 +173,7 @@ class CreateSurveyCategoriesTable extends Migration
             [
                 'uz_name' => 'Tibbiyot xodimlarining munosabati',
                 'ru_name' => 'Отношение  медперсонала',
+                'cyrillic_uz_name' => 'Тиббиёт ходимларининг муносабати',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
@@ -192,6 +199,7 @@ class CreateSurveyCategoriesTable extends Migration
             [
                 'uz_name' => 'Boshqa',
                 'ru_name' => 'Другое',
+                'cyrillic_uz_name' => 'Бошқа',
                 'description' => '',
                 'status' => "1",
                 'icon' => "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">

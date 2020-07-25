@@ -35,6 +35,13 @@ $(document).ready(function(){
     e.preventDefault();
     $('.hospital-search').addClass('disabled');
   })
+    $('.clearFiles').on('click', function(e){
+        e.preventDefault();
+        $('.fileUpload .thumbs').each(function(){
+            $(this).find('input').val('')
+            $(this).find('.preview').empty()
+        })
+    })
 })
 function onlyNumber(event) {
     var key = window.event ? event.keyCode : event.which;
@@ -119,6 +126,11 @@ function timer(element){
         if (seconds <= 0) return false;
     }, 1000);
 }
+
+
+$(".lang-switcher").click(function () {
+    $("#lang").addClass("show")
+});
 
 
 

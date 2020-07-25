@@ -9,10 +9,12 @@
 {{--        </div>--}}
         <div class="right-side">
             <div class="lang-switcher">
-                @if(app()->getLocale() == "ru")
-                    <a href="/locale/uz" class="uz">Uz</a>
-                @elseif(app()->getLocale() == "uz")
-                    <a href="/locale/ru" class="uz">Ru</a>
+                @if(app()->getLocale() == "uz")
+                    <a href="javascript:;" class="uz">Uz</a>
+                @elseif(app()->getLocale() == "ru")
+                    <a href="javascript:;" class="uz">Ру</a>
+                @elseif(app()->getLocale() == "cyrillic_uz")
+                    <a href="javascript:;" class="uz">Уз</a>
                 @endif
             </div>
             <div class="burger">

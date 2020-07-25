@@ -98,6 +98,7 @@
         "personal_cabinet"              => "Shaxsiy kabinet",
         "auth_for_set_problem"          => "Muammo haqida xabar berish uchun tizimga kiring",
         "public_offer"                  => "Ommaviy oferta",
-        "category_rule"                 => "Oxirgi signaldan 12 soat o'tgach signalni qayta yuborish mumkin"
+        "category_rule"                 => "Oxirgi signaldan 12 soat o'tgach signalni qayta yuborish mumkin",
+        "clear"                         => "Tozalash",
 
     ];

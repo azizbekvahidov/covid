@@ -15,7 +15,9 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('location_title');
+            $table->string('uz_title');
+            $table->string('ru_title');
+            $table->string('cyrillic_uz_title');
             $table->string('coords_lat');
             $table->string('coords_lng');
             $table->string('number')->nullable();
@@ -30,7 +32,9 @@ class CreateLocationsTable extends Migration
         DB::connection('mysql')->table('locations')->insert([
 
             [
-                'location_title' => 'Эпидимиология, миробиология ва юкумли касалликлар илмий текшириш институти клиникаси',
+                'uz_title'          => 'Epidemiologiya, mikrobiologiya va yuqumli kasalliklar ilmiy tekshirish instituti klinikasi',
+                'ru_title'          => 'Клиника НИИ эпидемиологии, микробиологии, инфекционных болезней',
+                'cyrillic_uz_title' => 'Эпидемиология, микробиология ва юқумли касалликлар илмий текшириш институти клиникаси',
                 'coords_lat' => '41.310318',
                 'coords_lng' => "69.187578",
                 'number' => "",
@@ -41,7 +45,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Вирусология илмий текшириш институти',
+                'uz_title'          => 'Virusologiya ilmiy tekshirish instituti',
+                'ru_title'          => 'Институт вирусологии',
+                'cyrillic_uz_title' => 'Вирусология илмий текшириш институти',
                 'coords_lat' => '41.360605',
                 'coords_lng' => "69.300987",
                 'number' => "",
@@ -52,7 +58,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Республика 1-сон клиник касалхонаси',
+                'uz_title'          => 'Respublika 1-son klinik kasalxonasi',
+                'ru_title'          => 'Респуб. клиническая больница № 1',
+                'cyrillic_uz_title' => 'Республика 1-сон клиник касалхонаси',
                 'coords_lat' => '41.301600',
                 'coords_lng' => "69.284659",
                 'number' => "",
@@ -63,7 +71,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Травматология ва ортопедия илмий амалий тиббиёт маркази',
+                'uz_title'          => 'Travmatologiya va ortopediya ilmiy amaliy tibbiyot markazi',
+                'ru_title'          => 'НИИ травматологии и ортопедии',
+                'cyrillic_uz_title' => 'Травматология ва ортопедия илмий амалий тиббиёт маркази',
                 'coords_lat' => '41.306502',
                 'coords_lng' => "69.293572",
                 'number' => "",
@@ -74,7 +84,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Республика ногиронлар реабилитацияси маркази',
+                'uz_title'          => 'Respublika nogironlar reabilitatsiyasi markazi',
+                'ru_title'          => 'Респуб. центр реабилитации и протезирования инвалидов',
+                'cyrillic_uz_title' => 'Республика ногиронлар реабилитацияси маркази',
                 'coords_lat' => '41.334731',
                 'coords_lng' => "69.306560",
                 'number' => "",
@@ -85,9 +97,11 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Нуронийлар санаторияси',
-                'coords_lat' => '41.380289',
-                'coords_lng' => "69.311061",
+                'uz_title'          => 'Nuroniylar sanatoriyasi',
+                'ru_title'          => 'Санаторий Нуронийлар',
+                'cyrillic_uz_title' => 'Нуронийлар санаторияси',
+                'coords_lat' => '41.380572',
+                'coords_lng' => "69.316548",
                 'number' => "",
                 'location_email' => "",
                 'addressline1' => "19-квартал",
@@ -96,7 +110,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Республика болалар ортопедия маркази',
+                'uz_title'          => 'Respublika bolalar ortopediya markazi',
+                'ru_title'          => 'Респ. центр детской ортопедии',
+                'cyrillic_uz_title' => 'Республика болалар ортопедия маркази',
                 'coords_lat' => '41.362306',
                 'coords_lng' => "69.342024",
                 'number' => "",
@@ -107,7 +123,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Тошкент шахар 3-сон тугрук комплекси',
+                'uz_title'          => 'Toshkent shahar 3-son tugʼruq kompleksi',
+                'ru_title'          => 'Родильный комплекс №3 г. Ташкента',
+                'cyrillic_uz_title' => 'Тошкент шаҳар 3-сон туғруқ комплекси',
                 'coords_lat' => '41.344223',
                 'coords_lng' => "69.261070",
                 'number' => "",
@@ -118,7 +136,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Республика болалар суяк сили санаторияси',
+                'uz_title'          => 'Bolalar suyak sili sanatoriyasi',
+                'ru_title'          => 'Детский санаторий для больных костным туберкулезом',
+                'cyrillic_uz_title' => 'Болалар суяк сили санаторияси',
                 'coords_lat' => '41.353865',
                 'coords_lng' => "69.377467",
                 'number' => "",
@@ -129,7 +149,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Тошкент шаҳар 2-сон юқумли касалликлар шифохонаси',
+                'uz_title'          => 'Инфекционная больница №2 г. Ташкента',
+                'ru_title'          => 'Toshkent shahar 2-son yuqumli kasalliklar shifoxonasi',
+                'cyrillic_uz_title' => 'Тошкент шаҳар 2-сон юқумли касалликлар шифохонаси',
                 'coords_lat' => '41.269767',
                 'coords_lng' => "69.325119",
                 'number' => "",
@@ -140,7 +162,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Тошкент вилоят соматика шифохонаси',
+                'uz_title'          => 'Toshkent viloyat somatika shifoxonasi',
+                'ru_title'          => 'Таш. обл. центр. соматическая больница',
+                'cyrillic_uz_title' => 'Тошкент вилоят соматика шифохонаси',
                 'coords_lat' => '41.288714',
                 'coords_lng' => "69.218319",
                 'number' => "",
@@ -151,7 +175,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Республика тери таносил касалликлар шифохонаси',
+                'uz_title'          => 'Respublika teri tanosil kasalliklar shifoxonasi',
+                'ru_title'          => 'Респ. кожвен. больница',
+                'cyrillic_uz_title' => 'Республика тери таносил касалликлар шифохонаси',
                 'coords_lat' => '41.295848',
                 'coords_lng' => "69.289744",
                 'number' => "",
@@ -162,7 +188,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Тошкент шаҳар 3-сон клиник шифохонаси',
+                'uz_title'          => 'Toshkent shahar 3-son klinik shifoxonasi',
+                'ru_title'          => 'Клиническая больница №3  г. Ташкента',
+                'cyrillic_uz_title' => 'Тошкент шаҳар 3-сон клиник шифохонаси',
                 'coords_lat' => '41.272213',
                 'coords_lng' => "69.307011",
                 'number' => "",
@@ -173,7 +201,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Тошкент шаҳар тез тиббий ёрдам шифохонаси',
+                'uz_title'          => 'Toshkent shahar tez tibbiy yordam shifoxonasi',
+                'ru_title'          => 'Центр экстренной мед. помощи  г. Ташкента',
+                'cyrillic_uz_title' => 'Тошкент шаҳар тез тиббий ёрдам шифохонаси',
                 'coords_lat' => '41.268431',
                 'coords_lng' => "69.217166",
                 'number' => "",
@@ -184,9 +214,11 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Тошкент шаҳар 6-сон клиник шифохонаси',
-                'coords_lat' => '41.232011',
-                'coords_lng' => "69.330973",
+                'uz_title'          => 'Toshkent shahar 6-son klinik shifoxonasi',
+                'ru_title'          => 'Клиническая больница №6  г. Ташкента',
+                'cyrillic_uz_title' => 'Тошкент шаҳар 6-сон клиник шифохонаси',
+                'coords_lat' => '41,232185',
+                'coords_lng' => "69,330792",
                 'number' => "",
                 'location_email' => "",
                 'addressline1' => "\"Боғишамол\" кўчаси, 112 уй",
@@ -195,7 +227,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'ТТА куп тармокли клиникаси',
+                'uz_title'          => 'Toshkent tibbiy akademiyasining koʼp tarmoqli klinikasi (yangi Toshmi)',
+                'ru_title'          => 'Медицинская академия г. Ташкента (новое Ташми) многопрофил. клиника',
+                'cyrillic_uz_title' => 'Тошкент тиббий академиясининг кўп тармоқли клиникаси (янги Тошми)',
                 'coords_lat' => '41.350952',
                 'coords_lng' => "69.171804",
                 'number' => "",
@@ -206,7 +240,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Республика ихтисослаштирилган терапия ва тиббий реабилитация илмий амалий тиббиёт маркази',
+                'uz_title'          => 'Respub. ixtisos. terapiya va tibbiy reabilitatsiya ilmiy amaliy tibbiyot markazi',
+                'ru_title'          => 'Респуб. науч. исслед. медцентр спец. терапии и медреабилитации',
+                'cyrillic_uz_title' => 'Респуб. ихтисос. терапия ва тиббий реабилитация илмий амалий тиббиёт маркази',
                 'coords_lat' => '41.337309',
                 'coords_lng' => "69.279609",
                 'number' => "",
@@ -217,7 +253,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Тошкент шахар 1-сон клиник шифохонаси',
+                'uz_title'          => 'Toshkent shaxar 1-son klinik shifoxonasi',
+                'ru_title'          => 'Клиническая больница №1 г. Ташкента',
+                'cyrillic_uz_title' => 'Тошкент шахар 1-сон клиник шифохонаси',
                 'coords_lat' => '41.321520',
                 'coords_lng' => "69.219756",
                 'number' => "",
@@ -228,7 +266,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Республика 2-сон клиник касалхонаси',
+                'uz_title'          => 'Respublika 2-son klinik kasalxonasi',
+                'ru_title'          => 'Респуб. клиническая больница № 2',
+                'cyrillic_uz_title' => 'Республика 2-сон клиник касалхонаси',
                 'coords_lat' => '41.403546',
                 'coords_lng' => "69.449170",
                 'number' => "",
@@ -239,7 +279,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Республика кўз касалликлари шифохонаси',
+                'uz_title'          => 'Respublika koʼz kasalliklari shifoxonasi',
+                'ru_title'          => 'Респуб. офтальмологическая больница',
+                'cyrillic_uz_title' => 'Республика кўз касалликлари шифохонаси',
                 'coords_lat' => '41.354512',
                 'coords_lng' => "69.217555",
                 'number' => "",
@@ -250,9 +292,11 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Зангиота мажмуаси ЮКШ №1',
-                'coords_lat' => '41,176099',
-                'coords_lng' => "69,194044",
+                'uz_title'          => 'Zangiota 1-son yuqumli kasalliklar shifoxonasi',
+                'ru_title'          => 'Зангиатинская инфекционная больница №1',
+                'cyrillic_uz_title' => 'Зангиота 1-сон юқумли касалликлар шифохонаси',
+                'coords_lat' => '41.176099',
+                'coords_lng' => "69.194044",
                 'number' => "",
                 'location_email' => "",
                 'addressline1' => "",
@@ -261,9 +305,11 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Зангиота мажмуаси ЮКШ №2',
-                'coords_lat' => '41,170042',
-                'coords_lng' => "69,193272",
+                'uz_title'          => 'Zangiota 2-son yuqumli kasalliklar shifoxonasi',
+                'ru_title'          => 'Зангиатинская инфекционная больница №2',
+                'cyrillic_uz_title' => 'Зангиота 2-сон юқумли касалликлар шифохонаси',
+                'coords_lat' => '41.170042',
+                'coords_lng' => "69.193272",
                 'number' => "",
                 'location_email' => "",
                 'addressline1' => "",
@@ -272,7 +318,9 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Тошкент шаҳар Яккасарой ТТБ стақионар қисми билан ',
+                'uz_title'          => 'Yakkasaroy koʼp tarmoqli markaziy poliklinikasi',
+                'ru_title'          => 'Яккасарайская многоотраслевая центр. поликлиника',
+                'cyrillic_uz_title' => 'Яккасарой кўп тармоқли марказий поликлиникаси',
                 'coords_lat' => '41.276720',
                 'coords_lng' => "69.242501",
                 'number' => "",
@@ -283,9 +331,24 @@ class CreateLocationsTable extends Migration
                 'country' => "",
             ],
             [
-                'location_title' => 'Карантинная зона Covid-19 «Уртасарай»',
-                'coords_lat' => '41,120849',
-                'coords_lng' => "69,52399",
+                'uz_title'          => '«Urtasaroy» Covid-19 karantin zonasi',
+                'ru_title'          => 'Карантинная зона Covid-19 «Уртасарой»',
+                'cyrillic_uz_title' => '«Уртасарой» Covid-19 карантин зонаси',
+                'coords_lat' => '41.120849',
+                'coords_lng' => "69.52399",
+                'number' => "",
+                'location_email' => "",
+                'addressline1' => "",
+                'addressline2' => "",
+                'city' => "",
+                'country' => "",
+            ],
+            [
+                'uz_title'          => 'UzEkspoMarkaz taqsimlash markazi',
+                'ru_title'          => 'УзЭкспоЦентр распред. центр',
+                'cyrillic_uz_title' => 'УзЭкспоМарказ тақсимлаш маркази',
+                'coords_lat' => '41.339067',
+                'coords_lng' => "69.28003",
                 'number' => "",
                 'location_email' => "",
                 'addressline1' => "",
