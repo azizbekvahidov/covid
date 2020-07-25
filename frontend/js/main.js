@@ -48,6 +48,13 @@ $(document).ready(function(){
     e.preventDefault();
     $('.hospital-search').addClass('disabled');
   })
+    $('.clearFiles').on('click', function(e){
+        e.preventDefault();
+        $('.fileUpload .thumbs').each(function(){
+            $(this).find('input').val('')
+            $(this).find('.preview').empty()
+        })
+    })
 })
 function onlyNumber(event) {
   var key = window.event ? event.keyCode : event.which;
