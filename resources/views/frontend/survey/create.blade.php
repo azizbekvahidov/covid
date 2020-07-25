@@ -387,6 +387,8 @@
         $('#surveyForm').on('submit', function(event){
 
             event.preventDefault();
+            $("#sendMood").attr("disabled","disabled");
+            $("#sendMood").text("Отправляется . . .");
             var data = new FormData(this);
             data.append('audio',sound);
             $.ajax({
@@ -401,6 +403,7 @@
                 cache: false,
                 processData: false,
                 success: function(response){
+                    $("#sendMood").text({{__("box.send_signal")}});
                     if(response == "redirect"){
                         window.location.replace("/survey/category");
                     }

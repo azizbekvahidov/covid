@@ -43,13 +43,12 @@
                 </div>
             </li>
             @endif
-            <li><a href="#">{{ __("box.about_project") }}</a> </li>
+            <li><a href="/about">{{ __("box.about_project") }}</a> </li>
             <li><a href="{{ route("survey.list") }}">{{ __("box.personal_cabinet") }}</a> </li>
-            <li><a href="#">{{ __("box.how_to_post_message") }}</a> </li>
+            <li><a href="/signal">{{ __("box.how_to_post_message") }}</a> </li>
         </ul>
         <div class="action-button">
             @if(!\Auth::user())
-            <strong>{{ __("box.auth_for_set_problem") }}</strong>
             <a href="{{ route("register.verifyPhone") }}" class="registration">{{ __("box.register") }}</a>
             <a href="{{ route("login") }}" class="signin">{{ __("box.login") }}</a>
             @else

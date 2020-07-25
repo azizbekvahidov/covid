@@ -67,8 +67,14 @@ Route::get("locale/{locale}", function($locale) {
 	return redirect()->back();
 });
 
-Route::get("offer", function () {
+Route::get("/offer", function () {
     return view("frontend.pages.offer");
+});
+Route::get("/about", function () {
+    return view("frontend.pages.about");
+});
+Route::get("/signal", function () {
+    return view("frontend.pages.signal");
 });
 
 Route::get("/download", function (){

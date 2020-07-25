@@ -46,12 +46,33 @@ class LocationController extends Controller
                 $closer["coords"] = $item->coords_lat.",".$item->coords_lng;
                 $closer["id"] = $item->id;
                 $closer["region"] = $item->addressline2;
+
+                if(app()->getLocale() == "uz"){
+                    $closer["place"] = $item->uz_title;
+
+                }elseif(app()->getLocale() == "ru"){
+                    $closer["place"] = $item->ru_title;
+
+                }elseif(app()->getLocale() == "cyrillic_uz"){
+                    $closer["place"] = $item->cyrillic_uz_title;
+
+                }
             }
             elseif ($coord == 0){
                 $coord = $dist;
-                $closer["place"] = $item->location_title;
                 $closer["id"] = $item->id;
                 $closer["region"] = $item->addressline2;
+
+                if(app()->getLocale() == "uz"){
+                    $closer["place"] = $item->uz_title;
+
+                }elseif(app()->getLocale() == "ru"){
+                    $closer["place"] = $item->ru_title;
+
+                }elseif(app()->getLocale() == "cyrillic_uz"){
+                    $closer["place"] = $item->cyrillic_uz_title;
+
+                }
             }
         }
         return response()->json($closer);
