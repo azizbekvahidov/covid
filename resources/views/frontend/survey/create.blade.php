@@ -198,9 +198,10 @@
                         <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    {{ __("box.mood_rule") }} <strong class="timer">{{$mood_time}}</strong>
+                    {{ __("box.mood_rule") }} {{ (time() - $old_mark_time < 43200) ? '<strong class="timer">'.$mood_time.'</strong>' : "" }}
                 </div>
-                    <label>{{__("box.choose_hospital")}}</label>
+                <label>{{__("box.choose_hospital")}}</label>
+                <div class="hospital-search">
                     <div id="map">
                         <a href="javascript:;" class="getCoordinate">
                             <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,13 +209,15 @@
                             </svg>
                         </a>
                     </div>
-                    <div  id="selected_place" hidden class="hospital-list">
+                    <div class="hospital-list" id="selected_place" >
                       <span class="radio">
                         <input type="radio" class=" validate" name="mapSelected" value=""/>
                         <strong></strong>
                         <p></p>
                       </span>
                     </div>
+                </div>
+
             </div>
 
 

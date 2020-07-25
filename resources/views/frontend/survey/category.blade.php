@@ -57,7 +57,7 @@
             @endforeach
 
             <div class="alert error">
-                Повторно подать сигнал можно через 12 часов с момента последней подачи
+                {{ __("box.category_rule") }}
             </div>
 
         </div>

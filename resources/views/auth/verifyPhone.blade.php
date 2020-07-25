@@ -54,7 +54,7 @@
         <div class="bottom">
             <button type="submit" id="verifyBtn" disabled>{{__("box.confirm")}}</button>
             <div class="form-text">
-                <span class="helper-text">У вас еще нет аккаунта?</span>
+                <span class="helper-text">{{__("box.do_you_have_an_account")}}</span>
                 <a href="{{route("login")}}" class="registration-link">{{__("box.login")}}</a>
             </div>
         </div>

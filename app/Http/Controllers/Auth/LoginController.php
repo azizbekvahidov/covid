@@ -102,7 +102,8 @@ class LoginController extends Controller
         $trim_phone_number = str_replace("(", "", str_replace(")", "", str_replace("-", "", $request->phone)));
         $phone_num = "998".$trim_phone_number;
 
-        $password_str = Str::random(8);
+//        $password_str = Str::random(8);
+        $password_str = mt_rand(10000000,99999999);
         User::where("phone", $phone_num)->update([
             "password"  => bcrypt($password_str),
         ]);

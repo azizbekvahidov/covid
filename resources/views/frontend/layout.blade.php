@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{asset("assets/css/select2.css")}}">
     <script src="{{ asset("js/wavesurfer.js") }}"></script>
     @yield("css")
-    <title>Sogboling.uz @yield("title")</title>
+    <title>Sogboling.uz</title>
 </head>
 <body>
 <div class="wrapper">
@@ -36,8 +36,8 @@
                         <img src="{{ asset((\Auth::user()->photo == "" || \Auth::user()->photo == null) ? "assets/img/user-empty.png" : "storage/avatars/".\Auth::user()->photo) }}" alt=""/>
                     </div>
                     <div class="info-profile">
-                        <a href="#">{{\Auth::user()->FIO}}</a>
-                        <span class="tags">{{ __("box.personal_data") }}</span>
+                        <a href="{{ route("survey.list") }}">{{\Auth::user()->FIO}}</a>
+                        <a href="{{ route("survey.list") }}" class="tags">{{ __("box.personal_data") }}</a>
                     </div>
                 </div>
             </li>
@@ -47,8 +47,8 @@
             <li><a href="#">{{ __("box.how_to_post_message") }}</a> </li>
         </ul>
         <div class="action-button">
-            <strong>{{ __("box.auth_for_set_problem") }}</strong>
             @if(!\Auth::user())
+            <strong>{{ __("box.auth_for_set_problem") }}</strong>
             <a href="{{ route("register.verifyPhone") }}" class="registration">{{ __("box.register") }}</a>
             <a href="{{ route("login") }}" class="signin">{{ __("box.login") }}</a>
             @else

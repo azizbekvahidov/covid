@@ -1,6 +1,7 @@
 <?php
     return [
-		"index_main_title" 				=> "Toshkent shahridagi tibbiyot muassasalarida davolanayotgan koronavirusli bemorlarga tibbiy xizmat ko'rsatish sifatini baholash xizmati.",
+    	"title"							=> "sogboling.uz",
+		"index_main_title" 				=> "Toshkent shahridagi tibbiyot muassasalarida davolanayotgan koronavirusli bemorlarga tibbiy xizmat ko'rsatish sifatini baholash xizmati",
 		"send_signal"					=> "Signal yuborish",
 		"how_to_use_service"			=> "Xizmatdan qanday foydalanish mumkin?",
 		"explaining_of_using_service" 	=> "Juda oson! Ro'yxatdan o'ting, kerakli toifani tanlang va muammoni tavsiflang.",
@@ -21,6 +22,7 @@
 		"enter_password"				=> "Parolni kiriting",
 		"forgot_password"				=> "Parolni unutdingizmi?",
 		"do_not_have_account"			=> "Akkauntingiz mavjud emasmi?",
+		"do_you_have_an_account"		=> "Akkauntingiz bormi?",
 		"register"						=> "Ro'yxatdan o'tish",
 		"registration"					=> "Ro'yxatdan o'tish",
 		"login"							=> "Kirish",
@@ -47,11 +49,6 @@
 		"gender"						=> "Jinsi",
 		"male"							=> "Erkak",
 		"female"						=> "Ayol",
-		"food"							=> "Oziqlanish",
-		"treatment"						=> "Davolash",
-		"conditions"					=> "Yashash sharoitlari",
-		"medicines"						=> "Dori-darmon ta'minoti",
-		"illegal_actions"				=> "Noqonuniy harakatlar",
 		"describe_problem"				=> "Muammoni tavsiflang",
 		"put_photo"						=> "Surat biriktiring",
 		"photo_rule"					=> "Surat 5Mbdan oshib ketishi mumkin emas",
@@ -73,7 +70,7 @@
 		"new_password"					=> "Yangi parol",
 		"confirming_password"			=> "Parolni tasdiqlash",
 		"user_agreements"				=> "Foydalanish shartlari",
-		"company_data"					=> "Toshkent shahar hokimligi.",
+		"company_data"					=> "Toshkent shahar hokimligi",
 		"copyright"						=> "Barcha huquqlar himoyalangan.",
 		"select_language"				=> "Tilni tanlang",
 		"you_already_registered"		=> "Siz ro'yxatdan o'tgansiz.",
@@ -89,15 +86,18 @@
 		"mood"							=> "Kayfiyati",
 		"residents_signals"				=> "Aholi signallari",
 		"export"						=> "Eksport",
+		"attached_files"				=> "Yuklangan fayllar",
 		"download_files"				=> "Fayllarni yuklab olish",
 		"years_old"						=> "yosh",
         "rate"                          => "Tibbiy muassasada",
         "rate_continue"                 => "ni baholang",
         "alert_rate_clinic"             => "Tibbiy muassasani baholang",
         "ask_change_password"			=> "Parolni o'zgartirasizmi?",
-        "department"                    => "Департамент цифрового развития",
+        "department"                    => "Raqamli rivojlanish departamenti",
         "about_project"                 => "Loyiha haqida",
         "personal_cabinet"              => "Shaxsiy kabinet",
         "auth_for_set_problem"          => "Muammo haqida xabar berish uchun tizimga kiring",
-        "public_offer"                  => "Ommaviy oferta"
+        "public_offer"                  => "Ommaviy oferta",
+        "category_rule"                 => "Oxirgi signaldan 12 soat o'tgach signalni qayta yuborish mumkin"
+
     ];
