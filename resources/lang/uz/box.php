@@ -101,5 +101,6 @@
         "category_rule"                 => "Oxirgi signaldan 12 soat o'tgach signalni qayta yuborish mumkin",
         "clear"                         => "Tozalash",
         "photo_rule_type"               => "Faqat sur'at yuklashiz mumkin",
-
+        "no_clinic_in_list"             => "Ro'yhatda tibbiy muassasa yo'q",
+        "describe_clinic"               => "Tibbiy muassasingizni izohlang",
     ];

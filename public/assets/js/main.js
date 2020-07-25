@@ -67,6 +67,8 @@ function onlyNumber(event) {
         event.preventDefault();
     }
 }
+
+
 function onlyLetters(event) {
     if(!/[^0-9-!@#$%^&*()_+|~=`{}\[\]:";'<>?,.\/]+$/.test(event.target.value)){
         event.target.value = event.target.value.replace(/[0-9-!$@%#^&*()_+|~=`{}\[\]:";'<>?,.\/]/g, '')
@@ -86,7 +88,7 @@ function createObjectURL ( file ) {
         return null;
     }
 }
-function fileCHeck(el){
+function fileCHeck(el,upload = false){
     let file = $(el)[0].files;
     let parent = $(el).data('target');
     var url = createObjectURL(file[0]);
@@ -103,7 +105,7 @@ function fileCHeck(el){
         // invalid file type code goes here.
     }
     else {
-        img.setAttribute('src', url)
+        img.setAttribute('src', url);
         if (file[0].size > 5242880) {
             $('.alert.error.size').fadeIn();
             setTimeout(() => {
@@ -113,9 +115,11 @@ function fileCHeck(el){
         }
     }
 
-    $(el).parents(parent).find('.preview').addClass('active')
-  $(el).parent().addClass('active')
-  $(el).parents(parent).find('.preview').empty().prepend(img);
+    $(el).parents(parent).find('.preview').addClass('active');
+    $(el).parent().addClass('active');
+    $(el).parents(parent).find('.preview').empty().prepend(img);
+    if(upload)
+        uploadFile(file,$(el).parents(parent).find('.preview'));
 }
 function setIntervalTime() {
     var timer2 = $(".timer").text();
@@ -156,11 +160,30 @@ function timer(element){
     }, 1000);
 }
 
-
 $(".lang-switcher").click(function () {
     $("#lang").addClass("show")
 });
 
+function uploadFile(fd,el){
 
+    var input = document.createElement('input');
+    input.setAttribute('type', "text");
+    input.setAttribute('hidden', "text");
+    input.setAttribute('name', "photo[]");
+    console.log(el);
+    var data = new FormData();
+    data.append("photo", fd[0]);
+    $.ajax({
+        url: '/api/uploadImage',
+        type: 'post',
+        data: data,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            input.setAttribute('value', response.message);
+            $(el).prepend(input);
+        },
+    });
+}
 
 

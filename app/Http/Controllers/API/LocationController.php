@@ -43,17 +43,18 @@ class LocationController extends Controller
             if($coord > $dist){
                 $coord = $dist;
                 $closer["place"] = $item->location_title;
-                $closer["coords"] = $item->coords_lat.",".$item->coords_lng;
+                $closer["lat"] = str_replace(",",".",$item->coords_lat);
+                $closer["lng"] = str_replace(",",".",$item->coords_lng);
                 $closer["id"] = $item->id;
                 $closer["region"] = $item->addressline2;
 
-                if(app()->getLocale() == "uz"){
+                if($request->lang == "uz"){
                     $closer["place"] = $item->uz_title;
 
-                }elseif(app()->getLocale() == "ru"){
+                }elseif($request->lang == "ru"){
                     $closer["place"] = $item->ru_title;
 
-                }elseif(app()->getLocale() == "cyrillic_uz"){
+                }elseif($request->lang == "cyrillic_uz"){
                     $closer["place"] = $item->cyrillic_uz_title;
 
                 }
@@ -63,13 +64,13 @@ class LocationController extends Controller
                 $closer["id"] = $item->id;
                 $closer["region"] = $item->addressline2;
 
-                if(app()->getLocale() == "uz"){
+                if($request->lang == "uz"){
                     $closer["place"] = $item->uz_title;
 
-                }elseif(app()->getLocale() == "ru"){
+                }elseif($request->lang == "ru"){
                     $closer["place"] = $item->ru_title;
 
-                }elseif(app()->getLocale() == "cyrillic_uz"){
+                }elseif($request->lang == "cyrillic_uz"){
                     $closer["place"] = $item->cyrillic_uz_title;
 
                 }

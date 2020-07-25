@@ -1,3 +1,4 @@
+var lang;
 ymaps.ready(function () {
     var myMap = new ymaps.Map('map', {
             center: [41.311151, 69.279737],
@@ -7,18 +8,17 @@ ymaps.ready(function () {
         });
     myMap.container.getElement().style.height = '300px';
 
-
     $(".getCoordinate").click( function () {
-        geoFindMe();
+        geoFindMe(lang);
     });
 
-    function geoFindMe() {
+    function geoFindMe(lang) {
         function success(position) {
 
             const latitude  = position.coords.latitude;
             const longitude = position.coords.longitude;
             myMap.panTo([latitude,longitude]);
-            getLocation(latitude,longitude);
+            getLocation(latitude,longitude,lang);
         }
 
         function error() {
@@ -69,15 +69,15 @@ ymaps.ready(function () {
         myMap.geoObjects.add(locationPlacemark);
         // Установим новый центр карты в текущее местоположение пользователя.
         myMap.panTo(position);
-        getLocation(position[0],position[1]);
+        getLocation(position[0],position[1],lang);
     });
     myMap.controls.add(geolocationControl);
 
-    function getLocation(lat,long) {
+    function getLocation(lat,long,lang) {
         $.ajax({
             url: "/api/getLocation",
             type: "GET",
-            data: "lat="+lat+"&lng="+long,
+            data: "lat="+lat+"&lng="+long+"&lang="+lang,
             success: function (data) {
                 $("#selected_place").removeAttr('hidden');
                 $("#selected_place input").attr('checked', true);
@@ -90,7 +90,16 @@ ymaps.ready(function () {
                         return;
                     }
                 });
-                $(".confirm-hospital").removeAttr("hidden")
+                console.log($("#locate").val());
+                $(".confirm-hospital").removeAttr("hidden");
+                myMap.geoObjects
+                    .add(new ymaps.Placemark([data.lat, data.lng], {
+                        balloonContent: data.place
+                    }, {
+                        preset: 'islands#icon',
+                        iconColor: '#0095b6'
+                    }));
+                console.log(myMap);
 
             }
         });

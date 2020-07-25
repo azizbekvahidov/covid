@@ -25,16 +25,20 @@
         <form id="surveyForm"  method="post" enctype="multipart/form-data" class="categoryForm">
             @csrf
             <input type="text" name="category" value="{{$category->id}}" hidden>
-            <div class="blue-bg" id="rating">
-                <div class="rating-panel">
-                    <strong>{{ __("box.rate") }} @if(app()->getLocale() == "uz")
-                            <span style="text-transform: lowercase" >{{$category->uz_name}}</span>{{__("box.rate_continue")}}
-                        @elseif(app()->getLocale() == "ru")
-                            <span style="text-transform: lowercase" >{{$category->ru_name}}</span>{{__("box.rate_continue")}}
-                        @elseif(app()->getLocale() == "cyrillic_uz")
-                            <span style="text-transform: lowercase" >{{$category->cyrillic_uz_name}}</span>{{__("box.rate_continue")}}
-                        @endif</strong>
-                    <span class="starRating">
+            @if($category->id === 5 || $category->id === 7)
+                <input id="rating5" type="radio" class="rate validate" name="rank" value="0" checked hidden>
+            @else
+                <div class="blue-bg" id="rating">
+                    <div class="rating-panel">
+                        <strong>{{ __("box.rate") }}
+                            @if(app()->getLocale() == "uz")
+                                <span style="text-transform: lowercase" >{{$category->uz_name}}</span>{{__("box.rate_continue")}}
+                            @elseif(app()->getLocale() == "ru")
+                                <span style="text-transform: lowercase" >{{$category->ru_name}}</span>{{__("box.rate_continue")}}
+                            @elseif(app()->getLocale() == "cyrillic_uz")
+                                <span style="text-transform: lowercase" >{{$category->cyrillic_uz_name}}</span>{{__("box.rate_continue")}}
+                            @endif</strong>
+                        <span class="starRating">
                       <input id="rating5" type="radio" class="rate validate" name="rank" value="5">
                       <label for="rating5">5</label>
                       <input id="rating4" type="radio" class="rate validate" name="rank" value="4">
@@ -46,8 +50,9 @@
                       <input id="rating1" type="radio" class="rate validate" name="rank" value="1">
                       <label for="rating1">1</label>
                     </span>
+                    </div>
                 </div>
-            </div>
+            @endif
             <div class="pa-15">
                 <div class="text-area" id="opinion">
                     <label>{{__("box.describe_problem")}}</label>
@@ -56,34 +61,16 @@
                 </div>
                 <div class="fileUpload">
                     <label>{{__("box.put_photo")}} <a href="javascript:;" class="clearFiles">{{ __("box.clear") }}</a></label>
+                    @for($i = 0; $i < 4; $i++)
                     <div class="thumbs">
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
                         </svg>
-                        <input type="file" onchange="fileCHeck(this)" data-target=".thumbs" value="" name="files[]">
+                        <input type="file" onchange="fileCHeck(this,true)" data-target=".thumbs" value="" name="">
                         <div class="preview"></div>
                     </div>
-                    <div class="thumbs">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
-                        </svg>
-                        <input type="file" onchange="fileCHeck(this)" data-target=".thumbs" value="" name="files[]">
-                        <div class="preview"></div>
-                    </div>
-                    <div class="thumbs">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
-                        </svg>
-                        <input type="file" onchange="fileCHeck(this)" data-target=".thumbs" value="" name="files[]">
-                        <div class="preview"></div>
-                    </div>
-                    <div class="thumbs">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
-                        </svg>
-                        <input type="file" onchange="fileCHeck(this)" data-target=".thumbs" value="" name="files[]">
-                        <div class="preview"></div>
-                    </div>
+                    @endfor
+
                 </div>
                 <div class="alert error size" style="background: rgba(250, 74, 74, 0.15); margin-bottom: 10px; display: none">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,7 +243,12 @@
                             @endif
                         </option>
                     @endforeach
+                    <option value="">{{ __("box.no_clinic_in_list") }}</option>
                 </select>
+                <div class="text-area" id="no-clinic" hidden>
+                    <label>{{__("box.describe_clinic")}}</label>
+                    <textarea name="clinic_desc" class="check-length validate" maxlength="100"></textarea>
+                </div>
             </div>
             <div class="pa-15" >
                 <div class="alert valid" style="display: none;background: rgba(255, 198, 17, 0.15); margin-bottom: 10px">
@@ -292,8 +284,8 @@
 
     <script>
         timer($(".timer"));
+        lang = "{{ app()->getLocale() }}";
         var sound;
-
 
         var ratio = false;
         var opinion = false;
@@ -381,14 +373,35 @@
 
         }
         $("#locate").change(function () {
-            locate = true;
-            checkValidate()
+            if($(this).val() == ""){
+                $("#no-clinic").removeAttr("hidden")
+            }
+            else{
+                $("#no-clinic").attr("hidden","hidden");
+                locate = true;
+                checkValidate()
+            }
         });
+        $("#no-clinic textarea").keyup(function () {
+            if($("#locate").val() == ""){
+                if($(this).val() == ""){
+                    console.log("invalid");
+                    locate = false;
+                    checkValidate();
+                }
+                else{
+                    console.log("valid");
+                    locate = true;
+                    checkValidate()
+                }
+            }
+        });
+
         $('#surveyForm').on('submit', function(event){
 
             event.preventDefault();
-            $("#sendMood").attr("disabled","disabled");
-            $("#sendMood").text("Отправляется . . .");
+            // $("#sendMood").attr("disabled","disabled");
+            // $("#sendMood").text("Отправляется . . .");
             var data = new FormData(this);
             data.append('audio',sound);
             $.ajax({
@@ -403,7 +416,7 @@
                 cache: false,
                 processData: false,
                 success: function(response){
-                    $("#sendMood").text({{__("box.send_signal")}});
+                    $("#sendMood").text("{{__("box.send_signal")}}");
                     if(response == "redirect"){
                         window.location.replace("/survey/category");
                     }
@@ -419,70 +432,7 @@
         });
     </script>
     <script src="/assets/js/recorder.js"></script>
-    <script>
-        var isPermissionRecord = false;
-        // $(document).ready(function () {
-        //     $(".player").click(function () {
-        //         if(!isPermissionRecord){
-        //             recorder();
-        //         }
-        //     });
-        //    recorder();
-        //
-        // });
 
-
-        // function recorder() {
-        //     navigator.mediaDevices.getUserMedia(constraintObj)
-        //         .then(function (mediaStreamObj) {
-        //             isPermissionRecord = true;
-        //             let audioInput = document.getElementById('audioInput');
-        //             let del = document.getElementById('btnDel');
-        //             let wave = document.getElementById('waveform');
-        //             // let vidSave = document.getElementById('aud2');
-        //             let mediaRecorder = new MediaRecorder(mediaStreamObj);
-        //             let chunks = [];
-        //             $("#btnStart").click(function () {
-        //                 if (isStart) {
-        //                     mediaRecorder.stop();
-        //                     $(this).removeClass("active");
-        //                     isStart = false;
-        //                 } else {
-        //                     mediaRecorder.start();
-        //                     $(this).addClass("active");
-        //                     isStart = true;
-        //                 }
-        //             });
-        //
-        //             del.addEventListener('click', (ev) => {
-        //                 wavesurfer.empty();
-        //                 audioInput.value("");
-        //                 // console.log(mediaRecorder.state);
-        //             });
-        //
-        //             wave.addEventListener("click", (ev) => {
-        //                 wavesurfer.playPause();
-        //                 // console.log(mediaRecorder.state);
-        //             });
-        //
-        //             mediaRecorder.ondataavailable = function (ev) {
-        //                 chunks.push(ev.data);
-        //             }
-        //             mediaRecorder.onstop = (ev) => {
-        //                 let blob = new Blob(chunks, {'type': 'audio/mp3;'});
-        //                 chunks = [];
-        //                 let audioURL = window.URL.createObjectURL(blob);
-        //                 // vidSave.src = audioURL;
-        //                 wavesurfer.load(audioURL);
-        //                 sound = blob;
-        //             }
-        //         })
-        //         .catch(function (err) {
-        //             console.log(err.name, err.message);
-        //         });
-        // }
-
-    </script>
 @endsection
 @section("css")
     <style>

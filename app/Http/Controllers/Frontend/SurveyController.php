@@ -92,7 +92,7 @@ class SurveyController extends Controller
 //        ];
 //        Validator::make($request->all(), $rules)->validate();
 
-        $files = $request->file("files");
+
         $audio = $request->file("audio");
         $audioName = null;
         if (!is_null($audio)) {
@@ -106,6 +106,7 @@ class SurveyController extends Controller
                 $audio->storeAs($path_name, $audioName);
 
         }
+        $locate = (isset($request->mapSelected) ? $request->mapSelected : $request->locate);
         $survey = Survey::create([
             "rank"          => $request->rank,
             "opinion"       => $request->opinion,
@@ -113,8 +114,17 @@ class SurveyController extends Controller
             "audio"         => $audioName,
             "user_id"       => $userId,
             "status"        => "1",
-            "location_id"   => $request->locate,
+            "location_id"   => $locate == "" ? 0 : $locate,
+            "clinic_desc"   => $request->clinic_desc,
         ]);
+        if(isset($request->photo)){
+            foreach($request->photo as $val){
+                $media = SurveyMediaFiles::find($val);
+                $media->user_id = $userId;
+                $media->survey_id = $survey->id;
+                $media->save();
+            }
+        }
         if(isset($request->mood )) {
             $old_mood_mark = Mood::where("user_id", $userId)->orderBy("id", "desc")->first();
 
@@ -139,34 +149,11 @@ class SurveyController extends Controller
                 ]);
             }
         }
-        if (!is_null($files)) {
-            foreach ($files as $key => $file) {
-                $path_name = null;
-                $mime_type = $file->getClientMimeType();
-                $time = date("Ymd_His", time());
-                $extension = $file->getClientOriginalExtension();
-                if (str_contains($mime_type, "image")) {
-                    $file_name = "IMG_".$time.$key.".".$extension;
-                    $path_name = "/public/files/images";
-                    $file->storeAs($path_name, $file_name);
-                }
-                elseif (str_contains($mime_type, "video")) {
-                    $file_name = "VID_".$time.$key.".".$extension;
-                    $path_name = "/public/files/videos";
-                    $file->storeAs($path_name, $file_name);
-                }
-                $path_name = str_replace("public", "storage", $path_name);
-                SurveyMediaFiles::create([
-                    "user_id"   => $userId,
-                    "status"    => "1",
-                    "survey_id" => $survey->id,
-                    "path"      => $path_name,
-                    "name"      => $file_name,
-                ]);
-            }
-        }
+
         return response()->json("ok",200);
     }
+
+
 
 
     /**

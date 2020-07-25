@@ -13,6 +13,7 @@ class Survey extends Model
         "user_id",
         "status",
         'location_id',
+        'clinic_desc',
         'audio'
     ];
 

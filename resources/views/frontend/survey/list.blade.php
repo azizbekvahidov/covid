@@ -28,6 +28,7 @@
                         @elseif(app()->getLocale() == "ru")
                             {{$value->category->ru_name}}
                         @elseif(app()->getLocale() == "cyrillic_uz")
+
                             {{$value->category->cyrillic_uz_name}}
                         @endif
                     </strong>

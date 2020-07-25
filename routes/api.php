@@ -18,6 +18,7 @@ Route::get('/getLocation',      'API\LocationController@getLocation');
 Route::post("/verifyCode",      "Auth\RegisterController@verifyCode");
 Route::post("/resetPassword",   "Auth\LoginController@resetPassword");
 Route::post("/changePassword",  "Auth\LoginController@changePassword");
+Route::post("/uploadImage",  "API\FilesController@uploadImage");
 Route::post("/user/{ID}/removeImg", ["as" => "api.user.removeImg",     'uses' => "Frontend\UserController@removeImg"]);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

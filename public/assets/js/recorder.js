@@ -27,11 +27,11 @@ navigator.mediaDevices.getUserMedia(constraintObj)
             $('.delay').show();
             timer = setInterval(setTime, 1000);
         }).bind('mouseup touchend', function(){
+            console.log('Stop Recording...');
             mediaRecorder.stop();
             $(this).parent('.thumbs').removeClass('active').addClass('stop')
             $(this).parent('.thumbs').find('.record').toggle()
             $(this).parent('.thumbs').find('.playingbutton').toggle()
-            console.log('Stop Recording...');
             clearInterval(timer)
         });
 
@@ -69,6 +69,11 @@ $("#btnStart").click(function () {
         totalSeconds = 0;
         timer = setInterval(setTime, 1000);
     }
+
+    wavesurfer.on('pause', function () {
+        isStart = false;
+        clearInterval(timer);
+    });
 });
 function refreshRecord(el){
     wavesurfer.empty();
