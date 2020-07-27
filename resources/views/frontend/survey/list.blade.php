@@ -13,7 +13,7 @@
         </div>
         <div class="info-profile">
             <a href="{{ route("user.edit") }}">{{ $user->FIO }}</a>
-            <span class="category">{{ __("box.personal_data") }}</span>
+            <span class="tags">{{ __("box.personal_data") }}</span>
         </div>
 
     </div>

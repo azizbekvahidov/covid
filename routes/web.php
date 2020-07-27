@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::post("/store", ['as' => 'survey.store', 'uses' => "SurveyController@store"]);
             Route::get("/list", ['as' => 'survey.list', 'uses' => "SurveyController@list"]);
             Route::get("/{ID}/detail", ['as' => 'survey.detail', 'uses' => "SurveyController@detail"]);
+            Route::get("/{ID}/downloadZip",    ["as" => "survey.downloadZip",  "uses" => "SurveyController@downloadZip"]);
         });
 
         Route::resource("survey_categories", "SurveyCategoriesController");
@@ -40,6 +41,12 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post("/selectSurvey",    ["as" => "admin.selectSurvey",  "uses" => "AdminController@selectSurvey"]);
     });
 });
+
+
+Route::get("/export", function (){
+    return Excel::download(new SurveyExport, "Сигналы ".date("d.m.Y H:i:s").".xlsx");
+});
+
 Route::get("/survey/category", ['as' => 'survey.category', 'uses' => "Frontend\SurveyController@category"]);
 Route::namespace("Auth")->group(function () {
     Route::get("/verifyPhone",          ['as' => 'register.verifyPhone',  'uses' => "RegisterController@verifyPhone"]);
@@ -75,8 +82,4 @@ Route::get("/about", function () {
 });
 Route::get("/signal", function () {
     return view("frontend.pages.signal");
-});
-
-Route::get("/download", function (){
-    return Excel::download(new SurveyExport, "survey.xlsx");
 });

@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index() {
         return view("admin.index", [
-            "surveys"   => Survey::get(),
+            "surveys"   => Survey::with("user","location")->orderBy("id","desc")->get(),
         ]);
     }
 
@@ -23,8 +23,11 @@ class AdminController extends Controller
                 "hospital"  => $survey->location,
                 "mood"      => $survey->mood,
                 "photo"     => $survey->files,
+                'audio'     => $survey->audio,
                 "status"    => "success",
             ]);
         }
     }
+
+
 }

@@ -235,11 +235,11 @@
                     @foreach($locations as $location)
                         <option value="{{ $location->id }}">
                             @if(app()->getLocale() == "uz")
-                                {{$location->uz_title}}
+                                {{$location->uz_title}} {{ $location->uz_region }}
                             @elseif(app()->getLocale() == "ru")
-                                {{$location->ru_title}}
+                                {{$location->ru_title}} {{ $location->ru_region }}
                             @elseif(app()->getLocale() == "cyrillic_uz")
-                                {{$location->cyrillic_uz_title}}
+                                {{$location->cyrillic_uz_title}} {{ $location->cyrillic_uz_region }}
                             @endif
                         </option>
                     @endforeach
@@ -247,7 +247,8 @@
                 </select>
                 <div class="text-area" id="no-clinic" hidden>
                     <label>{{__("box.describe_clinic")}}</label>
-                    <textarea name="clinic_desc" class="check-length validate" maxlength="100"></textarea>
+                    <input type="text" name="clinic_desc" class="check-length validate" maxlength="100">
+                    <div class="length-counter">100</div>
                 </div>
             </div>
             <div class="pa-15" >
@@ -382,7 +383,7 @@
                 checkValidate()
             }
         });
-        $("#no-clinic textarea").keyup(function () {
+        $("#no-clinic input").keyup(function () {
             if($("#locate").val() == ""){
                 if($(this).val() == ""){
                     console.log("invalid");
@@ -428,7 +429,15 @@
 
         });
         $(document).on("keyup", ".check-length", function () {
-            $(".length-counter").html(1200 - $(this).val().length);
+            let lCounter =$(this).parent().find(".length-counter");
+            let counter = 0;
+            if($(this).attr("maxlength") == "100"){
+                counter = 100;
+            }
+            else if($(this).attr("maxlength") == "1200"){
+                counter = 1200;
+            }
+            $(lCounter).html(counter - $(this).val().length);
         });
     </script>
     <script src="/assets/js/recorder.js"></script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\{Location, Mood, Survey, SurveyCategories, SurveyMediaFiles, User};
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\{Validator,Storage};
 
 class SurveyController extends Controller
@@ -39,7 +40,7 @@ class SurveyController extends Controller
     {
 
         $category = SurveyCategories::find($id);
-        $locations = Location::all();
+        $locations = Location::orderBy("type")->get();
         $rank = 0;
         $old_mood_mark = Mood::where("user_id", \Auth::user()->id)->orderBy("id", "desc")->first();
         if(!empty($old_mood_mark)){
@@ -205,7 +206,7 @@ class SurveyController extends Controller
 
     public function list(){
         $user = User::find(\Auth::user()->id);
-        $surveyList = Survey::where('user_id',$user->id)->with('Category')->get();
+        $surveyList = Survey::where('user_id',$user->id)->with('Category')->orderBy("id","desc")->get();
         return view("frontend.survey.list",[
             "user" => $user,
             "surveyList" => $surveyList
@@ -218,5 +219,37 @@ class SurveyController extends Controller
             "user" => $user,
             "survey" => $survey
         ]);
+    }
+
+    public function exportData(){
+        return Excel::download(new Survey(), 'survey.xlsx');
+    }
+
+
+
+    public function downloadZip($id){
+        $survey = Survey::find($id);
+        $files = $survey->Files;
+//        return response()->download(public_path()."/storage/files/".$survey->audio);
+        $zip_file = storage_path()."/archives/files_".$id."_".date("Y-m-d").'.zip';
+        try{
+            $zip = new \ZipArchive();
+            if ($zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+                if (count($files) != 0) {
+                    foreach ($files as $file) {
+                        $zip->addFile(storage_path()."/files/images/". $file->name);
+                    }
+                }
+                if($survey->audio != null){
+                    $zip->addFile(storage_path()."/files/".$survey->audio);
+                }
+            }
+            $zip->close();
+        }
+        catch (\Exception $ex){
+            dd($ex->getMessage());
+        }
+
+//        return response()->download($zip_file);
     }
 }

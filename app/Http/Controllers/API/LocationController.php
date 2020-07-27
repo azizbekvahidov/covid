@@ -42,36 +42,39 @@ class LocationController extends Controller
 
             if($coord > $dist){
                 $coord = $dist;
-                $closer["place"] = $item->location_title;
                 $closer["lat"] = str_replace(",",".",$item->coords_lat);
                 $closer["lng"] = str_replace(",",".",$item->coords_lng);
                 $closer["id"] = $item->id;
-                $closer["region"] = $item->addressline2;
 
                 if($request->lang == "uz"){
                     $closer["place"] = $item->uz_title;
+                    $closer["region"] = $item->uz_region;
 
                 }elseif($request->lang == "ru"){
                     $closer["place"] = $item->ru_title;
+                    $closer["region"] = $item->ru_region;
 
                 }elseif($request->lang == "cyrillic_uz"){
                     $closer["place"] = $item->cyrillic_uz_title;
+                    $closer["region"] = $item->cyrillic_uz_region;
 
                 }
             }
             elseif ($coord == 0){
                 $coord = $dist;
                 $closer["id"] = $item->id;
-                $closer["region"] = $item->addressline2;
 
                 if($request->lang == "uz"){
                     $closer["place"] = $item->uz_title;
+                    $closer["region"] = $item->uz_region;
 
                 }elseif($request->lang == "ru"){
                     $closer["place"] = $item->ru_title;
+                    $closer["region"] = $item->ru_region;
 
                 }elseif($request->lang == "cyrillic_uz"){
                     $closer["place"] = $item->cyrillic_uz_title;
+                    $closer["region"] = $item->cyrillic_uz_region;
 
                 }
             }
