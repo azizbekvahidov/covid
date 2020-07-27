@@ -3,7 +3,7 @@
 @section("content")
     @include("errors")
     <div class="auth-page full">
-        <form method="POST" id="loginForm" action="{{ route('login') }}">
+        <form method="POST" id="loginForm" action="{{ route('login') }}" autocomplete="off">
             @csrf
             <div class="top">
                 <h1>{{__("box.authorize")}}</h1>
@@ -12,7 +12,7 @@
                     <label>{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
-                        <input type="tel" onkeypress="onlyNumber(event)" id="phone" value="" maxlength="9" placeholder="{{__("box.mobile_num")}}"/>
+                        <input type="tel" onkeypress="onlyNumber(event),handleMask(event, '(99)999-9999')" id="phone" value="" maxlength="9" placeholder="{{__("box.mobile_num")}}" autocomplete="off"/>
                         <input type="text" name="phone" hidden/>
                     </div>
                 </div>
@@ -42,13 +42,12 @@
 @endsection
 @section("js")
     <!-- Подключение jQuery плагина Masked Input -->
-    <script src="{{ asset("js/jquery.maskedinput.min.js") }}"></script>
+
 
     <script>
 
-        $(function(){
-            $("#phone").mask("(99)999-9999");
-        });
+            // $("#phone").mask("(99)999-9999");
+
         $("#loginForm").submit(function (e) {
             var phone = $("#phone").val();
             phone = phone.replace(")","");

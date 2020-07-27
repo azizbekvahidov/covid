@@ -67,13 +67,3 @@
         </form>
     </div>
 @endsection
-@section("js")
-    <!-- Подключение jQuery плагина Masked Input -->
-    <script src="{{ asset("js/jquery.maskedinput.min.js") }}"></script>
-    <script>
-        $(function(){
-            //2. Получить элемент, к которому необходимо добавить маску
-            // $("#birth").mask("99.99.9999");
-        });
-    </script>
-@endsection

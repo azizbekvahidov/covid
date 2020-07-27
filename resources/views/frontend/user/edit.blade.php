@@ -130,7 +130,7 @@
                     <label>{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
-                        <input type="tel" onkeypress="onlyNumber(event)" maxlength="9" value="" id="phone" placeholder="{{__("box.mobile_num")}}"/>
+                        <input type="tel" onkeypress="onlyNumber(event),handleMask(event, '(99)999-9999')" maxlength="9" value="" id="phone" placeholder="{{__("box.mobile_num")}}"/>
                         <input type="text" value="" name="phone" hidden/>
                     </div>
                     <br><br><br>
@@ -149,13 +149,7 @@
     </div>
 @endsection
 @section("js")
-    <script src="{{ asset("js/jquery.maskedinput.min.js") }}"></script>
-    <script>
-        $(function(){
-            //2. Получить элемент, к которому необходимо добавить маску
-            $("#phone").mask("(99)999-9999");
-            // $("#birth").mask("99.99.9999");
-        });
+
         $("#editForm").submit(function (e) {
             var phone = $("#phone").val();
             phone = phone.replace(")","");
