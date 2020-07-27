@@ -245,7 +245,9 @@
                     @endforeach
                     <option value="">{{ __("box.no_clinic_in_list") }}</option>
                 </select>
-                <div class="text-area" id="no-clinic" hidden>
+            </div>
+            <div class="pa-15" >
+                <div class="hospital-input" id="no-clinic" hidden>
                     <label>{{__("box.describe_clinic")}}</label>
                     <input type="text" name="clinic_desc" class="check-length validate" maxlength="100">
                     <div class="length-counter">100</div>

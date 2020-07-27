@@ -2,15 +2,3 @@
     text-decoration: none;
     color: #050505;
 }
-.wrapper .categoryForm input{
-    resize: vertical;
-    width: 100%;
-    padding: 4vw;
-    min-height: 12vw;
-    background: #FFFFFF;
-    border: 0.26666667vw solid rgba(178, 183, 208, 0.5);
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    border-radius: 2.66666667vw;
-}
-}
