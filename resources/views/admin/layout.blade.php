@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/admin/css/select2.css">
     <link rel="stylesheet" href="/assets/admin/css/style.css">
     <link rel="stylesheet" href="/assets/admin/css/media.css">
+    <link rel="stylesheet" href="/assets/admin/css/jquery.fancybox.min.css">
     @yield("css")
 </head>
 <body>
@@ -22,6 +23,7 @@
 <script src="/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script src="/assets/admin/js/select2.js"></script>
 <script src="/assets/admin/js/main.js"></script>
+<script src="/assets/admin/js/jquery.fancybox.min.js"></script>
 @yield("js")
 </body>
 </html>

@@ -3,9 +3,9 @@
 @section("content")
 
     <div class="center">
-        <h1>{{__("box.residents_signals")}}</h1>
+        <h1>{{__("Аҳоли сигналлари")}}</h1>
         <div class="filter-panel d-flex align-center">
-            <a href="#">{{__("box.all_signals")}}</a>
+            <a href="#">{{__("Барча сигналлар")}}</a>
             <form class="d-flex align-center" action="/export" method="get">
 {{--                <div class="selectbox">--}}
 {{--                    <select>--}}
@@ -49,7 +49,7 @@
 {{--                        <option value="2">2</option>--}}
 {{--                    </select>--}}
 {{--                </div>--}}
-                <button type="submit" id="export">{{__("box.export")}}</button>
+                <button type="submit" id="export">{{__("Экспорт")}}</button>
             </form>
         </div>
     </div>
@@ -57,13 +57,13 @@
         <div class="table">
             <div class="table-header">
                 <div class="center d-flex align-center">
-                    <div class="table-head">{{__("box.date")}}</div>
-                    <div class="table-head">{{__("box.category")}}</div>
-                    <div class="table-head">{{__("box.category_mark")}}</div>
-                    <div class="table-head">{{__("box.hospitals")}}</div>
-                    <div class="table-head">{{__("box.gender")}}</div>
-                    <div class="table-head">{{__("box.age")}}</div>
-                    <div class="table-head">{{__("box.mood")}}</div>
+                    <div class="table-head">{{__("Сана")}}</div>
+                    <div class="table-head">{{__("Тоифа")}}</div>
+                    <div class="table-head">{{__("Тоифа баҳоси")}}</div>
+                    <div class="table-head">{{__("Тиббий муассаса")}}</div>
+                    <div class="table-head">{{__("Жинси")}}</div>
+                    <div class="table-head">{{__("Ёши")}}</div>
+                    <div class="table-head">{{__("Кайфияти")}}</div>
                     <div class="table-head">ID</div>
                     <div class="table-head">&nbsp;</div>
                 </div>
@@ -75,11 +75,7 @@
                         <a href="javascript:" class="d-flex align-center choose-survey" data="{{$survey->id}}">
                             <div class="table-head">{{date("d.m.Y H:i", strtotime(date($survey->created_at)))}}</div>
                             <div class="table-head">
-                                @if(app()->getLocale() == "uz")
-                                    {{$survey->category->uz_name}}
-                                @elseif(app()->getLocale() == "ru")
-                                    {{$survey->category->ru_name}}
-                                @endif
+                                    {{$survey->category->cyrillic_uz_name}}
                             </div>
                             <div class="table-head">
                                 @for($i = 1; $i <= 5; $i++)
@@ -98,27 +94,21 @@
                                 @if($survey->location_id == 0)
                                     {{ $survey->clinic_desc }}
                                 @else
-                                    @if(app()->getLocale() == "uz")
-                                        {{$survey->location->uz_title}}
-                                    @elseif(app()->getLocale() == "ru")
-                                        {{$survey->location->ru_title}}
-                                    @elseif(app()->getLocale() == "cyrillic_uz")
-                                        {{$survey->location->cyrillic_uz_title}}
-                                    @endif
+                                    {{$survey->location->cyrillic_uz_title}}
                                 @endif
                             </div>
                             <div class="table-head">
                                 @if(!empty($survey->user))
 
                                     @if($survey->user->gender == "1")
-                                        {{__("box.male")}}
+                                        {{__("Эркак")}}
                                     @elseif($survey->user->gender == "2")
-                                        {{__("box.female")}}
+                                        {{__("Аёл")}}
                                     @endif
                                 @endif
                             </div>
                             <div class="table-head">
-                                {{( !empty($survey->user)) ? date("Y", time())-date("Y", strtotime($survey->user->birth)) : ""}} {{__("box.years_old")}}
+                                {{( !empty($survey->user)) ? date("Y", time())-date("Y", strtotime($survey->user->birth)) : ""}} {{__("ёш")}}
                             </div>
                             <div class="table-head">
                                 <?php
@@ -127,19 +117,19 @@
                                 if ($res) {
                                     switch ($res->rank) {
                                         case 1:
-                                            echo __("box.angry_mood");
+                                            echo __("Ғазабли");
                                             break;
                                         case 2:
-                                            echo __("box.sad_mood");
+                                            echo __("Қайғули");
                                             break;
                                         case 3:
-                                            echo __("box.anxious_mood");
+                                            echo __("Ваҳимали");
                                             break;
                                         case 4:
-                                            echo __("box.calm_mood");
+                                            echo __("Осойишта");
                                             break;
                                         case 5:
-                                            echo __("box.happy_mood");
+                                            echo __("Хурсанд");
                                             break;
                                     }
                                 }
@@ -161,15 +151,15 @@
                     <div class="hide caption" id="caption">
                         <div class="center  d-flex align-center">
                             <div class="left-side">
-                                <strong>{{__("box.describing_problem")}}</strong>
+                                <strong>{{__("Муаммо тавсифи")}}</strong>
                                 <p class="problem-box"></p>
                             </div>
                             <div class="right-side">
-                                <strong>{{__("box.attached_files")}}</strong>
+                                <strong>{{__("Юкланган файллар")}}</strong>
                                 <div class="pictures d-flex align-center files">
 
                                 </div>
-                                <strong>{{__("box.attached_files")}}</strong>
+                                <strong>{{__("Юкланган файллар")}}</strong>
                                 <div class="player">
                                     <div class="thumbs">
                                         <a href="javascript:;" id="btnStart" class="playingbutton">
@@ -180,6 +170,7 @@
                                         <div class="line" id="waveform" style="background: none"></div>
                                     </div>
                                 </div>
+                                <div class="no-audio"></div>
                             </div>
                         </div>
                     </div>
@@ -220,15 +211,6 @@
             isStart = false;
             $("#btnStart").removeClass("active");
         });
-        {{--$(document).on("click", ".download-all",function () {--}}
-        {{--    let data = {--}}
-        {{--        "_token":   "{{csrf_token()}}",--}}
-        {{--    };--}}
-        {{--    $.get("/survey/"+surveyId+"/downloadZip", data, function (response) {--}}
-        {{--       console.log("downloading");--}}
-        {{--    });--}}
-        {{--})--}}
-
 
         $(document).on("click", ".choose-survey", function () {
 
@@ -243,24 +225,37 @@
                 };
                 $.post("{{route("admin.selectSurvey")}}", data, function (response) {
                     if(response.status == "success") {
-
-                        wavesurfer.load("/storage/files/"+ response.audio);
+                        if (response.audio != "") {
+                            wavesurfer.load("/storage/files/"+ response.audio);
+                            $(".player").removeClass("hidden");
+                            $(".no-audio").html("");
+                        }
+                        else {
+                            $(".player").addClass("hidden");
+                            $(".no-audio").html("Файл юкланмаган");
+                        }
                         let problemBox  = $(".problem-box"),
                             photos      = $(".files");
                         problemBox.html(response.survey.opinion);
                         photos.html("");
                         let text = "";
-                        $.each(response.photo, function (key, item) {
-                            text += "<a href='javascript:;' class='popupImage'><img src='" + item.path + "/" + item.name + "' alt=''/> </a>";
+                        if(response.photo.length != 0) {
+                            $.each(response.photo, function (key, item) {
+                                text += "<a href='" + item.path + "/" + item.name + "' data-fancybox='gallery'><img src='" + item.path + "/" + item.name + "' alt=''/></a>";
 
-                        });
-                        text += '<form action="/admin/'+surveyId+'/downloadZip" method="get" >{{csrf_token()}}<button type="submit:;" class="download-all">\n' +
-                            '                                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
-                            '                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.6364 18.8636C12.2849 18.5121 11.7151 18.5121 11.3636 18.8636C11.0121 19.2151 11.0121 19.7849 11.3636 20.1364L17.3636 26.1364C17.5324 26.3052 17.7613 26.4 18 26.4C18.2387 26.4 18.4676 26.3052 18.6364 26.1364L24.6364 20.1364C24.9879 19.7849 24.9879 19.2151 24.6364 18.8636C24.2849 18.5121 23.7151 18.5121 23.3636 18.8636L18.9 23.3272V10.5H25C27.7614 10.5 30 12.7386 30 15.5V28C30 30.7614 27.7614 33 25 33H11C8.23858 33 6 30.7614 6 28V15.5C6 12.7386 8.23858 10.5 11 10.5H17.1V23.3272L12.6364 18.8636ZM17.1 10.5V4.50001C17.1 4.00295 17.5029 3.60001 18 3.60001C18.4971 3.60001 18.9 4.00295 18.9 4.50001V10.5H17.1Z" fill="white"/>\n' +
-                            '                                        </svg>\n' +
-                            '                                        {{__("box.download_files")}}\n' +
-                            '                                    </button></form>';
-                        photos.append(text);
+                            });
+                            // /storage/files/images/IMG_20200727_224556.jpg
+                            text += "<a href='/storage/archives/"+ response.zipFile +"' download class='download-all' style=\"text-align: center\">\n" +
+                                '<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+                                '<path fill-rule="evenodd" clip-rule="evenodd" d="M12.6364 18.8636C12.2849 18.5121 11.7151 18.5121 11.3636 18.8636C11.0121 19.2151 11.0121 19.7849 11.3636 20.1364L17.3636 26.1364C17.5324 26.3052 17.7613 26.4 18 26.4C18.2387 26.4 18.4676 26.3052 18.6364 26.1364L24.6364 20.1364C24.9879 19.7849 24.9879 19.2151 24.6364 18.8636C24.2849 18.5121 23.7151 18.5121 23.3636 18.8636L18.9 23.3272V10.5H25C27.7614 10.5 30 12.7386 30 15.5V28C30 30.7614 27.7614 33 25 33H11C8.23858 33 6 30.7614 6 28V15.5C6 12.7386 8.23858 10.5 11 10.5H17.1V23.3272L12.6364 18.8636ZM17.1 10.5V4.50001C17.1 4.00295 17.5029 3.60001 18 3.60001C18.4971 3.60001 18.9 4.00295 18.9 4.50001V10.5H17.1Z" fill="white"/>\n' +
+                                '</svg>\n' +
+                                '{{__("Файлларни юклаб олиш")}}\n' +
+                                '</a>';
+                            photos.append(text);
+                        }
+                        else {
+                            photos.append("Файл юкланмаган");
+                        }
                         $("#caption").addClass("active");
                         $("#caption").appendTo(thisBlock);
                     }
@@ -269,4 +264,11 @@
             surveyId = $(this).attr("data");
         });
     </script>
+@endsection
+@section("css")
+    <style>
+        .hidden {
+            display: none!important;
+        }
+    </style>
 @endsection

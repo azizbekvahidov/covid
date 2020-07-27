@@ -54,19 +54,19 @@ class SurveyExport implements FromCollection, WithMapping, WithHeadings,WithColu
         if ($res) {
             switch ($res->rank) {
                 case 1:
-                    $mood = __("box.angry_mood");
+                    $mood = __("Сердитое");
                     break;
                 case 2:
-                    $mood = __("box.sad_mood");
+                    $mood = __("Грустное");
                     break;
                 case 3:
-                    $mood = __("box.anxious_mood");
+                    $mood = __("Тревожное");
                     break;
                 case 4:
-                    $mood = __("box.calm_mood");
+                    $mood = __("Спокойное");
                     break;
                 case 5:
-                    $mood = __("box.happy_mood");
+                    $mood = __("Радостное");
                     break;
             }
         }

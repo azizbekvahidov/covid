@@ -44,9 +44,14 @@
                         <label>{{__("box.how_to_contact_you")}}</label>
                         <input type="text" onkeypress="onlyLetters(event)" value="{{\Auth::user()->FIO}}" name="name" placeholder="{{__("box.enter_name")}}"/>
                     </div>
-                    <div class="input-thumbs">
+                    <div class="selectbox input-thumbs">
                         <label>{{__("box.birth_date")}}</label>
-                        <input type="date" id="birth" value="{{date("d.m.Y",strtotime(\Auth::user()->birth))}}" name="birth" placeholder="{{__("box.enter_birth_date")}}"/>
+                        <select name="birth" id="birth">
+                            @for($i = 0; $i <= 70; $i++)
+
+                                <option value="{{ 2015-$i }}" {{ (2015-$i == date("Y",strtotime(\Auth::user()->birth))) ? "selected" : "" }}>{{ 2015-$i }}</option>
+                            @endfor
+                        </select>
                     </div>
                     <div class="input-thumbs">
                         <label>{{__("box.gender")}}</label>
