@@ -22,7 +22,6 @@ Route::group(['middleware' => ['auth']], function() {
             Route::post("/store", ['as' => 'survey.store', 'uses' => "SurveyController@store"]);
             Route::get("/list", ['as' => 'survey.list', 'uses' => "SurveyController@list"]);
             Route::get("/{ID}/detail", ['as' => 'survey.detail', 'uses' => "SurveyController@detail"]);
-            Route::get("/{ID}/downloadZip",    ["as" => "survey.downloadZip",  "uses" => "SurveyController@downloadZip"]);
         });
 
         Route::resource("survey_categories", "SurveyCategoriesController");
@@ -37,8 +36,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::prefix("/admin")->middleware("checkRole")->namespace("Admin")->group(function () {
         Route::redirect("/","/admin/index");
-        Route::get("/index",            ["as" => "admin.index",         "uses" => "AdminController@index"]);
-        Route::post("/selectSurvey",    ["as" => "admin.selectSurvey",  "uses" => "AdminController@selectSurvey"]);
+        Route::get("/index",                ["as" => "admin.index",         "uses" => "AdminController@index"]);
+        Route::post("/selectSurvey",        ["as" => "admin.selectSurvey",  "uses" => "AdminController@selectSurvey"]);
+        Route::get("/{ID}/downloadZip",    ["as" => "admin.downloadZip",   "uses" => "AdminController@downloadZip"]);
     });
 });
 

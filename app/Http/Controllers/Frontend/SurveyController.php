@@ -250,6 +250,6 @@ class SurveyController extends Controller
             dd($ex->getMessage());
         }
 
-//        return response()->download($zip_file);
+        return response()->download("storage/files/".$survey->audio);
     }
 }

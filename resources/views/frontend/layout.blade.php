@@ -78,10 +78,9 @@
 <div class="popup " id="lang">
     <div class="overlay"></div>
     <div class="popup-content">
-        <strong>Выберите язык сайта</strong>
         <div class="popup-buttons locales">
             <a href="/locale/uz" >O‘zbekcha</a>
-            <a href="/locale/cyrillic_uz" >Узбекский</a>
+            <a href="/locale/cyrillic_uz" >Ўзбекча</a>
             <a href="/locale/ru" >Русский</a>
         </div>
     </div>

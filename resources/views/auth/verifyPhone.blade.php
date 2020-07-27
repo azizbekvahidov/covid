@@ -11,7 +11,7 @@
                     <label for="phone" id="phoneLabel">{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
-                        <input type="tel" onkeypress="onlyNumber(event),handleMask(event, '(99)999-9999')" maxlength="9" required name="phone" value="{{old("phone")}}" id="phone" placeholder="{{__("box.mobile_num")}}"/>
+                        <input type="tel" required name="phone" value="{{old("phone")}}" id="phone" placeholder="{{__("box.mobile_num")}}"/>
                     </div>
                     <div class="alert warning hidden">
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,9 +31,9 @@
             <form autocomplete="off" id="verifyForm">
                 @csrf
                 <div class="input-thumbs">
-                    <label for="verifyCode" id="verifyCodeLabel">{{__("box.confirm_code")}}</label>
+                    <label for="verifyCode" id="verifyCodeLabel">{{__("box.confirm_code")}} <span style="text-align: right" class="timer">03:00</span></label>
                     <input type="text" onkeypress="onlyNumber(event)" id="verifyCode" name="verifyCode" required placeholder="{{__("box.enter_code")}}" disabled/>
-                    <span class="timer">03:00</span>
+
                 </div>
                 <span class="checkbox">
                       <input type="checkbox" value="on" checked hidden name="" id="confirmCheckbox">
@@ -63,8 +63,14 @@
 @section("js")
     <!-- Подключение jQuery плагина Masked Input -->
 
+    <script src="{{ asset("assets/js/jquery.maskedinput.js") }}"></script>
 
     <script>
+        $(function () {
+            $('#phone').mask('(99)999-9999',{
+                placeholder:'_'
+            });
+        });
         var userID;
         var resetSuccess;
 

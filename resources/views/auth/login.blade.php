@@ -12,7 +12,7 @@
                     <label>{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
-                        <input type="tel" onkeypress="onlyNumber(event),handleMask(event, '(99)999-9999')" id="phone" value="" maxlength="9" placeholder="{{__("box.mobile_num")}}" autocomplete="off"/>
+                        <input type="tel"  id="phone" value=""  placeholder="{{__("box.mobile_num")}}" autocomplete="off"/>
                         <input type="text" name="phone" hidden/>
                     </div>
                 </div>
@@ -42,10 +42,14 @@
 @endsection
 @section("js")
     <!-- Подключение jQuery плагина Masked Input -->
+        <script src="{{ asset("assets/js/jquery.maskedinput.js") }}"></script>
 
-
-    <script>
-
+        <script>
+            $(function () {
+                $('#phone').mask('(99)999-9999',{
+                    placeholder:'_'
+                });
+            });
             // $("#phone").mask("(99)999-9999");
 
         $("#loginForm").submit(function (e) {

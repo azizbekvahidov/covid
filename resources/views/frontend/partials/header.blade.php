@@ -14,7 +14,7 @@
                 @elseif(app()->getLocale() == "ru")
                     <a href="javascript:;" class="uz">Ру</a>
                 @elseif(app()->getLocale() == "cyrillic_uz")
-                    <a href="javascript:;" class="uz">Уз</a>
+                    <a href="javascript:;" class="uz">Ўз</a>
                 @endif
             </div>
             <div class="burger">
