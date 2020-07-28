@@ -1,20 +1,20 @@
 $(document).ready(function(){
-    var userAgent = window.navigator.userAgent;
+  var userAgent = window.navigator.userAgent;
 
-    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
-        $('.player').hide()
-    }
+  if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+    $('.player').hide()
+  }
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-    let vh = window.innerHeight * 0.01;
+  let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 // We listen to the resize event
-    window.addEventListener('resize', () => {
-        // We execute the same script as before
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    });
+  window.addEventListener('resize', () => {
+    // We execute the same script as before
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  });
   $('.eye').click(function(){
     let input = $(this).siblings('input')
     input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
@@ -64,13 +64,35 @@ $(document).ready(function(){
     e.preventDefault();
     $('.hospital-search').addClass('disabled');
   })
-    $('.clearFiles').on('click', function(e){
-        e.preventDefault();
-        $('.fileUpload .thumbs').each(function(){
-            $(this).find('input').val('')
-            $(this).find('.preview').empty()
-        })
+  $('.clearFiles').on('click', function(e){
+    e.preventDefault();
+    $('.fileUpload .thumbs').each(function(){
+      $(this).find('input').val('')
+      $(this).find('.preview').empty()
     })
+  })
+  $(".header-search-panel form").click(function(e){
+    e.stopPropagation();
+  });
+
+  $(document).click(function(){
+    $('.hospital-list ul').hide()
+    $('.radio').removeClass('active')
+  });
+  $('.radio').on('click', function(e){
+    e.stopPropagation();
+    $(this).addClass('active')
+    $(this).siblings('ul').show();
+  })
+  $('.hospital-list ul li').on('click', function(){
+
+    const temp  = $(this).html()
+    $(this).parent('ul').siblings('.radio').find('#main').empty().html(temp);
+  })
+
+  $('#phone').mask('(99) 9999-999',{
+    placeholder:'_'
+  })
 })
 function onlyNumber(event) {
   var key = window.event ? event.keyCode : event.which;
@@ -102,45 +124,14 @@ function createObjectURL ( file ) {
 function fileCHeck(el){
   let file = $(el)[0].files;
   let parent = $(el).data('target');
-  var url = createObjectURL(file[0]);
-  var img = document.createElement('img')
-  img.setAttribute('src', url)
   $(el).parents(parent).find('.preview').addClass('active')
   $(el).parent().addClass('active')
-  $(el).parents(parent).find('.preview').empty().prepend(img);
-}
-function handleMask(event, mask) {
-    with (event) {
-        stopPropagation()
-        preventDefault()
-        if (!charCode) return
-        var c = String.fromCharCode(charCode)
-        if (c.match(/\D/)) return
-        with (target) {
-            var val = value.substring(0, selectionStart) + c + value.substr(selectionEnd)
-            var pos = selectionStart + 1
-        }
-    }
-    var nan = count(val, /\D/, pos)
-    val = val.replace(/\D/g,'')
-
-    var mask = mask.match(/^(\D*)(.+9)(\D*)$/)
-    if (!mask) return // meglio exception?
-    if (val.length > count(mask[2], /9/)) return
-
-    for (var txt='', im=0, iv=0; im<mask[2].length && iv<val.length; im+=1) {
-        var c = mask[2].charAt(im)
-        txt += c.match(/\D/) ? c : val.charAt(iv++)
-    }
-
-    with (event.target) {
-        value = mask[1] + txt + mask[3]
-        selectionStart = selectionEnd = pos + (pos==1 ? mask[1].length : count(value, /\D/, pos) - nan)
-    }
-
-    function count(str, c, e) {
-        e = e || str.length
-        for (var n=0, i=0; i<e; i+=1) if (str.charAt(i).match(c)) n+=1
-        return n
-    }
+  if($(el).val() !== ''){
+    var url = createObjectURL(file[0]);
+    var img = document.createElement('img')
+    img.setAttribute('src', url)
+    $(el).parents(parent).find('.preview').empty().prepend(img);
+  }else{
+    $(el).parents(parent).find('.preview').empty()
+  }
 }
