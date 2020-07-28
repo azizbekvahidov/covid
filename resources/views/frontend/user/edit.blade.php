@@ -156,11 +156,6 @@
 @section("js")
 
     <script>
-        $(function () {
-            $('#phone').mask('(99)999-9999',{
-                placeholder:'_'
-            });
-        });
         $("#editForm").submit(function (e) {
             var phone = $("#phone").val();
             phone = phone.replace(")","");

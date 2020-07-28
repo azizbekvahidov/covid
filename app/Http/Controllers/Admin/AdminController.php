@@ -36,7 +36,7 @@ class AdminController extends Controller
     public function downloadZip($id){
         $survey = Survey::find($id);
         $files = $survey->files;
-        $zip_file_path = storage_path()."\\app\\public\\archives\\";
+        $zip_file_path = storage_path()."/app/public/archives/";
         $zip_file_name = "files_".$id.".zip";
         if (file_exists($zip_file_path.$zip_file_name)) {
             return $zip_file_name;
@@ -47,17 +47,17 @@ class AdminController extends Controller
             if ($zip->open($zip_file_path.$zip_file_name, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
                 if (count($files) != 0) {
                     foreach ($files as $file) {
-                        $zip->addFile(storage_path()."\\app\\public\\files\\images\\". $file->name, $file->name);
+                        $zip->addFile(storage_path()."/app/public/files/images/". $file->name, $file->name);
                     }
                 }
                 if($survey->audio != null){
-                    $zip->addFile(storage_path()."\\app\\public\\files\\".$survey->audio, $survey->audio);
+                    $zip->addFile(storage_path()."/app/public/files/".$survey->audio, $survey->audio);
                 }
             }
             $zip->close();
         }
         catch (\Exception $ex){
-            dd($ex->getMessage());
+            // dd($ex->getMessage());
         }
 
         return $zip_file_name;

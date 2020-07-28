@@ -55,8 +55,8 @@
 		"mood_rule"						=> "Siz har 12 soatda 1 marta kayfiyatni yuborishingiz mumkin",
 		"choose_hospital"				=> "Tibbiy muassasani tanlang",
 		"is_it_your_hospital"			=> "Bu sizning shifoxonangizmi?",
-		"yes_it_is"						=> "Ha, bu mening shifoxonam!",
-		"no_it_is_not"					=> "Yo'q, bu emas",
+		"yes_it_is"						=> "Ha",
+		"no_it_is_not"					=> "Yo'q",
 		"thanks_for_signal"				=> "Signalingiz uchun rahmat",
 		"another_categories"			=> "Boshqa toifalarga baho berish",
 		"to_personal_account"			=> "Shaxsiy kabinetga o'tish",
@@ -107,4 +107,7 @@
         "photo_rule_type"               => "Faqat sur'at yuklashiz mumkin",
         "no_clinic_in_list"             => "Ro'yhatda tibbiy muassasa yo'q",
         "describe_clinic"               => "Tibbiy muassasingizni izohlang",
+        "choose_via_gps"                => "GPS bo'yicha aniqlash",
+        "choose_clinic_via_gps"         => "Joylashub bo'yicha tibbiyot muassasini aniqlash",
+        "describe_your_clinic"         => "Tibbiyot muassasini o'zingiz kiriting",
     ];

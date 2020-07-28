@@ -228,7 +228,7 @@
             <div class="hospital-search pa-15" id="select_place" hidden>
                 <label class="title">{{__("box.choose_hospital")}}</label>
                 <div class="hospital-list">
-                  <span class="radio" >
+                  <span class="radio" id="selectRadio">
                     <div id="select_main">
                       <strong></strong>
                       <p></p>
@@ -253,7 +253,9 @@
                             </li>
 
                     @endforeach
-                        <li data-id="0">{{ __("box.no_clinic_in_list") }}</li>
+                        <li data-id="0">
+                            <strong>{{ __("box.no_clinic_in_list") }}</strong>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -328,42 +330,7 @@
             checkValidate();
         });
 
-        function validate(){
-            //ratio validate
-            $.each($(".rate"), function (e) {
-                console.log($(this));
-                if($(this).is(':checked')){
-                    ratio = true;
-                    return false;
-                }
-                else{
-                    ratio = false;
-                }
-            });
-            // textarea validate
-            if($("textarea").val() != ""){
-                opinion = true;
-            }
-            else{
-                opinion = false;
-            }
-            // location validate;
-            if($("#locate").val() != ""){
-                locate = true;
-            }
 
-
-            console.log("raio "+ratio);
-            console.log("opinion "+opinion);
-            console.log("locate "+locate);
-            if(ratio && opinion && locate){
-                $("#sendMood").removeAttr("disabled");
-            }
-            else {
-
-                $("#sendMood").attr("disabled","disabled");
-            }
-        }
 
         function checkValidate(){
             let text = "";

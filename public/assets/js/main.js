@@ -64,12 +64,13 @@ $(document).ready(function(){
 
   $(document).click(function(){
     $('.hospital-list ul').hide();
-    $('.radio').removeClass('active');
+    $('#selectRadio').removeClass('active');
     openSelect = false;
   });
     var openSelect = false;
-  $('.radio').on('click', function(e){
+  $('#selectRadio').on('click', function(e){
     e.stopPropagation();
+    console.log("click");
       if(openSelect){
           openSelect = false;
           $(this).siblings("ul").hide();
@@ -93,9 +94,10 @@ $(document).ready(function(){
         $("#locate").val();
         $("#selected_place").attr("hidden","hidden");
         $("#select_place").removeAttr("hidden");
-        $('.hospital-list ul').show();
-        $('.radio').addClass('active');
+        // $('.radio').addClass('active');
+        // $('.hospital-list ul').show();
         $(".selectbox").removeAttr("hidden");
+        $("#selectRadio").click();
         // $(".confirm-hospital").attr("hidden","hidden");
         openSelect = true;
 
@@ -106,21 +108,25 @@ $(document).ready(function(){
     let data = $(this).data("id");
     if(data != 0){
         $("#locate").val(data);
+        validate();
+        checkValidate();
     }
     else{
         $("#locate").val("");
         $("#select_place").attr("hidden","hidden");
         $(".confirm-hospital").attr("hidden","hidden");
         $("#no-clinic").removeAttr("hidden");
+        validate();
+        checkValidate();
     }
 
     console.log(data);
-  })
+  });
 
-  $('#phone').mask('(99) 9999-999',{
+  $('#phone').mask('(99)9999-999',{
     placeholder:'_'
   })
-})
+});
 function onlyNumber(event) {
     var key = window.event ? event.keyCode : event.which;
     if (event.keyCode === 8 || event.keyCode === 46) {
@@ -324,6 +330,42 @@ function geoFindMe(lang) {
         navigator.geolocation.getCurrentPosition(success, error);
     }
 
+}
+function validate(){
+    //ratio validate
+    $.each($(".rate"), function (e) {
+        console.log($(this));
+        if($(this).is(':checked')){
+            ratio = true;
+            return false;
+        }
+        else{
+            ratio = false;
+        }
+    });
+    // textarea validate
+    if($("textarea").val() != ""){
+        opinion = true;
+    }
+    else{
+        opinion = false;
+    }
+    // location validate;
+    if($("#locate").val() != ""){
+        locate = true;
+    }
+
+
+    console.log("raio "+ratio);
+    console.log("opinion "+opinion);
+    console.log("locate "+locate);
+    if(ratio && opinion && locate){
+        $("#sendMood").removeAttr("disabled");
+    }
+    else {
+
+        $("#sendMood").attr("disabled","disabled");
+    }
 }
 
 $("#getCoordinate").click( function () {

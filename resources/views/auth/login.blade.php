@@ -44,11 +44,6 @@
     <!-- Подключение jQuery плагина Masked Input -->
 
         <script>
-            $(function () {
-                $('#phone').mask('(99)999-9999',{
-                    placeholder:'_'
-                });
-            });
             // $("#phone").mask("(99)999-9999");
 
         $("#loginForm").submit(function (e) {
