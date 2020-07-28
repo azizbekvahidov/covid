@@ -84,11 +84,10 @@ $(document).ready(function(){
     $(this).addClass('active')
     $(this).siblings('ul').show();
   })
-  $('.hospital-list ul li').on('click', function(){
-
-    const temp  = $(this).html()
-    $(this).parent('ul').siblings('.radio').find('#main').empty().html(temp);
-  })
+    $('.hospital-list ul li').on('click', function(){
+        const temp  = $(this).html()
+        $(this).parents('ul').siblings('.radio').find('#main').empty().html(temp);
+    })
 
   $('#phone').mask('(99) 9999-999',{
     placeholder:'_'
