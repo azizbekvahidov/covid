@@ -63,7 +63,6 @@
 @section("js")
     <!-- Подключение jQuery плагина Masked Input -->
 
-    <script src="{{ asset("assets/js/jquery.maskedinput.js") }}"></script>
 
     <script>
         $(function () {

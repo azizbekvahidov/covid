@@ -104,7 +104,7 @@
 {{--</div>--}}
 
 <script src="/assets/js/jquery-3.2.1.min.js"></script>
-{{--<script src="/assets/js/jquery.mobile-1.4.5.min.js"></script>--}}
+<script src="{{ asset("assets/js/jquery.maskedinput.js") }}"></script>
 <script src="/assets/js/main.js"></script>
 <script src="/assets/js/select2.js"></script>
 @yield("js")

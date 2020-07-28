@@ -154,7 +154,6 @@
     </div>
 @endsection
 @section("js")
-    <script src="{{ asset("assets/js/jquery.maskedinput.js") }}"></script>
 
     <script>
         $(function () {

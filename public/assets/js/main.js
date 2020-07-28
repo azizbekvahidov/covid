@@ -2,7 +2,7 @@ $(document).ready(function(){
     var userAgent = window.navigator.userAgent;
 
     if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
-        $('.player').hide()
+        $('.player').hide();
     }
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
     let vh = window.innerHeight * 0.01;
@@ -16,48 +16,110 @@ $(document).ready(function(){
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
   $('.eye').click(function(){
-    let input = $(this).siblings('input')
-    input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
+    let input = $(this).siblings('input');
+    input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password');
   });
   $('[data-auth]').on('click',function(e){
     e.preventDefault();
     console.log(this);
-    let target = $(this).data('target')
-    $(target).addClass('swipe')
+    let target = $(this).data('target');
+    $(target).addClass('swipe');
     $('body').addClass( "open-modal" );
   });
   $('.overlay').on('click', function(){
-    closeMenu()
+    closeMenu();
     $('body').removeClass( "open-modal" );
     $('.popup').removeClass('show');
-    $('.burger').removeClass('active')
-    $('header').removeClass('menu-open')
+    $('.burger').removeClass('active');
+    $('header').removeClass('menu-open');
   })
   $('.burger').on('click', function(){
-    $(this).toggleClass('active')
+    $(this).toggleClass('active');
     $('.menu').toggleClass( "swipe" );
     $('body').toggleClass( "open-modal" );
-    $('header').toggleClass('menu-open')
+    $('header').toggleClass('menu-open');
   })
-  $('.selectbox select').select2()
+  $('.selectbox select').select2();
 
   $('.smile-panel .thumbs input[type=radio]').change(function(){
-    $(this).parent('.thumbs').removeClass('opacity').siblings().removeClass('checked')
+    $(this).parent('.thumbs').removeClass('opacity').siblings().removeClass('checked');
     if($(this).is(':checked')){
-      $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity')
+      $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity');
     }
   })
-  $('.confirm-hospital a').last().on('click', function(e){
+  // $('.confirm-hospital a').last().on('click', function(e){
+  //   e.preventDefault();
+  //   $('.hospital-search').addClass('disabled');
+  // })
+  $('.clearFiles').on('click', function(e){
     e.preventDefault();
-    $('.hospital-search').addClass('disabled');
-  })
-    $('.clearFiles').on('click', function(e){
-        e.preventDefault();
-        $('.fileUpload .thumbs').each(function(){
-            $(this).find('input').val('')
-            $(this).find('.preview').empty()
-        })
+    $('.fileUpload .thumbs').each(function(){
+      $(this).find('input').val('');
+      $(this).find('.preview').empty()
     })
+  })
+  $(".header-search-panel form").click(function(e){
+    e.stopPropagation();
+  });
+
+  $(document).click(function(){
+    $('.hospital-list ul').hide();
+    $('.radio').removeClass('active');
+    openSelect = false;
+  });
+    var openSelect = false;
+  $('.radio').on('click', function(e){
+    e.stopPropagation();
+      if(openSelect){
+          openSelect = false;
+          $(this).siblings("ul").hide();
+          $(this).removeClass('active');
+
+      }
+      else {
+          $(this).addClass('active');
+          $(this).siblings('ul').show();
+          openSelect = true;
+      }
+  });
+
+    $("#yesClinik").click(function () {
+        locate = true;
+        validate();
+        checkValidate();
+        // $(".confirm-hospital").attr("hidden","hidden");
+    });
+    $("#notClinik").click(function () {
+        $("#locate").val();
+        $("#selected_place").attr("hidden","hidden");
+        $("#select_place").removeAttr("hidden");
+        $('.hospital-list ul').show();
+        $('.radio').addClass('active');
+        $(".selectbox").removeAttr("hidden");
+        // $(".confirm-hospital").attr("hidden","hidden");
+        openSelect = true;
+
+    });
+  $('.hospital-list ul li').on('click', function(){
+    const temp  = $(this).html();
+    $(this).parent('ul').siblings('.radio').find('#select_main').empty().html(temp);
+    let data = $(this).data("id");
+    if(data != 0){
+        $("#locate").val(data);
+    }
+    else{
+        $("#locate").val("");
+        $("#select_place").attr("hidden","hidden");
+        $(".confirm-hospital").attr("hidden","hidden");
+        $("#no-clinic").removeAttr("hidden");
+    }
+
+    console.log(data);
+  })
+
+  $('#phone').mask('(99) 9999-999',{
+    placeholder:'_'
+  })
 })
 function onlyNumber(event) {
     var key = window.event ? event.keyCode : event.which;
@@ -71,7 +133,7 @@ function onlyNumber(event) {
 
 function onlyLetters(event) {
     if(!/[^0-9-!@#$%^&*()_+|~=`{}\[\]:";'<>?,.\/]+$/.test(event.target.value)){
-        event.target.value = event.target.value.replace(/[0-9-!$@%#^&*()_+|~=`{}\[\]:";'<>?,.\/]/g, '')
+        event.target.value = event.target.value.replace(/[0-9-!$@%#^&*()_+|~=`{}\[\]:";'<>?,.\/]/g, '');
     }
 }
 
@@ -222,5 +284,51 @@ function uploadFile(fd,el){
             return n
         }
     }
+function getLocation(lat,long,lang) {
+    $.ajax({
+        url: "/api/getLocation",
+        type: "GET",
+        data: "lat="+lat+"&lng="+long+"&lang="+lang,
+        success: function (data) {
+            $("#selected_place").removeAttr('hidden');
+            $("#locate").val(data.id);
+            $("#selected_place #main>strong").text(data.place);
+            $("#selected_place #main>p").text(data.region);
+            $("#select_place #select_main>strong").text(data.place);
+            $("#select_place #select_main>p").text(data.region);
+            $(".confirm-hospital").removeAttr("hidden");
+            $(".detect-by-location").attr("hidden","hidden");
+
+
+        }
+    });
+}
+
+function geoFindMe(lang) {
+    function success(position) {
+
+        const latitude  = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        getLocation(latitude,longitude,lang);
+    }
+
+    function error() {
+        console.log('Unable to retrieve your location');
+    }
+
+    if(!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser');
+        null;
+    } else {
+        console.log('Locating…');
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+}
+
+$("#getCoordinate").click( function () {
+    geoFindMe(lang);
+    console.log("click geo");
+});
 
 

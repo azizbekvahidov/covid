@@ -92,14 +92,7 @@ ymaps.ready(function () {
                 });
                 console.log($("#locate").val());
                 $(".confirm-hospital").removeAttr("hidden");
-                myMap.geoObjects
-                    .add(new ymaps.Placemark([data.lat, data.lng], {
-                        balloonContent: data.place
-                    }, {
-                        preset: 'islands#icon',
-                        iconColor: '#0095b6'
-                    }));
-                console.log(myMap);
+
 
             }
         });
