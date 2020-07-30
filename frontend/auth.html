@@ -13,7 +13,7 @@
   <title>Sogboling.uz</title>
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper auth-wrapper">
   <header>
     <div class="logo">
       <a href="#">Sogboling.uz</a>
@@ -28,14 +28,26 @@
           <label>Номер мобильного телефона</label>
           <div class="input">
             <div class="helper">+998</div>
-            <input type="text" onkeypress="handleMask(event, '(99)999-99-99')"  maxlength="7" value="" name="" placeholder="Мобильный номер"/>
+            <input type="tel" id="phone" value="" name="" autocomplete="off" placeholder="Мобильный номер"/>
           </div>
         </div>
         <div class="input-thumbs">
           <label>Пароль</label>
           <input type="password" value="" name="" placeholder="Введите пароль"/>
+          <div class="remember">
+            <span>
+              <input type="checkbox" value="on" name="">
+              <i>
+                <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11 1L4.33333 7.66667L1 4.33333" stroke="#0085FF" stroke-opacity="0.5" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </i>
+              Запомнить меня
+            </span>
+            <a href="#" class="recover-password">Забыли пароль?</a>
+          </div>
+
         </div>
-        <a href="#" class="recover-password">Забыли пароль?</a>
       </div>
       <div class="bottom">
         <button type="submit">Войти</button>
@@ -48,7 +60,8 @@
   </div>
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script src="js/jquery.maskedinput.js"></script>
+<script src="js/select2.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
