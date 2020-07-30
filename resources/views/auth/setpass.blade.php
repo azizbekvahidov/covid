@@ -52,18 +52,18 @@
                 // }
             });
         $("input[name=password]").on("keyup", function () {
-            if($(this).val().length != 0 && $(this).val().length < 8) {
+            if($(this).val().length != 0 && $(this).val().length < 4) {
                 $("button[type=submit]").attr("disabled", "disabled");
                 $(this).removeClass("right");
                 $(this).addClass("wrong");
             }
-            else if($(this).val().length == 0 || $(this).val().length >= 8) {
+            else if($(this).val().length == 0 || $(this).val().length >= 4) {
                 $("button[type=submit]").removeAttr("disabled");
                 $(this).removeClass("wrong");
                 $(this).addClass("right");
             }
 
-            if($(this).val().length >=8) {
+            if($(this).val().length >=4) {
                 $(this).addClass("right");
                 $(this).removeClass("wrong");
             }

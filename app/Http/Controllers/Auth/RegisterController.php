@@ -76,7 +76,7 @@ class RegisterController extends Controller
         try {
             $userModel = User::wherePhone($strPhone)->first();
             if(empty($userModel)){
-                $strCode = mt_rand(100000,999999);
+                $strCode = mt_rand(1000,9999);
 
 
                 $send = new SendMessage();
@@ -184,7 +184,7 @@ class RegisterController extends Controller
     protected function create(array $data, $photo = null)
     {
         $user = User::find($data["id"]);
-//        dd($data, $photo);
+
         if (is_null($photo)) {
             $user->gender   = $data["gender"];
             $user->FIO      = $data["FIO"];
@@ -194,7 +194,7 @@ class RegisterController extends Controller
             $user->save();
         }
         else {
-            $extension = $data["photo"]->getClientOriginalExtension();
+            $extension = strtolower($data["photo"]->getClientOriginalExtension());
             $photo_name = "IMG_".date("Y-m-d_H-i-s.").$extension;
             $data["photo"]->storeAs("/public/avatars", $photo_name);
 

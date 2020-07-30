@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/admin/css/select2.css">
     <link rel="stylesheet" href="/assets/admin/css/style.css">
     <link rel="stylesheet" href="/assets/admin/css/media.css">
+    <link rel="stylesheet" href="/assets/admin/css/dop.css">
     <link rel="stylesheet" href="/assets/admin/css/jquery.fancybox.min.css">
     @yield("css")
 </head>

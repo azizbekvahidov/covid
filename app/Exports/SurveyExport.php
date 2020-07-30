@@ -27,16 +27,20 @@ class SurveyExport implements FromCollection, WithMapping, WithHeadings,WithColu
     public function headings(): array
     {
         return [
-            "Дата",
-            "Категория",
-            "Оценка категории",
-            "Мед учреждение",
-            "Мед учреждение жителя",
-            "Пол",
-            "Возраст",
-            "Настроение",
+            "Сана",
+            "Тоифа",
+            "Тоифа бахоси",
+            "Тиббий муассаса",
+            "Фойдаланувчи тиббий муассасаси",
+            "Кенглик",
+            "Узунлик",
+            "Жинси",
+            "Ёши",
+            "Кайфияти",
             "ID",
+            "Фойдаланувчи ID",
             "Описание",
+
         ];
         // TODO: Implement headings() method.
     }
@@ -54,32 +58,35 @@ class SurveyExport implements FromCollection, WithMapping, WithHeadings,WithColu
         if ($res) {
             switch ($res->rank) {
                 case 1:
-                    $mood = __("Сердитое");
+                    $mood = __("Ғазабли");
                     break;
                 case 2:
-                    $mood = __("Грустное");
+                    $mood = __("Қайғули");
                     break;
                 case 3:
-                    $mood = __("Тревожное");
+                    $mood = __("Ваҳимали");
                     break;
                 case 4:
-                    $mood = __("Спокойное");
+                    $mood = __("Осойишта");
                     break;
                 case 5:
-                    $mood = __("Радостное");
+                    $mood = __("Хурсанд");
                     break;
             }
         }
         return [
             Date::dateTimeToExcel($survey->created_at),
-            $survey->Category->ru_name,
+            $survey->Category->cyrillic_uz_name,
             $survey->rank,
-            ($survey->location_id == 0) ? "" : $survey->location->ru_title,
+            ($survey->location_id == 0) ? "" : $survey->location->cyrillic_uz_title,
             ($survey->location_id == 0) ? $survey->clinic_desc : "",
-            ( !empty($survey->user)) ? ($survey->user->gender == 1) ? "Мужчина" : "Женщина" : "",
+            ($survey->location_id == 0) ? "" : $survey->location->coords_lat,
+            ($survey->location_id == 0) ? "" : $survey->location->coords_lng,
+            ( !empty($survey->user)) ? ($survey->user->gender == 1) ? "Эркак" : "Аёл" : "",
             ( !empty($survey->user)) ? date("Y", time())-date("Y", strtotime($survey->user->birth)) : "",
             $mood,
             "A-".$survey->id,
+            ($survey->user) ? $survey->user->id : "",
             $survey->opinion
         ];
         // TODO: Implement map() method.

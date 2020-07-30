@@ -156,6 +156,11 @@
 @section("js")
 
     <script>
+        $(function () {
+            $('#phone').mask('(99)999-9999',{
+                placeholder:'_'
+            });
+        });
         $("#editForm").submit(function (e) {
             var phone = $("#phone").val();
             phone = phone.replace(")","");
@@ -214,12 +219,12 @@
         });
 
         $("input[name=password]").on("keyup", function () {
-            if($(this).val().length != 0 && $(this).val().length < 8) {
+            if($(this).val().length != 0 && $(this).val().length < 4) {
                 $("button[type=submit]").attr("disabled", "disabled");
                 $(this).removeClass("right");
                 $(this).addClass("wrong");
             }
-            else if($(this).val().length == 0 || $(this).val().length >= 8) {
+            else if($(this).val().length == 0 || $(this).val().length >= 4) {
                 $("button[type=submit]").removeAttr("disabled");
                 $(this).removeClass("wrong");
                 $(this).addClass("right");

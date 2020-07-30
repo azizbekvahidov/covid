@@ -17,14 +17,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::namespace("Frontend")->group(function () {
 
         Route::prefix("/survey")->group(function () {
-            Route::get("/", "SurveyController@index");
+            Route::redirect("/", "/survey/category");
             Route::get("/{id}/create", ['as' => 'survey.create', 'uses' => "SurveyController@create"])->middleware("checkTime");
             Route::post("/store", ['as' => 'survey.store', 'uses' => "SurveyController@store"]);
             Route::get("/list", ['as' => 'survey.list', 'uses' => "SurveyController@list"]);
             Route::get("/{ID}/detail", ['as' => 'survey.detail', 'uses' => "SurveyController@detail"]);
         });
 
-        Route::resource("survey_categories", "SurveyCategoriesController");
 	Route::prefix("/user")->group(function() {
             Route::get("/index",   ["as" => "user.index",      'uses' => "UserController@index"]);
             Route::get("/profile", ["as" => "user.profile",    'uses' => "UserController@profile"]);

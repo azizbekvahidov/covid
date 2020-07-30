@@ -15,9 +15,9 @@ class checkRole
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::user()->role == "3") {
-            return redirect("/");
-        }
-        return $next($request);
+        if(\Auth::user()->role == '1' || \Auth::user()->role == '2')
+            return $next($request);
+        else
+            return redirect("/survey/category");
     }
 }

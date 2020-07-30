@@ -18,7 +18,11 @@
             <ul>
                 <li>
                     <div class="d-flex align-center">
-                        <img src="img/img1.jpg" alt=""/>
+						@if(\Auth::user()->photo)
+						<img src="/storage/avatars/{{\Auth::user()->photo}}">	
+						@else
+                            <img src="/assets/img/image 1.png" alt=""/>
+						@endif
                         <strong>{{\Auth::user()->FIO}}</strong>
                     </div>
                     <ul>

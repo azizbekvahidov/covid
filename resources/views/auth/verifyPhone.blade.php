@@ -65,6 +65,11 @@
 
 
     <script>
+        $(function () {
+            $('#phone').mask('(99)999-9999',{
+                placeholder:'_'
+            });
+        });
         var userID;
         var resetSuccess;
 
@@ -111,7 +116,7 @@
 
         $("#verifyCode").on("keyup", function () {
             console.log($("#verifyCode").val().length);
-            if($("#confirmCheckbox").prop("checked") && $("#verifyCode").val().length == "6") {
+            if($("#confirmCheckbox").prop("checked") && $("#verifyCode").val().length == "4") {
                 $("#verifyBtn").removeAttr("disabled");
             }
         });

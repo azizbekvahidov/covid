@@ -1,5 +1,4 @@
 @extends("frontend.layout")
-@section("title", " —")
 @section("content")
     @include("errors")
 <div class="problems-content content">
@@ -72,8 +71,10 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
                                     </svg>
                                     <div class="preview active">
-                                        <img src="{{ asset($val->path."/".$val->name) }}" alt="" />
-                                    </div>
+										<a href="{{ asset($val->path."/".$val->name) }}" data-fancybox="gallery">
+                                        	<img src="{{ asset($val->path."/".$val->name) }}" alt="" />
+										</a>	
+									</div>
                                 </div>
                             @endforeach
                         </div>
@@ -111,6 +112,7 @@
 @endsection
 
 @section("js")
+<script src="/assets/admin/js/jquery.fancybox.min.js"></script>
     <script>
         let wave = document.getElementById('waveform');
         var wavesurfer = WaveSurfer.create({
@@ -139,4 +141,7 @@
         });
 
     </script>
+@endsection
+@section("css")
+<link rel="stylesheet" href="/assets/admin/css/jquery.fancybox.min.css">
 @endsection

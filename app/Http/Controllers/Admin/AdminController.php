@@ -18,7 +18,8 @@ class AdminController extends Controller
     public function selectSurvey(Request $request) {
         $survey = Survey::find($request->id);
         if ($survey) {
-
+            $survey->read = 0;
+            $survey->save();
             $zip_file = $this->downloadZip($request->id);
             return response()->json([
                 "survey"    => $survey,
@@ -36,7 +37,7 @@ class AdminController extends Controller
     public function downloadZip($id){
         $survey = Survey::find($id);
         $files = $survey->files;
-        $zip_file_path = storage_path()."/app/public/archives/";
+        $zip_file_path = storage_path()."/app/public/archivselectSurveyes/";
         $zip_file_name = "files_".$id.".zip";
         if (file_exists($zip_file_path.$zip_file_name)) {
             return $zip_file_name;
@@ -57,7 +58,7 @@ class AdminController extends Controller
             $zip->close();
         }
         catch (\Exception $ex){
-            // dd($ex->getMessage());
+           // dd($ex->getMessage());
         }
 
         return $zip_file_name;

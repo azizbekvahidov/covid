@@ -30,8 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
-
+	
     /**
      * Create a new controller instance.
      *
@@ -76,7 +75,7 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
 
         return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->route("survey.category");
+            ?: redirect("/admin/index");
     }
     public function username()
     {
@@ -103,7 +102,7 @@ class LoginController extends Controller
         $phone_num = "998".$trim_phone_number;
 
 //        $password_str = Str::random(8);
-        $password_str = mt_rand(10000000,99999999);
+        $password_str = mt_rand(1000,9999);
         User::where("phone", $phone_num)->update([
             "password"  => bcrypt($password_str),
         ]);

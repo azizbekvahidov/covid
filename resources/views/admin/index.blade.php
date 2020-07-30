@@ -1,4 +1,3 @@
-
 @extends("admin.layout")
 @section("content")
 
@@ -7,48 +6,48 @@
         <div class="filter-panel d-flex align-center">
             <a href="#">{{__("Барча сигналлар")}}</a>
             <form class="d-flex align-center" action="/export" method="get">
-                {{--                <div class="selectbox">--}}
-                {{--                    <select>--}}
-                {{--                        <option default value="" selected>{{__("box.problem_category")}}</option>--}}
-                {{--                        <option value="1">1</option>--}}
-                {{--                        <option value="2">2</option>--}}
-                {{--                    </select>--}}
-                {{--                </div>--}}
-                {{--                <div class="selectbox">--}}
-                {{--                    <select>--}}
-                {{--                        <option default value="" selected>{{__("box.hospitals")}}</option>--}}
-                {{--                        <option value="1">1</option>--}}
-                {{--                        <option value="2">2</option>--}}
-                {{--                    </select>--}}
-                {{--                </div>--}}
-                {{--                <div class="selectbox">--}}
-                {{--                    <select>--}}
-                {{--                        <option default value="" selected>{{__("box.category_mark")}}</option>--}}
-                {{--                        <option value="1">1</option>--}}
-                {{--                        <option value="2">2</option>--}}
-                {{--                    </select>--}}
-                {{--                </div>--}}
-                {{--                <div class="selectbox">--}}
-                {{--                    <select>--}}
-                {{--                        <option default value="" selected>{{__("box.mood")}}</option>--}}
-                {{--                        <option value="1">1</option>--}}
-                {{--                        <option value="2">2</option>--}}
-                {{--                    </select>--}}
-                {{--                </div>--}}
-                {{--                <div class="selectbox">--}}
-                {{--                    <select>--}}
-                {{--                        <option default value="" selected>{{__("box.gender")}}</option>--}}
-                {{--                        <option value="1">1</option>--}}
-                {{--                        <option value="2">2</option>--}}
-                {{--                    </select>--}}
-                {{--                </div>--}}
-                {{--                <div class="selectbox">--}}
-                {{--                    <select>--}}
-                {{--                        <option default value="" selected>{{__("box.age")}}</option>--}}
-                {{--                        <option value="1">1</option>--}}
-                {{--                        <option value="2">2</option>--}}
-                {{--                    </select>--}}
-                {{--                </div>--}}
+{{--                <div class="selectbox">--}}
+{{--                    <select>--}}
+{{--                        <option default value="" selected>{{__("box.problem_category")}}</option>--}}
+{{--                        <option value="1">1</option>--}}
+{{--                        <option value="2">2</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--                <div class="selectbox">--}}
+{{--                    <select>--}}
+{{--                        <option default value="" selected>{{__("box.hospitals")}}</option>--}}
+{{--                        <option value="1">1</option>--}}
+{{--                        <option value="2">2</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--                <div class="selectbox">--}}
+{{--                    <select>--}}
+{{--                        <option default value="" selected>{{__("box.category_mark")}}</option>--}}
+{{--                        <option value="1">1</option>--}}
+{{--                        <option value="2">2</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--                <div class="selectbox">--}}
+{{--                    <select>--}}
+{{--                        <option default value="" selected>{{__("box.mood")}}</option>--}}
+{{--                        <option value="1">1</option>--}}
+{{--                        <option value="2">2</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--                <div class="selectbox">--}}
+{{--                    <select>--}}
+{{--                        <option default value="" selected>{{__("box.gender")}}</option>--}}
+{{--                        <option value="1">1</option>--}}
+{{--                        <option value="2">2</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--                <div class="selectbox">--}}
+{{--                    <select>--}}
+{{--                        <option default value="" selected>{{__("box.age")}}</option>--}}
+{{--                        <option value="1">1</option>--}}
+{{--                        <option value="2">2</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
                 <button type="submit" id="export">{{__("Экспорт")}}</button>
             </form>
         </div>
@@ -65,88 +64,94 @@
                     <div class="table-head">{{__("Ёши")}}</div>
                     <div class="table-head">{{__("Кайфияти")}}</div>
                     <div class="table-head">ID</div>
+					<div class="table-head">{{__("Фойдаланувчи")}}</div>
                     <div class="table-head">&nbsp;</div>
                 </div>
             </div>
             <div class="table-body">
                 <div class="table-row">
                     @foreach($surveys as $survey)
-                        <div class="center">
-                            <a href="javascript:" class="d-flex align-center choose-survey" data="{{$survey->id}}">
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>{{date("d.m.Y H:i", strtotime(date($survey->created_at)))}}</div>
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+                    <div class="center "  >
+                        <a href="javascript:" class="d-flex align-center choose-survey {{ ($survey->read == 1) ? "unreadActive" : "" }}" data="{{$survey->id}}">
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>{{date("d.m.Y H:i", strtotime(date($survey->created_at)))}}</div>
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
                                     {{$survey->category->cyrillic_uz_name}}
-                                </div>
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
-                                    @for($i = 1; $i <= 5; $i++)
-                                        @if($i <= $survey->rank)
-                                            <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12.0825 2.6574C12.4307 1.85452 13.5693 1.85452 13.9175 2.6574L16.2954 8.14107C16.4403 8.47522 16.7554 8.70417 17.118 8.73872L23.068 9.3057C23.9392 9.38871 24.2911 10.4716 23.6351 11.0508L19.1546 15.0069C18.8816 15.2479 18.7612 15.6184 18.8404 15.9739L20.1398 21.808C20.3301 22.6621 19.409 23.3314 18.6554 22.8865L13.5084 19.8478C13.1948 19.6627 12.8052 19.6627 12.4916 19.8478L7.34463 22.8865C6.59104 23.3314 5.6699 22.6621 5.86015 21.808L7.1596 15.9739C7.23878 15.6184 7.11842 15.2479 6.8454 15.0069L2.36494 11.0508C1.70894 10.4716 2.06079 9.38871 2.93196 9.3057L8.88204 8.73872C9.24462 8.70417 9.55974 8.47522 9.70464 8.14107L12.0825 2.6574Z" fill="#FFD365" stroke="#FFD365" stroke-width="3"/>
-                                            </svg>
-                                        @else
-                                            <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12.0825 2.6574C12.4307 1.85452 13.5693 1.85452 13.9175 2.6574L16.2954 8.14107C16.4403 8.47522 16.7554 8.70417 17.118 8.73872L23.068 9.3057C23.9392 9.38871 24.2911 10.4716 23.6351 11.0508L19.1546 15.0069C18.8816 15.2479 18.7612 15.6184 18.8404 15.9739L20.1398 21.808C20.3301 22.6621 19.409 23.3314 18.6554 22.8865L13.5084 19.8478C13.1948 19.6627 12.8052 19.6627 12.4916 19.8478L7.34463 22.8865C6.59104 23.3314 5.6699 22.6621 5.86015 21.808L7.1596 15.9739C7.23878 15.6184 7.11842 15.2479 6.8454 15.0069L2.36494 11.0508C1.70894 10.4716 2.06079 9.38871 2.93196 9.3057L8.88204 8.73872C9.24462 8.70417 9.55974 8.47522 9.70464 8.14107L12.0825 2.6574Z" fill="#989898" stroke="#989898" stroke-width="3"/>
-                                            </svg>
-                                        @endif
-                                    @endfor
-                                </div>
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
-                                    @if($survey->location_id == 0)
-                                        {{ $survey->clinic_desc }}
+                            </div>
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+                                @for($i = 1; $i <= 5; $i++)
+                                    @if($i <= $survey->rank)
+                                        <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.0825 2.6574C12.4307 1.85452 13.5693 1.85452 13.9175 2.6574L16.2954 8.14107C16.4403 8.47522 16.7554 8.70417 17.118 8.73872L23.068 9.3057C23.9392 9.38871 24.2911 10.4716 23.6351 11.0508L19.1546 15.0069C18.8816 15.2479 18.7612 15.6184 18.8404 15.9739L20.1398 21.808C20.3301 22.6621 19.409 23.3314 18.6554 22.8865L13.5084 19.8478C13.1948 19.6627 12.8052 19.6627 12.4916 19.8478L7.34463 22.8865C6.59104 23.3314 5.6699 22.6621 5.86015 21.808L7.1596 15.9739C7.23878 15.6184 7.11842 15.2479 6.8454 15.0069L2.36494 11.0508C1.70894 10.4716 2.06079 9.38871 2.93196 9.3057L8.88204 8.73872C9.24462 8.70417 9.55974 8.47522 9.70464 8.14107L12.0825 2.6574Z" fill="#FFD365" stroke="#FFD365" stroke-width="3"/>
+                                        </svg>
                                     @else
-                                        {{$survey->location->cyrillic_uz_title}}
+                                        <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.0825 2.6574C12.4307 1.85452 13.5693 1.85452 13.9175 2.6574L16.2954 8.14107C16.4403 8.47522 16.7554 8.70417 17.118 8.73872L23.068 9.3057C23.9392 9.38871 24.2911 10.4716 23.6351 11.0508L19.1546 15.0069C18.8816 15.2479 18.7612 15.6184 18.8404 15.9739L20.1398 21.808C20.3301 22.6621 19.409 23.3314 18.6554 22.8865L13.5084 19.8478C13.1948 19.6627 12.8052 19.6627 12.4916 19.8478L7.34463 22.8865C6.59104 23.3314 5.6699 22.6621 5.86015 21.808L7.1596 15.9739C7.23878 15.6184 7.11842 15.2479 6.8454 15.0069L2.36494 11.0508C1.70894 10.4716 2.06079 9.38871 2.93196 9.3057L8.88204 8.73872C9.24462 8.70417 9.55974 8.47522 9.70464 8.14107L12.0825 2.6574Z" fill="#989898" stroke="#989898" stroke-width="3"/>
+                                        </svg>
                                     @endif
-                                </div>
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
-                                    @if(!empty($survey->user))
+                                @endfor
+                            </div>
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+                                @if($survey->location_id == 0)
+                                    {{ $survey->clinic_desc }}
+                                @else
+                                    {{$survey->location->cyrillic_uz_title}}
+                                @endif
+                            </div>
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+                                @if(!empty($survey->user))
 
-                                        @if($survey->user->gender == "1")
-                                            {{__("Эркак")}}
-                                        @elseif($survey->user->gender == "2")
-                                            {{__("Аёл")}}
-                                        @endif
+                                    @if($survey->user->gender == "1")
+                                        {{__("Эркак")}}
+                                    @elseif($survey->user->gender == "2")
+                                        {{__("Аёл")}}
                                     @endif
-                                </div>
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
-                                    {{( !empty($survey->user)) ? date("Y", time())-date("Y", strtotime($survey->user->birth)) : ""}} {{__("ёш")}}
-                                </div>
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
-                                    <?php
-                                    $mood = new \App\Mood();
-                                    $res = $mood->getMood($survey->user_id,$survey->created_at);
-                                    if ($res) {
-                                        switch ($res->rank) {
-                                            case 1:
-                                                echo __("Ғазабли");
-                                                break;
-                                            case 2:
-                                                echo __("Қайғули");
-                                                break;
-                                            case 3:
-                                                echo __("Ваҳимали");
-                                                break;
-                                            case 4:
-                                                echo __("Осойишта");
-                                                break;
-                                            case 5:
-                                                echo __("Хурсанд");
-                                                break;
-                                        }
+                                @endif
+                            </div>
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+                                {{( !empty($survey->user)) ? date("Y", time())-date("Y", strtotime($survey->user->birth)) : ""}} {{__("ёш")}}
+                            </div>
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+                                <?php
+                                $mood = new \App\Mood();
+                                $res = $mood->getMood($survey->user_id,$survey->created_at);
+                                if ($res) {
+                                    switch ($res->rank) {
+                                        case 1:
+                                            echo __("Ғазабли");
+                                            break;
+                                        case 2:
+                                            echo __("Қайғули");
+                                            break;
+                                        case 3:
+                                            echo __("Ваҳимали");
+                                            break;
+                                        case 4:
+                                            echo __("Осойишта");
+                                            break;
+                                        case 5:
+                                            echo __("Хурсанд");
+                                            break;
                                     }
-                                    ?>
-                                </div>
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
-                                    <span class="tags">A-{{$survey->id}}</span>
-                                </div>
-                                <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+                                }
+                                ?>
+                            </div>
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+                                <span class="tags">A-{{$survey->id}}</span>
+                            </div>
+							<div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
+								@if($survey->user)
+									{{$survey->user->id}}
+								@endif
+                            </div>
+                            <div class="table-head" {{ ($survey->location_id == 0) ? "style=color:red;" : "" }}>
                     <span class="button">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 10L10 10M1 10L10 10M10 10L10 19M10 10L10 1.00001" stroke="#08090A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </span>
-                                </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
+                    </div>
                     @endforeach
                     <div class="hide caption" id="caption">
                         <div class="center  d-flex align-center">
@@ -213,7 +218,7 @@
         });
 
         $(document).on("click", ".choose-survey", function () {
-
+            let thisElem = $(this);
             if($("#caption").hasClass("active") && $(this).attr("data") == surveyId) {
                 $("#caption").removeClass("active");
             }
@@ -225,7 +230,7 @@
                 };
                 $.post("{{route("admin.selectSurvey")}}", data, function (response) {
                     if(response.status == "success") {
-                        if (response.audio != "") {
+                        if (response.audio != null) {
                             wavesurfer.load("/storage/files/"+ response.audio);
                             $(".player").removeClass("hidden");
                             $(".no-audio").html("");
@@ -234,6 +239,7 @@
                             $(".player").addClass("hidden");
                             $(".no-audio").html("Файл юкланмаган");
                         }
+                        thisElem.removeClass("unreadActive");
                         let problemBox  = $(".problem-box"),
                             photos      = $(".files");
                         problemBox.html(response.survey.opinion);

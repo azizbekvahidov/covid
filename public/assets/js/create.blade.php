@@ -204,79 +204,53 @@
                         <strong class="timer">{{ $mood_time }}</strong>
                     @endif
                 </div>
-
-
-            </div>
-
-
-            <div class="detect-by-location pa-15">
-                <label class="title">{{__("box.choose_clinic_via_gps")}}</label>
-                <a href="javascript:;" id="getCoordinate" class="search-location">{{__("box.choose_via_gps")}}</a>
-            </div>
-            <div class="hospital-search pa-15" id="selected_place" hidden>
-                <label class="title">{{__("box.choose_hospital")}}</label>
-                <div class="hospital-list">
-                  <span class="radio" >
-                    <div id="main">
-                      <strong></strong>
-                      <p></p>
+                <label>{{__("box.choose_hospital")}}</label>
+                <div class="hospital-search">
+                    <div id="map">
+                        <a href="javascript:;" class="getCoordinate">
+                            <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.66119 19.7241C11.8954 18.2269 17.5269 13.9398 17.5269 8.76345C17.5269 3.92353 13.6034 0 8.76345 0C3.92353 0 0 3.92353 0 8.76345C0 13.9398 5.63145 18.2269 7.8657 19.7241C8.41457 20.092 9.11233 20.092 9.66119 19.7241ZM8.76345 11.5309C10.2918 11.5309 11.5309 10.2918 11.5309 8.76345C11.5309 7.23505 10.2918 5.99604 8.76345 5.99604C7.23505 5.99604 5.99604 7.23505 5.99604 8.76345C5.99604 10.2918 7.23505 11.5309 8.76345 11.5309Z" fill="white"/>
+                            </svg>
+                        </a>
                     </div>
-                  </span>
-
+                    <div class="hospital-list" id="selected_place" >
+                      <span class="radio">
+                        <input type="radio" class=" validate" name="mapSelected" value=""/>
+                        <strong></strong>
+                        <p></p>
+                      </span>
+                    </div>
                 </div>
+
             </div>
-            <div class="hospital-search pa-15" id="select_place" hidden>
-                <label class="title">{{__("box.choose_hospital")}}</label>
-                <div class="hospital-list">
-                  <span class="radio" id="selectRadio">
-                    <div id="select_main">
-                      <strong></strong>
-                      <p></p>
-                    </div>
-                    <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M2 2L7.5 7L13 2" stroke="#007BEC" stroke-width="2.09549" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </span>
-                    <ul>
+
+
+            <div class="confirm-hospital" hidden>
+                <strong>{{__("box.is_it_your_hospital")}}</strong>
+                <a href="javascript:;" id="yesClinik" class="primary">{{__("box.yes_it_is")}}</a>
+                <a href="javascript:;" id="notClinik">{{__("box.no_it_is_not")}}</a>
+            </div>
+            <div class="selectbox pa-15" hidden>
+                <select name="locate" id="locate" class=" validate">
                     @foreach($locations as $location)
-                            <li data-id="{{ $location->id }}">
-                                @if(app()->getLocale() == "uz")
-                                    <strong>{{$location->uz_title}}</strong>
-                                    <p>{{ $location->uz_region }}</p>
-                                @elseif(app()->getLocale() == "ru")
-                                    <strong>{{$location->ru_title}}</strong>
-                                    <p>{{ $location->ru_region }}</p>
-                                @elseif(app()->getLocale() == "cyrillic_uz")
-                                    <strong>{{$location->cyrillic_uz_title}}</strong>
-                                    <p>{{ $location->cyrillic_uz_region }}</p>
-                                @endif
-                            </li>
-
+                        <option value="{{ $location->id }}">
+                            @if(app()->getLocale() == "uz")
+                                {{$location->uz_title}} {{ $location->uz_region }}
+                            @elseif(app()->getLocale() == "ru")
+                                {{$location->ru_title}} {{ $location->ru_region }}
+                            @elseif(app()->getLocale() == "cyrillic_uz")
+                                {{$location->cyrillic_uz_title}} {{ $location->cyrillic_uz_region }}
+                            @endif
+                        </option>
                     @endforeach
-                        <li data-id="0">
-                            <strong>{{ __("box.no_clinic_in_list") }}</strong>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="hospital-input-panel pa-15" id="no-clinic" hidden>
-                <div class="hospital-input" >
-                    <label class="title">{{__("box.describe_clinic")}}</label>
-                    <input type="text" placeholder="{{ __("box.describe_your_clinic") }}" class="check-length validate" value="" name="clinic_desc" maxlength="100"/>
+                    <option value="">{{ __("box.no_clinic_in_list") }}</option>
+                </select>
+                <div class="text-area" id="no-clinic" hidden>
+                    <label>{{__("box.describe_clinic")}}</label>
+                    <input type="text" name="clinic_desc" class="check-length validate" maxlength="100">
                     <div class="length-counter">100</div>
                 </div>
             </div>
-
-            <div class="confirm-hospital" hidden >
-                <strong>{{__("box.is_it_your_hospital")}}</strong>
-                <div class="confirm-buttons">
-                    <a href="javascript:;" id="yesClinik"  class="primary">{{__("box.yes_it_is")}}</a>
-                    <a href="javascript:;" id="notClinik">{{__("box.no_it_is_not")}}</a>
-                </div>
-            </div>
-            <input type="text" id="locate" name="locate" class="validate" hidden>
-
-
             <div class="pa-15" >
                 <div class="alert valid" style="display: none;background: rgba(255, 198, 17, 0.15); margin-bottom: 10px">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,9 +262,7 @@
                     <span></span>
                 </div>
             </div>
-            <div class="send-problem-button">
-                <button type="submit" id="sendMood" disabled>{{__("box.send_signal")}}</button>
-            </div>
+            <button type="submit" id="sendMood" disabled>{{__("box.send_signal")}}</button>
         </form>
 
     <div class="popup " id="createPopup">
@@ -309,6 +281,7 @@
     @include("frontend.partials.footer")
 @endsection
 @section("js")
+    <script src="{{ asset('js/map.js') }}" defer></script>
 
     <script>
         timer($(".timer"));
@@ -319,10 +292,20 @@
         var opinion = false;
         var locate = false;
         var time = "";
-		$(document).on("click",".overlay",function () {
-            location = ("/survey/category");
+
+        $("#yesClinik").click(function () {
+            locate = true;
+            validate();
+            checkValidate();
+            // $(".confirm-hospital").attr("hidden","hidden");
         });
-		
+        $("#notClinik").click(function () {
+            // $(".confirm-hospital").attr("hidden","hidden");
+            $("#selected_place input").attr('checked', false);
+            // $("#selected_place").attr("hidden","hidden");
+            // $("#map").attr("hidden","hidden");
+            $(".selectbox").removeAttr("hidden");
+        });
         $(".validate").change(function () {
             validate();
         });
@@ -333,7 +316,42 @@
             checkValidate();
         });
 
+        function validate(){
+            //ratio validate
+            $.each($(".rate"), function (e) {
+                console.log($(this));
+                if($(this).is(':checked')){
+                    ratio = true;
+                    return false;
+                }
+                else{
+                    ratio = false;
+                }
+            });
+            // textarea validate
+            if($("textarea").val() != ""){
+                opinion = true;
+            }
+            else{
+                opinion = false;
+            }
+            // location validate;
+            if($("#selected_place input").is("checked")){
+                locate = true;
+            }
 
+
+            console.log("raio "+ratio);
+            console.log("opinion "+opinion);
+            console.log("locate "+locate);
+            if(ratio && opinion && locate){
+                $("#sendMood").removeAttr("disabled");
+            }
+            else {
+
+                $("#sendMood").attr("disabled","disabled");
+            }
+        }
 
         function checkValidate(){
             let text = "";
@@ -365,7 +383,7 @@
                 checkValidate()
             }
         });
-        $("#no-clinic input").keyup(function () {
+        $("#no-clinic textarea").keyup(function () {
             if($("#locate").val() == ""){
                 if($(this).val() == ""){
                     console.log("invalid");

@@ -90,15 +90,20 @@ $(document).ready(function(){
         checkValidate();
         // $(".confirm-hospital").attr("hidden","hidden");
     });
+    $('.confirm-buttons a').last().on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('#selectRadio').addClass('active');
+        $('.hospital-list ul').show()
+    })
     $("#notClinik").click(function () {
-        $("#locate").val();
+        $("#locate").val("");
         $("#selected_place").attr("hidden","hidden");
         $("#select_place").removeAttr("hidden");
         // $('.radio').addClass('active');
         // $('.hospital-list ul').show();
         $(".selectbox").removeAttr("hidden");
-        $("#selectRadio").click();
-        // $(".confirm-hospital").attr("hidden","hidden");
+        $(".confirm-hospital").attr("hidden","hidden");
         openSelect = true;
 
     });
@@ -320,6 +325,8 @@ function geoFindMe(lang) {
 
     function error() {
         console.log('Unable to retrieve your location');
+        $(".detect-by-location").attr("hidden","hidden")
+        $("#notClinik").click();
     }
 
     if(!navigator.geolocation) {
