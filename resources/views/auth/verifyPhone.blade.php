@@ -2,16 +2,16 @@
 @section("title", " — Регистрация")
 @section("content")
     <div class="auth-page">
-        <div class="top">
-            <h1>{{__("box.registration")}}</h1>
-            <p>{{__("box.registration_paragraph")}}</p>
-            <form autocomplete="off" id="phoneForm">
+        <form >
+            <div class="top">
+                <h1>{{__("box.registration")}}</h1>
+                <p>{{__("box.registration_paragraph")}}</p>
                 @csrf
                 <div class="input-thumbs">
                     <label for="phone" id="phoneLabel">{{__("box.mobile_tel_num")}}</label>
                     <div class="input">
                         <div class="helper">+998</div>
-                        <input type="tel" required name="phone" value="{{old("phone")}}" id="phone" placeholder="{{__("box.mobile_num")}}"/>
+                        <input type="tel" required name="phone" value="{{old("phone")}}" id="phone" placeholder="{{__("box.mobile_num")}}" autocomplete="off"/>
                     </div>
                     <div class="alert warning hidden">
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,8 +27,6 @@
                     <br><br><br>
                     <button type="button" id="sendSMS">{{ __('box.get_sms') }}</button>
                 </div>
-            </form>
-            <form autocomplete="off" id="verifyForm">
                 @csrf
                 <div class="input-thumbs">
                     <label for="verifyCode" id="verifyCodeLabel">{{__("box.confirm_code")}} <span style="text-align: right" class="timer">03:00</span></label>
@@ -49,15 +47,15 @@
                           </span>
                       </label>
                 </span>
-            </form>
-        </div>
-        <div class="bottom">
-            <button type="submit" id="verifyBtn" disabled>{{__("box.confirm")}}</button>
-            <div class="form-text">
-                <span class="helper-text">{{__("box.do_you_have_an_account")}}</span>
-                <a href="{{route("login")}}" class="registration-link">{{__("box.login")}}</a>
             </div>
-        </div>
+            <div class="bottom">
+                <button type="button" id="verifyBtn" disabled>{{__("box.confirm")}}</button>
+                <div class="form-text">
+                    <span class="helper-text">{{__("box.do_you_have_an_account")}}</span>
+                    <a href="{{route("login")}}" class="registration-link">{{__("box.login")}}</a>
+                </div>
+            </div>
+        </form>
     </div>
 @endsection
 @section("js")
@@ -79,7 +77,10 @@
             $.ajax({
                 url: "/sendMessage",
                 type: "POST",
-                data: $("#phoneForm").serialize(),
+                data: {
+                        "phone": $("#phone").val(),
+                        "_token":"{{ csrf_token() }}"
+                },
                 success: function (data) {
                     if (data.message1 && data.message2) {
                         let text = data.message1 + " <a href='javascript:' class='reset-password'>" + data.message2 + "</a>";
@@ -128,7 +129,11 @@
             $.ajax({
                 url: "api/verifyCode",
                 type: "POST",
-                data: $("#verifyForm").serialize()+"&id="+userID,
+                data: {
+                    "verifyCode":$("#verifyCode").val(),
+                    "id": userID,
+                    "_token":"{{ csrf_token() }}"
+                },
                 success: function (data) {
                     if(data.message == 'verified'){
 
@@ -168,24 +173,6 @@
 @endsection
 @section("css")
     <style>
-        #verifyBtn {
-            background:#0085FF;
-            border-radius:6.66666667vw;
-            display:block;
-            width:100%;
-            height:13.33333333vw;
-            font-weight:500;
-            font-size:4.8vw;
-            line-height:5.86666667vw;
-            cursor:pointer;
-            letter-spacing:-0.044vw;
-            border:none;
-            margin-bottom:8vw;
-            color:#FFFFFF;
-        }
-        .form-text {
-            text-align:center
-        }
         .helper-text {
             font-size:3.73333333vw;
             line-height:4.8vw;

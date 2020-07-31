@@ -21,7 +21,6 @@ $(document).ready(function(){
   });
   $('[data-auth]').on('click',function(e){
     e.preventDefault();
-    console.log(this);
     let target = $(this).data('target');
     $(target).addClass('swipe');
     $('body').addClass( "open-modal" );
@@ -64,9 +63,19 @@ $(document).ready(function(){
 
   $(document).click(function(){
     $('.hospital-list ul').hide();
+    $('.header-search form').hide();
     $('#selectRadio').removeClass('active');
+    $('.lang-switcher ul ul').hide();
     openSelect = false;
   });
+    $('.header-search form').on('click', function(e){
+        e.stopPropagation();
+    });
+    $('.header-search form .clear svg').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).parent().siblings('input').val('')
+    })
     var openSelect = false;
   $('#selectRadio').on('click', function(e){
     e.stopPropagation();
@@ -83,6 +92,26 @@ $(document).ready(function(){
           openSelect = true;
       }
   });
+
+    $('.lang-switcher ul > li > .dropdown').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).siblings('ul').show();
+    })
+    $('.header-search a').off('click').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).siblings('form').show();
+    });
+    $('.service-panel .item').off('click').on('click', function(){
+        let src = $(this).data('img');
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        $(this).parents('.service-panel').find('img').attr('src', src);
+    })
+    if($(window).innerWidth() < 800){
+        $('.auth-page').removeClass('profile-edit')
+    }
 
     $("#yesClinik").click(function () {
         locate = true;
@@ -234,7 +263,7 @@ function timer(element){
     }, 1000);
 }
 
-$(".lang-switcher").click(function () {
+$(".lang-switcher>a").click(function () {
     $("#lang").addClass("show")
 });
 

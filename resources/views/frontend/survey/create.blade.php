@@ -4,24 +4,25 @@
     @include("errors")
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey={{config("map")["map_apikey"]}}" type="text/javascript"></script>
 
-    <div class="pa-15">
-        <a href="{{ route("survey.category") }}" class="back">
-            <i>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.292892 7.29289C-0.0976315 7.68342 -0.0976315 8.31658 0.292892 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292892 7.29289ZM16 7L0.999999 7V9L16 9V7Z" fill="black"/>
-                </svg>
-            </i>
-            <strong>
-                @if(app()->getLocale() == "uz")
-                    {{$category->uz_name}}
-                @elseif(app()->getLocale() == "ru")
-                    {{$category->ru_name}}
-                @elseif(app()->getLocale() == "cyrillic_uz")
-                    {{$category->cyrillic_uz_name}}
-                @endif
-            </strong>
-        </a>
-    </div>
+    <div class="center-content">
+        <div class="pa-15">
+            <a href="{{ route("survey.category") }}" class="back">
+                <i>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.292892 7.29289C-0.0976315 7.68342 -0.0976315 8.31658 0.292892 8.70711L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34315C8.46159 1.95262 8.46159 1.31946 8.07107 0.928932C7.68054 0.538408 7.04738 0.538408 6.65685 0.928932L0.292892 7.29289ZM16 7L0.999999 7V9L16 9V7Z" fill="black"/>
+                    </svg>
+                </i>
+                <strong>
+                    @if(app()->getLocale() == "uz")
+                        {{$category->uz_name}}
+                    @elseif(app()->getLocale() == "ru")
+                        {{$category->ru_name}}
+                    @elseif(app()->getLocale() == "cyrillic_uz")
+                        {{$category->cyrillic_uz_name}}
+                    @endif
+                </strong>
+            </a>
+        </div>
         <form id="surveyForm"  method="post" enctype="multipart/form-data" class="categoryForm">
             @csrf
             <input type="text" name="category" value="{{$category->id}}" hidden>
@@ -55,13 +56,13 @@
             @endif
             <div class="pa-15">
                 <div class="text-area" id="opinion">
-                    <label>{{__("box.describe_problem")}}</label>
-                    <textarea name="opinion" class="check-length validate" maxlength="1200"></textarea>
+                    <label >{{__("box.describe_problem")}}</label>
+                    <textarea name="opinion" class="check-length validate"  maxlength="1200"></textarea>
                     <div class="length-counter">1200</div>
                 </div>
                 <div class="fileUpload">
                     <label>{{__("box.put_photo")}} <a href="javascript:;" class="clearFiles">{{ __("box.clear") }}</a></label>
-                    @for($i = 0; $i < 4; $i++)
+                    @for($i = 0; $i < 5; $i++)
                     <div class="thumbs">
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.863 0.175073C13.2583 0.175073 12.768 0.665347 12.768 1.27013V12.7679H1.26982C0.665038 12.7679 0.174765 13.2582 0.174765 13.863C0.174765 14.4678 0.665039 14.958 1.26982 14.958H12.768V26.4564C12.768 27.0612 13.2583 27.5515 13.863 27.5515C14.4678 27.5515 14.9581 27.0612 14.9581 26.4564V14.958H26.4561C27.0609 14.958 27.5512 14.4678 27.5512 13.863C27.5512 13.2582 27.0609 12.7679 26.4561 12.7679H14.9581V1.27013C14.9581 0.665346 14.4678 0.175073 13.863 0.175073Z" fill="#B2B7D0"/>
@@ -92,7 +93,7 @@
                     {{__("box.photo_rule_type")}}
                     {{--                    Размер файла не должно превышать 5Mb--}}
                 </div>
-                <div class="player">
+                <div class="player mobile">
                     <div class="thumbs unactive">
                         <a href="javascript:;" class="playingbutton"  id="btnStart">
                             <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,7 +109,7 @@
 
             </div>
 
-            <div class="blue-bg">
+            <div class="blue-bg mood">
                 <strong>{{__("box.your_mood")}}</strong>
                 <div class="smile-panel">
                     <div class="thumbs {{(time() - $old_mark_time < 43200) ? "opacity" : ""}}">
@@ -292,7 +293,7 @@
                 <button type="submit" id="sendMood" disabled>{{__("box.send_signal")}}</button>
             </div>
         </form>
-
+    </div>
     <div class="popup " id="createPopup">
         <div class="overlay"></div>
         <div class="popup-content">
@@ -322,7 +323,7 @@
 		$(document).on("click",".overlay",function () {
             location = ("/survey/category");
         });
-		
+
         $(".validate").change(function () {
             validate();
         });
@@ -433,8 +434,6 @@
         .length-counter {
             position: absolute;
             right: 0;
-            top: 100%;
-            font-size: 4.5vw;
             /*font-size: 4.5vmin;*/
         }
     </style>
