@@ -93,7 +93,7 @@
                     {{__("box.photo_rule_type")}}
                     {{--                    Размер файла не должно превышать 5Mb--}}
                 </div>
-                <div class="player mobile">
+                <div class="player ">
                     <div class="thumbs unactive">
                         <a href="javascript:;" class="playingbutton"  id="btnStart">
                             <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -200,7 +200,7 @@
                         <path d="M9 7V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M9 11H9.005" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    {{ __("box.mood_rule") }}
+                    {{ __("box.mood_rule") }} &nbsp;
                     @if((time() - $old_mark_time) < 43200)
                         <strong class="timer">{{ $mood_time }}</strong>
                     @endif
@@ -430,6 +430,9 @@
     <style>
         .text-area {
             position: relative;
+        }
+        wave{
+            overflow: hidden!important;
         }
         .length-counter {
             position: absolute;

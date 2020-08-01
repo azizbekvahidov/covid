@@ -31,7 +31,7 @@
                                 </span>
                             </div>
                             <div class="info-profile">
-                                <a href="#">{{\Auth::user()->FIO}}</a>
+                                <a href="javascript:;">{{\Auth::user()->FIO}}</a>
                                 <a href="{{ route("logout") }}" class="tags">{{ __("box.logout") }}</a>
                             </div>
 

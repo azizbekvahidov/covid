@@ -50,7 +50,23 @@
                 </a>
             </div>
             @endif
-            <a href="{{ route("login") }}" class="btn signin">{{ __("box.login") }}</a>
+            @if(!\Auth::user())
+                <a href="{{ route("login") }}" class="btn signin">{{ __("box.login") }}</a>
+            @else
+                <div class="user">
+                    <ul>
+                        <li>
+                            <div class="d-flex align-center">
+                                <img src="{{ asset((\Auth::user()->photo == "" || \Auth::user()->photo == null) ? "assets/img/user-empty.png" : "storage/avatars/".\Auth::user()->photo)}}" alt=""/>
+                                <div>
+                                    <a href="{{ route("survey.list") }}" class="user-link">{{\Auth::user()->FIO}}</a>
+                                    <a href="{{ route("logout") }}" class="logout">{{ __("box.logout") }}</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            @endif
             <div class="burger">
                 <a href="#">
                     <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -20,6 +20,7 @@
         </div>
         <div class="pa-15">
             <strong class="edit-title">{{__("box.signal_history")}}</strong>
+            <div class="reset">
             @foreach($surveyList as $value)
                 <a href="{{ route("survey.detail",$value->id) }}" class="items-problems">
                     <div class="top">
@@ -53,6 +54,7 @@
                     </div>
                 </a>
             @endforeach
+            </div>
         </div>
         <div class="send-problems blue-bg">
             <strong>{{__("box.do_message_problem")}}</strong>

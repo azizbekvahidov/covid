@@ -103,6 +103,10 @@ $(document).ready(function(){
         e.stopPropagation();
         $(this).siblings('form').show();
     });
+    $('.hospital-list ul li').on('click', function(){
+        const temp  = $(this).html()
+        $(this).parents('ul').siblings('.radio').find('#main').empty().html(temp);
+    })
     $('.service-panel .item').off('click').on('click', function(){
         let src = $(this).data('img');
         $(this).siblings().removeClass('active');
@@ -111,6 +115,10 @@ $(document).ready(function(){
     })
     if($(window).innerWidth() < 800){
         $('.auth-page').removeClass('profile-edit')
+    }
+    else{
+        $("#select_place").removeAttr("hidden");
+        $('#selectRadio').addClass('active');
     }
 
     $("#yesClinik").click(function () {
@@ -124,7 +132,7 @@ $(document).ready(function(){
         e.stopPropagation();
         $('#selectRadio').addClass('active');
         $('.hospital-list ul').show()
-    })
+    });
     $("#notClinik").click(function () {
         $("#locate").val("");
         $("#selected_place").attr("hidden","hidden");

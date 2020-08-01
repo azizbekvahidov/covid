@@ -72,6 +72,10 @@ $("#btnStart").click(function () {
 
     wavesurfer.on('pause', function () {
         isStart = false;
+    });
+    wavesurfer.on('finish', function () {
+        $("#btnStart").removeClass("active");
+        isStart = false;
         clearInterval(timer);
     });
 });

@@ -3,7 +3,7 @@
   display: inline-block;
   margin: 0;
   z-index: 9999;
-  width: 100% !important;
+  width: 100%;
   position: relative;
   vertical-align: middle; }
   .select2-container .select2-selection--single {
@@ -312,7 +312,7 @@
             padding-left: 6em; }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color:#007BEC;
+  background-color: #0085FF;
   color: #fff; }
 
 .select2-container--default .select2-results__group {
