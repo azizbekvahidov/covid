@@ -110,4 +110,5 @@
         "choose_via_gps"                => "GPS bo'yicha aniqlash",
         "choose_clinic_via_gps"         => "Joylashub bo'yicha tibbiyot muassasini aniqlash",
         "describe_your_clinic"         => "Tibbiyot muassasini o'zingiz kiriting",
+        "change_personal_data"         => "Shaxsiy ma'lumotlarni o'zgartirish",
     ];

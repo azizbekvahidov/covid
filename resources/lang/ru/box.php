@@ -108,4 +108,5 @@
         "choose_via_gps"                => "Определить по GPS",
         "choose_clinic_via_gps"         => "Определить больницу по местоположению",
         "describe_your_clinic"         => "Введите название самостоятельно",
+        "change_personal_data"         => "Изменить личные данные",
     ];

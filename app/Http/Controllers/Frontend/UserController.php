@@ -79,7 +79,7 @@ class UserController extends Controller
 
     public function sendMessage(Request $request) {
 //        dd($request->all());
-        $strCode = mt_rand(100000,999999);
+        $strCode = mt_rand(1000,9999);
         $strPhone = "998".str_replace("-", "", str_replace(")", "", str_replace("(", "", $request->phone)));
 
         try {

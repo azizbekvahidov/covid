@@ -75,7 +75,7 @@ class SurveyExport implements FromCollection, WithMapping, WithHeadings,WithColu
             }
         }
         return [
-            Date::dateTimeToExcel($survey->created_at),
+            date( "m\\\d\\\Y",strtotime($survey->created_at)),
             $survey->Category->cyrillic_uz_name,
             $survey->rank,
             ($survey->location_id == 0) ? "" : $survey->location->cyrillic_uz_title,

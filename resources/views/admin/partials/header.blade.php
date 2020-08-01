@@ -18,12 +18,11 @@
             <ul>
                 <li>
                     <div class="d-flex align-center">
-						@if(\Auth::user()->photo)
-						<img src="/storage/avatars/{{\Auth::user()->photo}}">	
-						@else
-                            <img src="/assets/img/image 1.png" alt=""/>
-						@endif
-                        <strong>{{\Auth::user()->FIO}}</strong>
+                        <img src="{{ asset((\Auth::user()->photo == "" || \Auth::user()->photo == null) ? "assets/img/user-empty.png" : "storage/avatars/".\Auth::user()->photo)}}" alt=""/>
+                        <div>
+                            <strong>{{\Auth::user()->FIO}}</strong>
+                            <a href="{{ route("logout") }}" class="logout">{{ __("box.logout") }}</a>
+                        </div>
                     </div>
                     <ul>
                         <li><a href="#">1</a> </li>
