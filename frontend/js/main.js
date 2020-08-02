@@ -14,6 +14,7 @@ $(document).ready(function(){
     // We execute the same script as before
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+
   });
   $('.eye').click(function(){
     let input = $(this).siblings('input')
@@ -38,6 +39,9 @@ $(document).ready(function(){
     $('body').toggleClass( "open-modal" );
     $('header').toggleClass('menu-open')
   })
+  $('#phone').mask('(99) 9999-999',{
+    placeholder:'_'
+  });
   $('.selectbox select').select2()
 
   var timer2 = "3:00";
@@ -109,18 +113,18 @@ $(document).ready(function(){
     const temp  = $(this).html()
     $(this).parents('ul').siblings('.radio').find('#main').empty().html(temp);
   })
-  $('.service-panel .item').off('click').on('click', function(){
-    let src = $(this).data('img');
-    $(this).siblings().removeClass('active');
-    $(this).addClass('active');
-    $(this).parents('.service-panel').find('img').attr('src', src);
-  })
-  if($(window).innerWidth() < 800){
+  if($(window).width() > 1200){
+    $('.service-panel .item').off('click').on('click', function(){
+      let src = $(this).data('img');
+      $(this).siblings().removeClass('active');
+      $(this).addClass('active');
+      $(this).parents('.service-panel').find('img').attr('src', src);
+    })
+  }else if($(window).width() < 800){
+    $('.service-panel .item').removeClass('active')
     $('.auth-page').removeClass('profile-edit')
   }
-  $('#phone').mask('(99) 9999-999',{
-    placeholder:'_'
-  });
+
   $('.select-box select').select2()
 })
 function onlyNumber(event) {
