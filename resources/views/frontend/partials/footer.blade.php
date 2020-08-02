@@ -2,9 +2,9 @@
     <div class="center-content">
         <div class="d-flex justify-spacebetween align-center">
             <a href="#" class="f-logo">{{__("box.title")}}</a>
-            <ul>
-                <li><a href="/signal">{{__("box.how_to_post_message")}}</a> </li>
-                <li><a href="/offer">{{__("box.user_agreements")}}</a> </li>
+            <ul class="d-flex">
+                <li><a href="/signal">{{__("box.how_to_use_service")}}</a> </li>
+                <li><a href="/about">{{__("box.about_project")}}</a> </li>
             </ul>
         </div>
         <div class="copy">

@@ -19,12 +19,6 @@ $(document).ready(function(){
     let input = $(this).siblings('input');
     input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password');
   });
-  $('[data-auth]').on('click',function(e){
-    e.preventDefault();
-    let target = $(this).data('target');
-    $(target).addClass('swipe');
-    $('body').addClass( "open-modal" );
-  });
   $('.overlay').on('click', function(){
     closeMenu();
     $('body').removeClass( "open-modal" );
@@ -45,11 +39,12 @@ $(document).ready(function(){
     if($(this).is(':checked')){
       $(this).parent('.thumbs').addClass('checked').siblings().addClass('opacity');
     }
-  })
-  // $('.confirm-hospital a').last().on('click', function(e){
-  //   e.preventDefault();
-  //   $('.hospital-search').addClass('disabled');
-  // })
+  });
+    $('.confirm-buttons a').last().on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('.hospital-list ul').show()
+    })
   $('.clearFiles').on('click', function(e){
     e.preventDefault();
     $('.fileUpload .thumbs').each(function(){
@@ -113,13 +108,33 @@ $(document).ready(function(){
         $(this).addClass('active');
         $(this).parents('.service-panel').find('img').attr('src', src);
     })
-    if($(window).innerWidth() < 800){
+    if($(window).width() > 1200){
+        $('.service-panel .item').off('click').on('click', function(){
+            let src = $(this).data('img');
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+            $(this).parents('.service-panel').find('img').attr('src', src);
+        });
+        $('.left-menu.bottom').removeClass('auth');
+        $("#select_place").removeAttr("hidden");
+        $('#selectRadio').addClass('active');
+        $(".category-item > a").removeAttr("data-target").removeAttr("data-auth");
+    }else if($(window).width() < 800){
+        $('.service-panel .item').removeClass('active')
         $('.auth-page').removeClass('profile-edit')
     }
     else{
+        $('.left-menu.bottom').removeClass('auth');
         $("#select_place").removeAttr("hidden");
         $('#selectRadio').addClass('active');
+        $(".category-item > a").removeAttr("data-target").removeAttr("data-auth");
     }
+    $('[data-auth]').on('click',function(e){
+        e.preventDefault();
+        let target = $(this).data('target');
+        $(target).addClass('swipe');
+        $('body').addClass( "open-modal" );
+    });
 
     $("#yesClinik").click(function () {
         locate = true;
@@ -345,7 +360,7 @@ function getLocation(lat,long,lang) {
             $("#select_place #select_main>strong").text(data.place);
             $("#select_place #select_main>p").text(data.region);
             $(".confirm-hospital").removeAttr("hidden");
-            $(".detect-by-location").attr("hidden","hidden");
+            $(".detect-by-location").css("display","none");
 
 
         }
@@ -362,7 +377,7 @@ function geoFindMe(lang) {
 
     function error() {
         console.log('Unable to retrieve your location');
-        $(".detect-by-location").attr("hidden","hidden")
+        $(".detect-by-location").css("display","none")
         $("#notClinik").click();
     }
 

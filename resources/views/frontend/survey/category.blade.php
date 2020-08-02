@@ -51,7 +51,7 @@
 
                     @else
                         <div class="category-item">
-                            <a href="{{ route("survey.create",$category->id) }}" class="link" time="" {{\Auth::check() ? "" : 'data-target=.auth data-auth'}}>
+                            <a href="{{ \Auth::check() ? route("survey.create",$category->id) : route("register.verifyPhone") }}" class="link" time="" {{\Auth::check() ? "" : 'data-target=.auth data-auth'}}>
 
                                 <?=$category->icon ?>
 
