@@ -16,6 +16,7 @@ $(document).ready(function(){
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
   });
+
   $('.eye').click(function(){
     let input = $(this).siblings('input')
     input.attr('type') === 'password'? input.attr('type', 'text') : input.attr('type', 'password')
@@ -119,6 +120,12 @@ $(document).ready(function(){
       $(this).siblings().removeClass('active');
       $(this).addClass('active');
       $(this).parents('.service-panel').find('img').attr('src', src);
+    })
+    $('.category-item').each(function(){
+      let text = $(this).find('a').children('p').text();
+      if(!/[а-яА-ЯЁё]/.test(text)){
+        $(this).find('a').addClass('uz')
+      }
     })
   }else if($(window).width() < 800){
     $('.service-panel .item').removeClass('active')
